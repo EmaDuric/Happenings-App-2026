@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Happenings.Services/1.0.0": {
+        "dependencies": {
+          "Happenings.Model": "1.0.0"
+        },
+        "runtime": {
+          "Happenings.Services.dll": {}
+        }
+      },
+      "Happenings.Model/1.0.0": {
+        "runtime": {
+          "Happenings.Model.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Happenings.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Happenings.Model/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
