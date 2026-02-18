@@ -1,8 +1,32 @@
+using Happenings.Services.Database;
+using Microsoft.EntityFrameworkCore;
+using Happenings.Services.Interfaces;
+using Happenings.Services.Services;
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IOrganizerService, OrganizerService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<IReservationService, ReservationService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IEventImageService, EventImageService>();
+builder.Services.AddScoped<IEventViewService, EventViewService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IUserPreferenceService, UserPreferenceService>();
+
+
+
+
+
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<HappeningsContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

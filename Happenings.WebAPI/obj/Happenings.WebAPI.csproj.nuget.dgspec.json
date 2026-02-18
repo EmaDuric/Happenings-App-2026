@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.WebAPI\\Happenings.WebAPI.csproj": {}
+    "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Happenings.WebAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\Happenings.Model.csproj": {
+    "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Happenings.Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\Happenings.Model.csproj",
+        "projectUniqueName": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Happenings.Model.csproj",
         "projectName": "Happenings.Model",
-        "projectPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\Happenings.Model.csproj",
+        "projectPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Happenings.Model.csproj",
         "packagesPath": "C:\\Users\\Ema\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\obj\\",
+        "outputPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -69,14 +69,14 @@
         }
       }
     },
-    "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Services\\Happenings.Services.csproj": {
+    "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Happenings.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Services\\Happenings.Services.csproj",
+        "projectUniqueName": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Happenings.Services.csproj",
         "projectName": "Happenings.Services",
-        "projectPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Services\\Happenings.Services.csproj",
+        "projectPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Happenings.Services.csproj",
         "packagesPath": "C:\\Users\\Ema\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Services\\obj\\",
+        "outputPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -98,8 +98,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\Happenings.Model.csproj": {
-                "projectPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\Happenings.Model.csproj"
+              "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Happenings.Model.csproj": {
+                "projectPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Happenings.Model.csproj"
               }
             }
           }
@@ -118,6 +118,25 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -138,14 +157,14 @@
         }
       }
     },
-    "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.WebAPI\\Happenings.WebAPI.csproj": {
+    "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Happenings.WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.WebAPI\\Happenings.WebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Happenings.WebAPI.csproj",
         "projectName": "Happenings.WebAPI",
-        "projectPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.WebAPI\\Happenings.WebAPI.csproj",
+        "projectPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Happenings.WebAPI.csproj",
         "packagesPath": "C:\\Users\\Ema\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.WebAPI\\obj\\",
+        "outputPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -167,11 +186,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\Happenings.Model.csproj": {
-                "projectPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\Happenings.Model.csproj"
+              "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Happenings.Model.csproj": {
+                "projectPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Happenings.Model.csproj"
               },
-              "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Services\\Happenings.Services.csproj": {
-                "projectPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Services\\Happenings.Services.csproj"
+              "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Happenings.Services.csproj": {
+                "projectPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Happenings.Services.csproj"
               }
             }
           }
@@ -194,6 +213,10 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[8.0.2, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

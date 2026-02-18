@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Subscriber\\Happenings.Subscriber.csproj": {}
+    "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\Happenings.Subscriber.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\Happenings.Model.csproj": {
+    "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Happenings.Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\Happenings.Model.csproj",
+        "projectUniqueName": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Happenings.Model.csproj",
         "projectName": "Happenings.Model",
-        "projectPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\Happenings.Model.csproj",
+        "projectPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Happenings.Model.csproj",
         "packagesPath": "C:\\Users\\Ema\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\obj\\",
+        "outputPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -69,14 +69,14 @@
         }
       }
     },
-    "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Subscriber\\Happenings.Subscriber.csproj": {
+    "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\Happenings.Subscriber.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Subscriber\\Happenings.Subscriber.csproj",
+        "projectUniqueName": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\Happenings.Subscriber.csproj",
         "projectName": "Happenings.Subscriber",
-        "projectPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Subscriber\\Happenings.Subscriber.csproj",
+        "projectPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\Happenings.Subscriber.csproj",
         "packagesPath": "C:\\Users\\Ema\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Subscriber\\obj\\",
+        "outputPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -98,8 +98,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\Happenings.Model.csproj": {
-                "projectPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\Happenings.Model.csproj"
+              "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Happenings.Model.csproj": {
+                "projectPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Happenings.Model.csproj"
               }
             }
           }

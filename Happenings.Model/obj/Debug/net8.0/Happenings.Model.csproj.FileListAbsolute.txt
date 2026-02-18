@@ -9,3 +9,15 @@ C:\Users\Ema\source\repos\Happenings\Happenings.Model\obj\Debug\net8.0\Happening
 C:\Users\Ema\source\repos\Happenings\Happenings.Model\obj\Debug\net8.0\refint\Happenings.Model.dll
 C:\Users\Ema\source\repos\Happenings\Happenings.Model\obj\Debug\net8.0\Happenings.Model.pdb
 C:\Users\Ema\source\repos\Happenings\Happenings.Model\obj\Debug\net8.0\ref\Happenings.Model.dll
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.Model\bin\Debug\net8.0\Happenings.Model.deps.json
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.Model\bin\Debug\net8.0\Happenings.Model.dll
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.Model\bin\Debug\net8.0\Happenings.Model.pdb
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.Model\obj\Debug\net8.0\Happenings.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.Model\obj\Debug\net8.0\Happenings.Model.AssemblyInfoInputs.cache
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.Model\obj\Debug\net8.0\Happenings.Model.AssemblyInfo.cs
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.Model\obj\Debug\net8.0\Happenings.Model.csproj.CoreCompileInputs.cache
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.Model\obj\Debug\net8.0\Happenings.Model.sourcelink.json
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.Model\obj\Debug\net8.0\Happenings.Model.dll
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.Model\obj\Debug\net8.0\refint\Happenings.Model.dll
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.Model\obj\Debug\net8.0\Happenings.Model.pdb
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.Model\obj\Debug\net8.0\ref\Happenings.Model.dll

@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\Happenings.Model.csproj",
+      "projectUniqueName": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Happenings.Model.csproj",
       "projectName": "Happenings.Model",
-      "projectPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\Happenings.Model.csproj",
+      "projectPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Happenings.Model.csproj",
       "packagesPath": "C:\\Users\\Ema\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Model\\obj\\",
+      "outputPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

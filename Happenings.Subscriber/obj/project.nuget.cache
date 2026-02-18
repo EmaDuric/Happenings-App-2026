@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cZaOfR63f8tIZ/Z0p+lPbXs8CkT21novM3lPISS3bZocX+wmkWfmL2Lwee6hvtuzLrPBOmlShARMH4GHZfahtg==",
+  "dgSpecHash": "U8g0XZCU1WKiL8WWhJ/C3hFHehT8+m8bWnGIWD/2hEF+8R870IFuCltam2AaQOIyrdE1npQCs3mB6P4FnGLzcQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ema\\source\\repos\\Happenings\\Happenings.Subscriber\\Happenings.Subscriber.csproj",
+  "projectFilePath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\Happenings.Subscriber.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ema\\.nuget\\packages\\microsoft.extensions.configuration\\8.0.0\\microsoft.extensions.configuration.8.0.0.nupkg.sha512",
     "C:\\Users\\Ema\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
