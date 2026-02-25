@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Happenings.WebAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+caecfa82a636902dfb2144ae99fa732231113d75")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+32b5498ccb63550bb67b917b9890b492eaaa600e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Happenings.WebAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Happenings.WebAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

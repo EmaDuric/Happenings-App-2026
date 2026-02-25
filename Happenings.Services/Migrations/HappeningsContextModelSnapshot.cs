@@ -34,6 +34,9 @@ namespace Happenings.Services.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("EventCategoryId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EventDate")
                         .HasColumnType("datetime2");
 
@@ -49,11 +52,36 @@ namespace Happenings.Services.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EventCategoryId");
+
                     b.HasIndex("LocationId");
 
                     b.HasIndex("OrganizerId");
 
                     b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("Happenings.Model.Entities.EventCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("EventCategories");
                 });
 
             modelBuilder.Entity("Happenings.Model.Entities.EventImage", b =>
@@ -164,9 +192,49 @@ namespace Happenings.Services.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Organizers");
+                });
+
+            modelBuilder.Entity("Happenings.Model.Entities.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransactionId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReservationId");
+
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("Happenings.Model.Entities.Reservation", b =>
@@ -224,6 +292,34 @@ namespace Happenings.Services.Migrations
                     b.ToTable("Reviews");
                 });
 
+            modelBuilder.Entity("Happenings.Model.Entities.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("GeneratedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("QRCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReservationId");
+
+                    b.ToTable("Tickets");
+                });
+
             modelBuilder.Entity("Happenings.Model.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -232,15 +328,14 @@ namespace Happenings.Services.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -280,11 +375,17 @@ namespace Happenings.Services.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("UserPreferences");
                 });
 
             modelBuilder.Entity("Happenings.Model.Entities.Event", b =>
                 {
+                    b.HasOne("Happenings.Model.Entities.EventCategory", null)
+                        .WithMany("Events")
+                        .HasForeignKey("EventCategoryId");
+
                     b.HasOne("Happenings.Model.Entities.Location", "Location")
                         .WithMany("Events")
                         .HasForeignKey("LocationId")
@@ -311,6 +412,17 @@ namespace Happenings.Services.Migrations
                         .IsRequired();
 
                     b.Navigation("Event");
+                });
+
+            modelBuilder.Entity("Happenings.Model.Entities.Payment", b =>
+                {
+                    b.HasOne("Happenings.Model.Entities.Reservation", "Reservation")
+                        .WithMany()
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Reservation");
                 });
 
             modelBuilder.Entity("Happenings.Model.Entities.Reservation", b =>
@@ -351,6 +463,26 @@ namespace Happenings.Services.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Happenings.Model.Entities.Ticket", b =>
+                {
+                    b.HasOne("Happenings.Model.Entities.Reservation", "Reservation")
+                        .WithMany()
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Reservation");
+                });
+
+            modelBuilder.Entity("Happenings.Model.Entities.UserPreference", b =>
+                {
+                    b.HasOne("Happenings.Model.Entities.User", null)
+                        .WithMany("Preferences")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Happenings.Model.Entities.Event", b =>
                 {
                     b.Navigation("Images");
@@ -358,6 +490,11 @@ namespace Happenings.Services.Migrations
                     b.Navigation("Reservations");
 
                     b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("Happenings.Model.Entities.EventCategory", b =>
+                {
+                    b.Navigation("Events");
                 });
 
             modelBuilder.Entity("Happenings.Model.Entities.Location", b =>
@@ -372,6 +509,8 @@ namespace Happenings.Services.Migrations
 
             modelBuilder.Entity("Happenings.Model.Entities.User", b =>
                 {
+                    b.Navigation("Preferences");
+
                     b.Navigation("Reservations");
 
                     b.Navigation("Reviews");

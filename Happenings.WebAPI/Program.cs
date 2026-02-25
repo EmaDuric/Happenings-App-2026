@@ -14,6 +14,10 @@ builder.Services.AddScoped<IEventImageService, EventImageService>();
 builder.Services.AddScoped<IEventViewService, EventViewService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IUserPreferenceService, UserPreferenceService>();
+builder.Services.AddScoped<IEventCategoryService, EventCategoryService>();
+builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+
 
 
 

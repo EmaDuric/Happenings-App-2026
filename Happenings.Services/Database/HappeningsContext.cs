@@ -20,6 +20,12 @@ namespace Happenings.Services.Database
         public DbSet<UserPreference> UserPreferences => Set<UserPreference>();
         public DbSet<EventImage> EventImages => Set<EventImage>();
         public DbSet<Notification> Notifications => Set<Notification>();
+        public DbSet<EventCategory> EventCategories { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -77,6 +83,13 @@ namespace Happenings.Services.Database
                 .HasOne(i => i.Event)
                 .WithMany(e => e.Images)
                 .HasForeignKey(i => i.EventId);
+
+            // EventCategoriy
+
+            modelBuilder.Entity<EventCategory>()
+                .HasIndex(x => x.Name)
+                .IsUnique();
+
         }
     }
 }
