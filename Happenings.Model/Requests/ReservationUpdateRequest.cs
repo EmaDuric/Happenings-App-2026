@@ -1,7 +1,7 @@
 namespace Happenings.Model.Requests
 {
-    public class ReservationUpdateRequest
-    {
-        public DateTime ReservedAt { get; set; }
-    }
+   public class ReservationUpdateRequest
+{
+    public int Quantity { get; set; }
+}
 }

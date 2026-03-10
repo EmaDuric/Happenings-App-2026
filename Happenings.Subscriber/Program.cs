@@ -1,10 +1,15 @@
+using Happenings.Services.Database;
+using Microsoft.EntityFrameworkCore;
 using Happenings.Subscriber;
 
-IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services =>
-    {
-        services.AddHostedService<Worker>();
-    })
-    .Build();
 
+var builder = Host.CreateApplicationBuilder(args);
+
+builder.Services.AddHostedService<Worker>();
+
+builder.Services.AddDbContext<HappeningsContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
+
+var host = builder.Build();
 host.Run();

@@ -10,5 +10,7 @@ namespace Happenings.Services.Interfaces
         ReservationDto Insert(ReservationInsertRequest request);
         ReservationDto Update(int id, ReservationUpdateRequest request);
         void Delete(int id);
+        void Approve(int id);
+        void Reject(int id);
     }
 }

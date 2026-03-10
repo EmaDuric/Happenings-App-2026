@@ -1,10 +1,16 @@
-using Happenings.Model.Requests;
+﻿using Happenings.Model.Requests;
 using Happenings.Model.Responses;
 using Happenings.Model.Search;
 using Happenings.Model.Entities;
 using Happenings.Services.Database;
 using Happenings.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using RabbitMQ.Client;
+using System.Text;
+using System.Text.Json;
+using Happenings.Model.Messaging;
+
+
 
 public class PaymentService : IPaymentService
 {
@@ -32,6 +38,9 @@ public class PaymentService : IPaymentService
 
     public PaymentDto Insert(PaymentInsertRequest request)
     {
+        var reservation = _context.Reservations
+            .First(x => x.Id == request.ReservationId);
+
         var entity = new Payment
         {
             ReservationId = request.ReservationId,
@@ -43,6 +52,39 @@ public class PaymentService : IPaymentService
         _context.Payments.Add(entity);
         _context.SaveChanges();
 
+        // 🔥 RabbitMQ publishing
+        var factory = new ConnectionFactory()
+        {
+            HostName = "localhost"
+        };
+
+        using var connection = factory.CreateConnection();
+        using var channel = connection.CreateModel();
+
+        channel.QueueDeclare(
+            queue: "paymentQueue",
+            durable: false,
+            exclusive: false,
+            autoDelete: false,
+            arguments: null);
+
+        var message = new PaymentCreatedMessage
+        {
+            ReservationId = entity.ReservationId,
+            UserId = reservation.UserId,
+            Amount = entity.Amount
+        };
+
+        var body = Encoding.UTF8.GetBytes(
+            JsonSerializer.Serialize(message));
+
+        channel.BasicPublish(
+            exchange: "",
+            routingKey: "paymentQueue",
+            basicProperties: null,
+            body: body);
+
+        // 🔥 Return DTO
         return new PaymentDto
         {
             Id = entity.Id,
@@ -54,4 +96,8 @@ public class PaymentService : IPaymentService
             PaymentDate = entity.PaymentDate
         };
     }
+
+
+
+
 }

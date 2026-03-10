@@ -6,4 +6,6 @@ public class NotificationDto
     public string Message { get; set; } = null!;
     public bool IsSent { get; set; }
     public DateTime CreatedAt { get; set; }
+    public int UserId {get; set;}
+    public string Title { get; set; } = null!;
 }

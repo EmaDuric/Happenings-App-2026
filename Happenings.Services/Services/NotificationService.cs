@@ -49,7 +49,10 @@ public class NotificationService : INotificationService
         {
             Message = request.Message,
             IsSent = false,
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow,
+            UserId = request.UserId,
+            Title=request.Title
+
         };
 
         _context.Notifications.Add(entity);
@@ -60,7 +63,9 @@ public class NotificationService : INotificationService
             Id = entity.Id,
             Message = entity.Message,
             IsSent = entity.IsSent,
-            CreatedAt = entity.CreatedAt
+            CreatedAt = entity.CreatedAt,
+            UserId = entity.UserId,
+            Title = entity.Title
         };
     }
 

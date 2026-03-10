@@ -14,8 +14,12 @@ public class Event
     public int LocationId { get; set; }
     public Location Location { get; set; } = null!;
 
+    public int EventCategoryId { get; set; }
+    public EventCategory EventCategory { get; set; } = null!;
+
     public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
     public ICollection<Review> Reviews { get; set; } = new List<Review>();
     public ICollection<EventImage> Images { get; set; } = new List<EventImage>();
+    public ICollection<EventTicketType> TicketTypes { get; set; } = new List<EventTicketType>();
 }
 

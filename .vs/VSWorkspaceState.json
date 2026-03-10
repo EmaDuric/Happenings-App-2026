@@ -2,15 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\Happenings.Model",
-    "\\Happenings.Model\\Requests",
-    "\\Happenings.Model\\Responses",
     "\\Happenings.Services",
-    "\\Happenings.Services\\Database",
-    "\\Happenings.Services\\Interfaces",
-    "\\Happenings.Services\\Services",
     "\\Happenings.WebAPI",
-    "\\Happenings.WebAPI\\Controllers"
+    "\\Happenings.WebAPI\\Controllers",
+    "\\Happenings.WebAPI\\Middleware"
   ],
-  "SelectedNode": "\\Happenings.Services\\Interfaces\\IEventImageService.cs",
+  "SelectedNode": "\\Happenings.WebAPI\\Controllers\\RecommendationsController.cs",
   "PreviewInSolutionExplorer": false
 }

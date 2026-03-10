@@ -16,13 +16,20 @@ public class EventService
 
     protected override IQueryable<Event> BuildQuery(EventSearchObject search)
     {
-        var query = _set.AsQueryable();
+        var query = _set
+            .Include(e => e.Location)
+            .Include(e => e.EventCategory)
+            .AsQueryable();
 
-        // opcionalno: include ako ti treba
-        // query = query.Include(e => e.Location).Include(e => e.Organizer);
 
         if (!string.IsNullOrWhiteSpace(search.Name))
             query = query.Where(e => e.Name.Contains(search.Name));
+
+        if (search.EventCategoryId.HasValue)
+            query = query.Where(e => e.EventCategoryId == search.EventCategoryId.Value);
+
+        if (!string.IsNullOrWhiteSpace(search.Location))
+            query = query.Where(e => e.Location.Name.Contains(search.Location));
 
         if (search.DateFrom.HasValue)
             query = query.Where(e => e.EventDate >= search.DateFrom.Value);
@@ -31,6 +38,7 @@ public class EventService
             query = query.Where(e => e.EventDate <= search.DateTo.Value);
 
         return query.OrderBy(e => e.EventDate);
+
     }
 
     protected override EventDto MapToDto(Event entity)
@@ -41,7 +49,10 @@ public class EventService
             Description = entity.Description,
             EventDate = entity.EventDate,
             OrganizerId = entity.OrganizerId,
-            LocationId = entity.LocationId
+            LocationId = entity.LocationId,
+            EventCategoryId = entity.EventCategoryId,
+            LocationName = entity.Location?.Name,
+            CategoryName = entity.EventCategory?.Name
         };
 
     protected override Event MapInsertToEntity(EventInsertRequest request)
@@ -51,7 +62,8 @@ public class EventService
             Description = request.Description,
             EventDate = request.EventDate,
             OrganizerId = request.OrganizerId,
-            LocationId = request.LocationId
+            LocationId = request.LocationId,
+            EventCategoryId=request.EventCategoryId
         };
 
     protected override void MapUpdateToEntity(EventUpdateRequest request, Event entity)
@@ -61,5 +73,5 @@ public class EventService
         entity.EventDate = request.EventDate;
         entity.OrganizerId = request.OrganizerId;
         entity.LocationId = request.LocationId;
-    }
+}
 }

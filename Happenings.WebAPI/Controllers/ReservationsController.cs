@@ -37,5 +37,19 @@ namespace Happenings.WebAPI.Controllers
 			_service.Delete(id);
 			return NoContent();
 		}
-	}
+
+        [HttpPost("{id}/approve")]
+        public IActionResult Approve(int id)
+        {
+            _service.Approve(id);
+            return Ok();
+        }
+
+        [HttpPost("{id}/reject")]
+        public IActionResult Reject(int id)
+        {
+            _service.Reject(id);
+            return Ok();
+        }
+    }
 }

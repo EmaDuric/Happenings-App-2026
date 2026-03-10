@@ -1,0 +1,12 @@
+namespace Happenings.Model.Responses;
+
+public class RecommendedEventDto
+{
+    public int EventId { get; set; }
+    public string EventName { get; set; } = null!;
+    public DateTime EventDate { get; set; }
+    public int EventCategoryId { get; set; }
+    public string? CategoryName { get; set; }
+    public string? LocationName { get; set; }
+    public double Score { get; set; }
+}

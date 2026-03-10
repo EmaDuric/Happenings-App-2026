@@ -23,6 +23,7 @@ namespace Happenings.Services.Database
         public DbSet<EventCategory> EventCategories { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<EventTicketType> EventTicketType { get; set; }
 
 
 
@@ -90,6 +91,23 @@ namespace Happenings.Services.Database
                 .HasIndex(x => x.Name)
                 .IsUnique();
 
+            modelBuilder.Entity<Event>()
+                .HasOne(e => e.EventCategory)
+                .WithMany(c => c.Events)
+                .HasForeignKey(e => e.EventCategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<EventTicketType>()
+                .HasOne(t => t.Event)
+                .WithMany(e => e.TicketTypes)
+                .HasForeignKey(t => t.EventId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Reservation>()
+                .HasOne(r => r.EventTicketType)
+                .WithMany()
+                .HasForeignKey(r => r.EventTicketTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
