@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Pm+NLo2uLiobwbosz6mmZT4B9dVBvl7CaRjXSuY8bSR770CZEZJuZDgkVeVPBSe9RajCfgiOtwIGE8fpgPCT6g==",
+  "dgSpecHash": "hA+oisTo8sX4RHHPKUMPxPoOWdetvZc0iD1dA459WRUetUKiNXTG6uNwnLRamNe98ew7lvWIRS/HBKkYkm2cxA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Happenings.Services.csproj",
   "expectedPackageFiles": [
@@ -48,6 +48,7 @@
     "C:\\Users\\Ema\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\Ema\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\Ema\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\Ema\\.nuget\\packages\\qrcoder\\1.7.0\\qrcoder.1.7.0.nupkg.sha512",
     "C:\\Users\\Ema\\.nuget\\packages\\rabbitmq.client\\6.8.1\\rabbitmq.client.6.8.1.nupkg.sha512",
     "C:\\Users\\Ema\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\Ema\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",

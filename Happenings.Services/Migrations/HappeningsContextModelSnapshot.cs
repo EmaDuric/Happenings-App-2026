@@ -231,7 +231,13 @@ namespace Happenings.Services.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Organizers");
                 });
@@ -381,6 +387,9 @@ namespace Happenings.Services.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool>("IsOrganizer")
+                        .HasColumnType("bit");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -473,6 +482,17 @@ namespace Happenings.Services.Migrations
                         .IsRequired();
 
                     b.Navigation("Event");
+                });
+
+            modelBuilder.Entity("Happenings.Model.Entities.Organizer", b =>
+                {
+                    b.HasOne("Happenings.Model.Entities.User", "User")
+                        .WithOne("Organizer")
+                        .HasForeignKey("Happenings.Model.Entities.Organizer", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Happenings.Model.Entities.Payment", b =>
@@ -580,6 +600,8 @@ namespace Happenings.Services.Migrations
 
             modelBuilder.Entity("Happenings.Model.Entities.User", b =>
                 {
+                    b.Navigation("Organizer");
+
                     b.Navigation("Preferences");
 
                     b.Navigation("Reservations");

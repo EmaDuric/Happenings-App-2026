@@ -7,4 +7,5 @@ public interface IEventTicketTypeService
 {
     List<EventTicketTypeDto> GetByEvent(int eventId);
     EventTicketTypeDto Insert(EventTicketTypeInsertRequest request);
+   
 }

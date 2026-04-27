@@ -20,4 +20,11 @@ public class EventTicketTypeController : ControllerBase
     {
         return Ok(_service.Insert(request));
     }
+
+    [HttpGet]
+    public IActionResult Get([FromQuery] int eventId)
+    {
+        var result = _service.GetByEvent(eventId);
+        return Ok(result);
+    }
 }

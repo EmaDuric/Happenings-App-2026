@@ -1,3 +1,4 @@
+using Happenings.Services.Data;
 using Microsoft.OpenApi.Models;
 using Happenings.Services.Database;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,8 @@ builder.Services.AddScoped<IEventTicketTypeService, EventTicketTypeService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IRecommendationService, RecommendationService>();
+builder.Services.AddScoped<QrCodeService>();
+builder.Services.AddHttpContextAccessor();
 
 
 // DATABASE
@@ -38,6 +41,8 @@ builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddDbContext<HappeningsContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 
 
 // AUTHENTICATION (JWT)
@@ -61,6 +66,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // CONTROLLERS
 
 builder.Services.AddControllers();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFlutter",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 
 // SWAGGER
@@ -96,6 +112,15 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+// SEED DATABASE
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<HappeningsContext>();
+    DbInitializer.Seed(context);
+}
+
+
 
 // MIDDLEWARE
 
@@ -106,6 +131,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseCors("AllowFlutter");
 
 
 // AUTH

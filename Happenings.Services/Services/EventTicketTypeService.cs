@@ -1,10 +1,7 @@
-using Happenings.Model.Requests;
+﻿using Happenings.Model.Requests;
 using Happenings.Model.Responses;
-using Happenings.Model.Search;
 using Happenings.Model.Entities;
 using Happenings.Services.Database;
-using Happenings.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Happenings.Services.Interfaces;
 
 namespace Happenings.Services.Services;

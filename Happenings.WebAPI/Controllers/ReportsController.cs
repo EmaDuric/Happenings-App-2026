@@ -29,4 +29,12 @@ public class ReportsController : ControllerBase
     {
         return Ok(_service.GetAverageRatingPerEvent());
     }
+
+    [HttpGet("popular-events")]
+    public IActionResult GetMostPopularEvents()
+    {
+        var result = _service.GetMostPopularEvents();
+
+        return Ok(result);
+    }
 }

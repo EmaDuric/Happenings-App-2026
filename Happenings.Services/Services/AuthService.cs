@@ -1,4 +1,4 @@
-using Happenings.Model.Entities;
+﻿using Happenings.Model.Entities;
 using Happenings.Model.Requests;
 using Happenings.Model.Responses;
 using Happenings.Services.Database;
@@ -48,10 +48,9 @@ namespace Happenings.Services.Services
 
         public UserDto Register(UserInsertRequest request)
         {
-            // hash passworda
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
-            var entity = new User
+            var user = new User
             {
                 Username = request.Username,
                 Email = request.Email.Trim(),
@@ -59,14 +58,26 @@ namespace Happenings.Services.Services
                 CreatedAt = DateTime.UtcNow
             };
 
-            _context.Users.Add(entity);
+            _context.Users.Add(user);
             _context.SaveChanges();
+
+            if (request.IsOrganizer)
+            {
+                var organizer = new Organizer
+                {
+                    UserId = user.Id,
+                    Name = user.Username
+                };
+
+                _context.Organizers.Add(organizer);
+                _context.SaveChanges();
+            }
 
             return new UserDto
             {
-                Id = entity.Id,
-                Username = entity.Username,
-                Email = entity.Email
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email
             };
         }
 

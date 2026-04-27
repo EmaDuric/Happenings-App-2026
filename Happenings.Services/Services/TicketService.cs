@@ -1,78 +1,76 @@
-using System.Text;
-using Happenings.Model.Requests;
-using Happenings.Model.Responses;
-using Happenings.Model.Search;
 using Happenings.Model.Entities;
+using Happenings.Model.DTOs;
+using Happenings.Model.Requests;
 using Happenings.Services.Database;
 using Happenings.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Happenings.Model.DTOs;
 
 namespace Happenings.Services.Services;
 
-
-
-
-
 public class TicketService : ITicketService
 {
-	private readonly HappeningsContext _context;
+    private readonly HappeningsContext _context;
+    private readonly QrCodeService _qrService;
 
-	public TicketService(HappeningsContext context)
-	{
-		_context = context;
-	}
+    public TicketService(HappeningsContext context, QrCodeService qrService)
+    {
+        _context = context;
+        _qrService = qrService;
+    }
 
-	public List<TicketDto> Get()
-	{
-		return _context.Tickets
-			.Select(x => new TicketDto
-			{
-				Id = x.Id,
-				ReservationId = x.ReservationId,
-				QRCode = x.QRCode,
-				IsUsed = x.IsUsed,
-				GeneratedAt = x.GeneratedAt
-			}).ToList();
-	}
+    public List<TicketDto> Get()
+    {
+        return _context.Tickets
+            .Select(x => new TicketDto
+            {
+                Id = x.Id,
+                ReservationId = x.ReservationId,
+                QRCode = x.QRCode,
+                IsUsed = x.IsUsed,
+                GeneratedAt = x.GeneratedAt
+            }).ToList();
+    }
 
-	public TicketDto? GetById(int id)
-	{
-		var entity = _context.Tickets.Find(id);
-		if (entity == null) return null;
+    public TicketDto? GetById(int id)
+    {
+        var entity = _context.Tickets.Find(id);
 
-		return new TicketDto
-		{
-			Id = entity.Id,
-			ReservationId = entity.ReservationId,
-			QRCode = entity.QRCode,
-			IsUsed = entity.IsUsed,
-			GeneratedAt = entity.GeneratedAt
-		};
-	}
+        if (entity == null)
+            return null;
 
-	public TicketDto Insert(TicketInsertRequest request)
-	{
-		var qrCode = Convert.ToBase64String(
-			Encoding.UTF8.GetBytes(Guid.NewGuid().ToString()));
+        return new TicketDto
+        {
+            Id = entity.Id,
+            ReservationId = entity.ReservationId,
+            QRCode = entity.QRCode,
+            IsUsed = entity.IsUsed,
+            GeneratedAt = entity.GeneratedAt
+        };
+    }
 
-		var entity = new Ticket
-		{
-			ReservationId = request.ReservationId,
-			QRCode = qrCode,
-			IsUsed = false
-		};
+    public TicketDto Insert(TicketInsertRequest request)
+    {
+        var entity = new Ticket
+        {
+            ReservationId = request.ReservationId,
+            IsUsed = false
+        };
 
-		_context.Tickets.Add(entity);
-		_context.SaveChanges();
+        _context.Tickets.Add(entity);
+        _context.SaveChanges();
 
-		return new TicketDto
-		{
-			Id = entity.Id,
-			ReservationId = entity.ReservationId,
-			QRCode = entity.QRCode,
-			IsUsed = entity.IsUsed,
-			GeneratedAt = entity.GeneratedAt
-		};
-	}
+        // nakon SaveChanges imamo ID
+        entity.QRCode = _qrService.GenerateQRCode(entity.Id.ToString());
+
+        _context.SaveChanges();
+
+        return new TicketDto
+        {
+            Id = entity.Id,
+            ReservationId = entity.ReservationId,
+            QRCode = entity.QRCode,
+            IsUsed = entity.IsUsed,
+            GeneratedAt = entity.GeneratedAt
+        };
+    }
 }

@@ -39,7 +39,10 @@ public class PaymentService : IPaymentService
     public PaymentDto Insert(PaymentInsertRequest request)
     {
         var reservation = _context.Reservations
-            .First(x => x.Id == request.ReservationId);
+    .FirstOrDefault(x => x.Id == request.ReservationId);
+
+        if (reservation == null)
+            throw new Exception("Reservation not found.");
 
         var entity = new Payment
         {

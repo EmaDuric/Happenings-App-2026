@@ -1,8 +1,9 @@
+using Happenings.Model.Enums;
 using Happenings.Model.Responses;
 using Happenings.Services.Database;
 using Happenings.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Happenings.Model.Enums;
+
+namespace Happenings.Services.Services;
 
 public class ReportService : IReportService
 {
@@ -28,11 +29,11 @@ public class ReportService : IReportService
             .ToList();
     }
 
+
     public List<EventRevenueReportDto> GetRevenuePerEvent()
     {
         return _context.Reservations
             .Where(r => r.Status == ReservationStatus.Approved)
-            .Include(r => r.EventTicketType)
             .GroupBy(r => new { r.EventId, r.Event.Name })
             .Select(g => new EventRevenueReportDto
             {
@@ -43,6 +44,7 @@ public class ReportService : IReportService
             .OrderByDescending(x => x.Revenue)
             .ToList();
     }
+
 
     public List<EventRatingReportDto> GetAverageRatingPerEvent()
     {
@@ -55,6 +57,23 @@ public class ReportService : IReportService
                 AverageRating = g.Average(x => x.Rating)
             })
             .OrderByDescending(x => x.AverageRating)
+            .ToList();
+    }
+
+
+    public List<EventPopularityDto> GetMostPopularEvents()
+    {
+        return _context.Reservations
+            .Where(r => r.Status == ReservationStatus.Approved)
+            .GroupBy(r => new { r.EventId, r.Event.Name })
+            .Select(g => new EventPopularityDto
+            {
+                EventId = g.Key.EventId,
+                EventName = g.Key.Name,
+                TotalReservations = g.Count()
+            })
+            .OrderByDescending(x => x.TotalReservations)
+            .Take(10)
             .ToList();
     }
 }

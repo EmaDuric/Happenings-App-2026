@@ -8,6 +8,7 @@ C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\ne
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\Azure.Identity.dll
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\Humanizer.dll
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\MathNet.Numerics.dll
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -34,6 +35,7 @@ C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\ne
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\QRCoder.dll
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\RabbitMQ.Client.dll
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
@@ -142,4 +144,3 @@ C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\obj\Debug\ne
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\obj\Debug\net8.0\Happenings.WebAPI.pdb
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\obj\Debug\net8.0\Happenings.WebAPI.genruntimeconfig.cache
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\obj\Debug\net8.0\ref\Happenings.WebAPI.dll
-C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WebAPI\bin\Debug\net8.0\MathNet.Numerics.dll

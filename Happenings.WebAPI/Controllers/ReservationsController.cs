@@ -1,12 +1,13 @@
 using Happenings.Model.Requests;
 using Happenings.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Happenings.WebAPI.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
-	public class ReservationsController : ControllerBase
+    [Route("api/[controller]")]
+    public class ReservationsController : ControllerBase
 	{
 		private readonly IReservationService _service;
 
@@ -24,7 +25,8 @@ namespace Happenings.WebAPI.Controllers
 			=> Ok(_service.GetById(id));
 
 		[HttpPost]
-		public IActionResult Insert([FromBody] ReservationInsertRequest request)
+        [Authorize]
+        public IActionResult Insert([FromBody] ReservationInsertRequest request)
 			=> Ok(_service.Insert(request));
 
 		[HttpPut("{id}")]

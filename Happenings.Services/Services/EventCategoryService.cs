@@ -80,7 +80,14 @@ public class EventCategoryService : IEventCategoryService
     public bool Delete(int id)
     {
         var entity = _context.EventCategories.Find(id);
-        if (entity == null) return false;
+
+        if (entity == null)
+            return false;
+
+        var hasEvents = _context.Events.Any(e => e.EventCategoryId == id);
+
+        if (hasEvents)
+            throw new Exception("Category cannot be deleted because events exist.");
 
         _context.EventCategories.Remove(entity);
         _context.SaveChanges();
