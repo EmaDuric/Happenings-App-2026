@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
-import 'screens/events_screen.dart';
-import 'screens/event_details_screen.dart';
-import 'screens/tickets_screen.dart';
-import 'screens/register_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/payment_screen.dart';
+import 'screens/notification_screen.dart';
 import 'screens/create_event_screen.dart';
+import 'screens/tickets_screen.dart';
+import 'services/auth_service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,18 +17,52 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Happenings',
       debugShowCheckedModeBanner: false,
-      initialRoute: '/home',
+      home: const RootScreen(),
       routes: {
-        '/home': (context) => const HomeScreen(),
-        '/': (context) => const LoginScreen(),
-        '/events': (context) => const EventsScreen(),
-        "/event-details": (context) => const EventDetailsScreen(),
-        '/tickets': (context) => const TicketsScreen(),
-        '/register': (context) => const RegisterScreen(),
-        '/create-event': (context) => const CreateEventScreen()
+        "/home": (context) => const HomeScreen(),
+        "/tickets": (context) => const TicketsScreen(),
+        "/notifications": (context) => const NotificationsScreen(),
+        "/create-event": (context) => const CreateEventScreen(),
       },
     );
+  }
+}
+
+class RootScreen extends StatefulWidget {
+  const RootScreen({super.key});
+
+  @override
+  State<RootScreen> createState() => _RootScreenState();
+}
+
+class _RootScreenState extends State<RootScreen> {
+  bool isLoading = true;
+  bool isLoggedIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    checkLogin();
+  }
+
+  Future<void> checkLogin() async {
+    final logged = await AuthService.isLoggedIn();
+
+    setState(() {
+      isLoggedIn = logged;
+      isLoading = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    return isLoggedIn ? const HomeScreen() : const LoginScreen();
   }
 }

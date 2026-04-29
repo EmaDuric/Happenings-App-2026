@@ -86,4 +86,30 @@ public class NotificationService : INotificationService
             CreatedAt = entity.CreatedAt
         };
     }
+
+    public List<NotificationDto> GetByUserId(int userId)
+    {
+        return _context.Notifications
+            .Where(n => n.UserId == userId)
+            .OrderByDescending(n => n.CreatedAt)
+            .Select(n => new NotificationDto
+            {
+                Id = n.Id,
+                Title = n.Title,
+                Message = n.Message,
+                IsSent = n.IsSent,
+                CreatedAt = n.CreatedAt
+            })
+            .ToList();
+    }
+
+    public void ClearByUserId(int userId)
+    {
+        var notifications = _context.Notifications
+            .Where(n => n.UserId == userId)
+            .ToList();
+
+        _context.Notifications.RemoveRange(notifications);
+        _context.SaveChanges();
+    }
 }

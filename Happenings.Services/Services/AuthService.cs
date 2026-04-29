@@ -8,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using BCrypt.Net;
 
 namespace Happenings.Services.Services
 {
@@ -34,7 +33,6 @@ namespace Happenings.Services.Services
             if (user == null)
                 throw new Exception("Invalid credentials");
 
-            // BCrypt provjera passworda
             if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
                 throw new Exception("Invalid credentials");
 
@@ -48,6 +46,10 @@ namespace Happenings.Services.Services
 
         public UserDto Register(UserInsertRequest request)
         {
+            // VALIDACIJA
+            if (_context.Users.Any(x => x.Email == request.Email))
+                throw new Exception("User already exists");
+
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
             var user = new User
@@ -55,46 +57,69 @@ namespace Happenings.Services.Services
                 Username = request.Username,
                 Email = request.Email.Trim(),
                 PasswordHash = hashedPassword,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                IsOrganizer = request.IsOrganizer // 🔥 BITNO
             };
 
             _context.Users.Add(user);
             _context.SaveChanges();
 
+            var savedUser = _context.Users.FirstOrDefault(x => x.Id == user.Id);
+
+            if (savedUser == null)
+                throw new Exception("User was not saved correctly");
+
+            // ORGANIZER LOGIKA
             if (request.IsOrganizer)
             {
-                var organizer = new Organizer
-                {
-                    UserId = user.Id,
-                    Name = user.Username
-                };
+                var existingOrganizer = _context.Organizers
+                    .FirstOrDefault(x => x.UserId == savedUser.Id);
 
-                _context.Organizers.Add(organizer);
-                _context.SaveChanges();
+                if (existingOrganizer == null)
+                {
+                    var organizer = new Organizer
+                    {
+                        UserId = savedUser.Id,
+                        Name = savedUser.Username,
+                        ContactEmail = savedUser.Email, // 🔥 BITNO zbog NOT NULL
+                        PhoneNumber = "000000000" // može placeholder
+                    };
+
+                    _context.Organizers.Add(organizer);
+                    _context.SaveChanges();
+                }
             }
 
             return new UserDto
             {
-                Id = user.Id,
-                Username = user.Username,
-                Email = user.Email
+                Id = savedUser.Id,
+                Username = savedUser.Username,
+                Email = savedUser.Email
             };
         }
 
         private string GenerateToken(User user)
         {
+            var keyString = _configuration["Jwt:Key"];
+
+            if (string.IsNullOrEmpty(keyString))
+                throw new Exception("JWT Key is missing");
+
             var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_configuration["Jwt:Key"])
+                Encoding.UTF8.GetBytes(keyString)
             );
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
-        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-        new Claim(ClaimTypes.Email, user.Email),
-        new Claim(ClaimTypes.Name, user.Username)
-    };
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Name, user.Username),
+
+                // 🔥 KLJUČNO ZA ROLE
+                new Claim("isOrganizer", user.IsOrganizer.ToString())
+            };
 
             var token = new JwtSecurityToken(
                 issuer: _configuration["Jwt:Issuer"],

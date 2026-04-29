@@ -7,4 +7,8 @@ public class TicketDto
     public string QRCode { get; set; } = null!;
     public bool IsUsed { get; set; }
     public DateTime GeneratedAt { get; set; }
+
+    public string EventName { get; set; }
+    public DateTime EventDate { get; set; }
+    public string Location { get; set; }
 }

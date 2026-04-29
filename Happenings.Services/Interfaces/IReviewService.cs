@@ -11,5 +11,7 @@ namespace Happenings.Services.Interfaces
         ReviewDto Insert(ReviewInsertRequest request);
         ReviewDto Update(int id, ReviewUpdateRequest request);
         void Delete(int id);
+        List<EligibleEventDto> GetEligibleEvents(int userId);
+        List<ReviewDto> GetMyReviewedEvents(int userId);
     }
 }

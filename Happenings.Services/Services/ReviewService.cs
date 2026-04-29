@@ -3,6 +3,7 @@ using Happenings.Model.Requests;
 using Happenings.Model.Responses;
 using Happenings.Services.Database;
 using Happenings.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Happenings.Services.Services
 {
@@ -81,6 +82,55 @@ namespace Happenings.Services.Services
 
             _context.Reviews.Remove(entity);
             _context.SaveChanges();
+        }
+
+        public List<EligibleEventDto> GetEligibleEvents(int userId)
+        {
+            // Eventi za koje user ima ticket (prošli eventi)
+            var ticketEventIds = _context.Tickets
+                .Include(t => t.Reservation)
+                .Where(t => t.Reservation.UserId == userId)
+                .Select(t => t.Reservation.EventId)
+                .Distinct()
+                .ToList();
+
+            var events = _context.Events
+                .Include(e => e.Images)
+                .Where(e => ticketEventIds.Contains(e.Id))
+                .ToList();
+
+            var myReviews = _context.Reviews
+                .Where(r => r.UserId == userId)
+                .ToList();
+
+            return events.Select(e =>
+            {
+                var review = myReviews.FirstOrDefault(r => r.EventId == e.Id);
+                return new EligibleEventDto
+                {
+                    EventId = e.Id,
+                    EventName = e.Name,
+                    EventDate = e.EventDate,
+                    ImageUrl = e.Images.FirstOrDefault()?.ImageUrl,
+                    ExistingReviewId = review?.Id,
+                    ExistingRating = review?.Rating,
+                    ExistingComment = review?.Comment
+                };
+            }).ToList();
+        }
+
+        public List<ReviewDto> GetMyReviewedEvents(int userId)
+        {
+            return _context.Reviews
+                .Where(r => r.UserId == userId)
+                .Select(r => new ReviewDto
+                {
+                    Id = r.Id,
+                    Rating = r.Rating,
+                    Comment = r.Comment,
+                    EventId = r.EventId
+                })
+                .ToList();
         }
     }
 }

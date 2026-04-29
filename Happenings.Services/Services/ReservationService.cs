@@ -68,7 +68,7 @@ namespace Happenings.Services.Services
             if (!int.TryParse(userIdClaim.Value, out int userId))
                 throw new Exception("Invalid user id in token");
 
-            var ticketType = _context.EventTicketType
+            var ticketType = _context.EventTicketTypes
                 .FirstOrDefault(x => x.Id == request.EventTicketTypeId);
 
             if (ticketType == null)

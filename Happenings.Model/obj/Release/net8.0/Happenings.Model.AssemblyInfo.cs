@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Happenings.Model")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+921bfe9291618acd44c7a6a94856f1e93365ceb4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e8d7d5622d686d8c058f78915049dc00b69f15fa")]
 [assembly: System.Reflection.AssemblyProductAttribute("Happenings.Model")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Happenings.Model")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

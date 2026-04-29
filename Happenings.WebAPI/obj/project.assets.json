@@ -1645,7 +1645,10 @@
         },
         "runtime": {
           "bin/placeholder/Happenings.Services.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },

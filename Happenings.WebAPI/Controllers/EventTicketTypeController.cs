@@ -27,4 +27,17 @@ public class EventTicketTypeController : ControllerBase
         var result = _service.GetByEvent(eventId);
         return Ok(result);
     }
+
+    [HttpPut("{id}")]
+    public IActionResult Update(int id, [FromBody] EventTicketTypeInsertRequest request)
+    {
+        return Ok(_service.Update(id, request));
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        _service.Delete(id);
+        return NoContent();
+    }
 }

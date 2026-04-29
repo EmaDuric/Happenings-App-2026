@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Happenings.Services.Interfaces;
 using Happenings.Model.Requests;
 using Happenings.Model.Responses;
-using Happenings.Services.Interfaces;
-
 
 namespace Happenings.WebAPI.Controllers
 {
@@ -20,23 +18,34 @@ namespace Happenings.WebAPI.Controllers
 
         // POST: api/Auth/login
         [HttpPost("login")]
-        public ActionResult<AuthResponse> Login(LoginRequest request)
+        public ActionResult<AuthResponse> Login([FromBody] LoginRequest request)
         {
-            var result = _service.Login(request);
+            try
+            {
+                var result = _service.Login(request);
 
-            if (result == null)
-                return Unauthorized();
-
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized(new { message = ex.Message });
+            }
         }
 
         // POST: api/Auth/register
         [HttpPost("register")]
-        public ActionResult<UserDto> Register(UserInsertRequest request)
+        public ActionResult<UserDto> Register([FromBody] UserInsertRequest request)
         {
-            var result = _service.Register(request);
+            try
+            {
+                var result = _service.Register(request);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

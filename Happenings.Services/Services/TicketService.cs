@@ -1,4 +1,4 @@
-using Happenings.Model.Entities;
+﻿using Happenings.Model.Entities;
 using Happenings.Model.DTOs;
 using Happenings.Model.Requests;
 using Happenings.Services.Database;
@@ -72,5 +72,27 @@ public class TicketService : ITicketService
             IsUsed = entity.IsUsed,
             GeneratedAt = entity.GeneratedAt
         };
+    }
+
+    public List<TicketDto> GetByUserId(int userId)
+    {
+        return _context.Tickets
+            .Include(t => t.Reservation)
+            .ThenInclude(r => r.Event)
+            .Where(t => t.Reservation.UserId == userId)
+            .Select(t => new TicketDto
+            {
+                Id = t.Id,
+                ReservationId = t.ReservationId,
+                QRCode = t.QRCode,
+                IsUsed = t.IsUsed,
+                GeneratedAt = t.GeneratedAt,
+
+                // 🔥 DODAJ OVO
+                EventName = t.Reservation.Event.Name,
+                EventDate = t.Reservation.Event.EventDate,
+                Location = t.Reservation.Event.Location.Name
+            })
+            .ToList();
     }
 }

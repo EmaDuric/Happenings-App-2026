@@ -5,6 +5,7 @@ using Happenings.Model.Responses;
 
 public interface IPaymentService
 {
-    PaymentDto Insert(PaymentInsertRequest request);
     List<PaymentDto> Get();
+
+    PaymentDto ConfirmPayment(int reservationId, string method);
 }

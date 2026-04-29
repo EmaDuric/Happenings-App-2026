@@ -12,4 +12,6 @@ public class Ticket
     public bool IsUsed { get; set; }
 
     public DateTime GeneratedAt { get; set; } = DateTime.UtcNow;
+
+    
 }

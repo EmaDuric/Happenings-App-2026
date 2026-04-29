@@ -1,7 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 using Happenings.Services.Interfaces;
 using Happenings.Model.Requests;
-using Happenings.Model.DTOs;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -14,11 +15,30 @@ public class PaymentsController : ControllerBase
         _service = service;
     }
 
+    // 🔥 GET (nije obavezno ali može ostati)
     [HttpGet]
     public IActionResult Get()
         => Ok(_service.Get());
 
-    [HttpPost]
-    public IActionResult Insert(PaymentInsertRequest request)
-        => Ok(_service.Insert(request));
+    // 🔥 GLAVNI ENDPOINT ZA PLAĆANJE
+    [HttpPost("confirm")]
+    [Authorize]
+    public IActionResult Confirm(PaymentRequest request)
+    {
+        Console.WriteLine($"🔥 CONFIRM HIT: reservationId={request.ReservationId}, method={request.PaymentMethod}");
+
+        try
+        {
+            var result = _service.ConfirmPayment(
+                request.ReservationId,
+                request.PaymentMethod
+            );
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"❌ ERROR: {ex.Message}");
+            return BadRequest(new { error = ex.Message });
+        }
+    }
 }

@@ -3,6 +3,9 @@ import 'package:intl/intl.dart';
 import '../models/event_dto.dart';
 import '../services/api_service.dart';
 import '../services/auth_service.dart';
+import 'login_screen.dart';
+import 'reservation_screen.dart';
+import 'event_details_screen.dart';
 
 class EventsScreen extends StatefulWidget {
   const EventsScreen({super.key});
@@ -25,6 +28,7 @@ class _EventsScreenState extends State<EventsScreen> {
   Future<void> loadEvents() async {
     try {
       final token = await AuthService.getToken();
+
       if (token == null) {
         throw Exception("User is not logged in.");
       }
@@ -37,65 +41,31 @@ class _EventsScreenState extends State<EventsScreen> {
       });
     } catch (e) {
       setState(() {
-        errorMessage = e.toString();
+        errorMessage = "Failed to load events";
         isLoading = false;
       });
-    }
-  }
-
-  Future<void> reserveAndPay(EventDto event) async {
-    try {
-      final token = await AuthService.getToken();
-      if (token == null) {
-        throw Exception("User is not logged in.");
-      }
-
-      // privremeno hardcoded ticket type id = 1
-      final reservation = await ApiService.createReservation(
-        eventId: event.id,
-        eventTicketTypeId: 1,
-        quantity: 1,
-        token: token,
-      );
-
-      final reservationId = reservation["id"] as int;
-
-      await ApiService.createPayment(
-        reservationId: reservationId,
-        amount: 20,
-        paymentMethod: "Card",
-        token: token,
-      );
-
-      if (!mounted) return;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Reservation and payment completed for ${event.name}"),
-        ),
-      );
-    } catch (e) {
-      if (!mounted) return;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Error: $e"),
-        ),
-      );
     }
   }
 
   Future<void> logout() async {
     await AuthService.clearToken();
     if (!mounted) return;
-    Navigator.pushReplacementNamed(context, "/");
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const LoginScreen()),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF4D35E),
       appBar: AppBar(
         title: const Text("Events"),
+        backgroundColor: const Color(0xFFF4D35E),
+        foregroundColor: Colors.black,
+        elevation: 0,
         actions: [
           IconButton(
             onPressed: logout,
@@ -108,44 +78,89 @@ class _EventsScreenState extends State<EventsScreen> {
           : errorMessage != null
               ? Center(child: Text(errorMessage!))
               : ListView.builder(
+                  padding: const EdgeInsets.all(12),
                   itemCount: events.length,
                   itemBuilder: (context, index) {
                     final event = events[index];
 
                     return Card(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
+                      elevation: 3,
+                      margin: const EdgeInsets.only(bottom: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(12),
+                        padding: const EdgeInsets.all(16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               event.name,
                               style: const TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             const SizedBox(height: 8),
-                            Text(event.description),
-                            const SizedBox(height: 8),
                             Text(
-                              DateFormat("dd.MM.yyyy HH:mm")
-                                  .format(event.eventDate),
+                              event.description,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            const SizedBox(height: 12),
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  "/event-details",
-                                  arguments: event,
-                                );
-                              },
-                              child: const Text("Reserve & Pay"),
+                            const SizedBox(height: 8),
+                            // DUGMAD
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) =>
+                                              EventDetailsScreen(event: event),
+                                        ),
+                                      );
+                                    },
+                                    style: OutlinedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 14),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                    ),
+                                    child: const Text("Details"),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) =>
+                                              ReservationScreen(event: event),
+                                        ),
+                                      );
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.green,
+                                      foregroundColor: Colors.white,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 14),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                    ),
+                                    child: const Text(
+                                      "Reserve & Pay",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),

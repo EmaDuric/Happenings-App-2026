@@ -2,15 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\Happenings.Model",
-    "\\Happenings.Model\\Entities",
-    "\\Happenings.Model\\Requests",
     "\\Happenings.Services",
+    "\\Happenings.Services\\Interfaces",
     "\\Happenings.Services\\Services",
     "\\Happenings.Subscriber",
     "\\Happenings.WebAPI",
     "\\Happenings.WebAPI\\Controllers",
     "\\Happenings.WebAPI\\Middleware"
   ],
-  "SelectedNode": "\\Happenings.Model\\Entities\\User.cs",
+  "SelectedNode": "\\Happenings.Services\\Interfaces\\IEventTicketTypeService.cs",
   "PreviewInSolutionExplorer": false
 }

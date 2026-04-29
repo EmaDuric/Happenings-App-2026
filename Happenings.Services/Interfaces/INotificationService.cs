@@ -10,4 +10,6 @@ public interface INotificationService
 
     NotificationDto Insert(NotificationInsertRequest request);
     NotificationDto? MarkAsSent(int id);
+    List<NotificationDto> GetByUserId(int userId);
+    void ClearByUserId(int userId);
 }

@@ -9,4 +9,5 @@ public class RecommendedEventDto
     public string? CategoryName { get; set; }
     public string? LocationName { get; set; }
     public double Score { get; set; }
+    public string? ImageUrl { get; set; }
 }

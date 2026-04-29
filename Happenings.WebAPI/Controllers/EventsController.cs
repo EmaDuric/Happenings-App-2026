@@ -3,7 +3,6 @@ using Happenings.Model.Search;
 using Happenings.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
 
 namespace Happenings.WebAPI.Controllers;
 
@@ -33,13 +32,7 @@ public class EventsController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Insert([FromBody] EventInsertRequest request)
     {
-        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-
-        if (userIdClaim == null)
-            return Unauthorized("User ID not found in token.");
-
-        request.OrganizerId = int.Parse(userIdClaim.Value);
-
+        // 🔥 NIŠTA NE DIRAŠ OVDJE
         return Ok(await _service.InsertAsync(request));
     }
 

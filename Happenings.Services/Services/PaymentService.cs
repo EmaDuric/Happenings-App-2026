@@ -1,16 +1,12 @@
-﻿using Happenings.Model.Requests;
-using Happenings.Model.Responses;
-using Happenings.Model.Search;
+﻿using Happenings.Model.DTOs;
 using Happenings.Model.Entities;
+using Happenings.Model.Messaging;
 using Happenings.Services.Database;
 using Happenings.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
-using Happenings.Model.Messaging;
-
-
 
 public class PaymentService : IPaymentService
 {
@@ -36,26 +32,85 @@ public class PaymentService : IPaymentService
             }).ToList();
     }
 
-    public PaymentDto Insert(PaymentInsertRequest request)
+    public PaymentDto ConfirmPayment(int reservationId, string method)
     {
+        // 🔥 VALIDACIJA METODE
+        if (method != "Card" && method != "PayPal")
+            throw new Exception("Invalid payment method");
+
+        // 🔥 POSTOJEĆI PAYMENT (idempotent + zaštita)
+        var existing = _context.Payments
+            .FirstOrDefault(p => p.ReservationId == reservationId);
+
+        // ✔ IDEMPOTENTNOST
+        if (existing != null && existing.Status == "Completed")
+            return MapToDto(existing);
+
+        // ✔ SPRIJEČI DUPOLO PLAĆANJE
+        if (existing != null && existing.Status == "Pending")
+            throw new Exception("Payment already in progress");
+
+        // 🔥 REZERVACIJA + TICKET TYPE
         var reservation = _context.Reservations
-    .FirstOrDefault(x => x.Id == request.ReservationId);
+            .Include(r => r.EventTicketType)
+            .FirstOrDefault(r => r.Id == reservationId);
 
         if (reservation == null)
-            throw new Exception("Reservation not found.");
+            throw new Exception("Reservation not found");
+
+        if (reservation.EventTicketType == null)
+            throw new Exception("Ticket type not found");
+
+        // 🔥 SERVER RAČUNA CIJENU
+        var amount = reservation.EventTicketType.Price * reservation.Quantity;
 
         var entity = new Payment
         {
-            ReservationId = request.ReservationId,
-            Amount = request.Amount,
-            PaymentMethod = request.PaymentMethod,
-            Status = "Completed"
+            ReservationId = reservationId,
+            Amount = amount,
+            PaymentMethod = method,
+            Status = "Completed",
+            PaymentDate = DateTime.UtcNow,
+            TransactionId = Guid.NewGuid().ToString()
         };
 
-        _context.Payments.Add(entity);
-        _context.SaveChanges();
+        // 🔥 TRANSAKCIJA (DB + RabbitMQ)
+        using var transaction = _context.Database.BeginTransaction();
 
-        // 🔥 RabbitMQ publishing
+        try
+        {
+            _context.Payments.Add(entity);
+            _context.SaveChanges();
+
+            PublishPaymentEvent(entity, reservation.UserId);
+
+            transaction.Commit();
+        }
+        catch
+        {
+            transaction.Rollback();
+            throw;
+        }
+
+        return MapToDto(entity);
+    }
+
+    private PaymentDto MapToDto(Payment x)
+    {
+        return new PaymentDto
+        {
+            Id = x.Id,
+            ReservationId = x.ReservationId,
+            Amount = x.Amount,
+            PaymentMethod = x.PaymentMethod,
+            Status = x.Status,
+            TransactionId = x.TransactionId,
+            PaymentDate = x.PaymentDate
+        };
+    }
+
+    private void PublishPaymentEvent(Payment entity, int userId)
+    {
         var factory = new ConnectionFactory()
         {
             HostName = "localhost"
@@ -66,7 +121,7 @@ public class PaymentService : IPaymentService
 
         channel.QueueDeclare(
             queue: "paymentQueue",
-            durable: false,
+            durable: true,
             exclusive: false,
             autoDelete: false,
             arguments: null);
@@ -74,7 +129,7 @@ public class PaymentService : IPaymentService
         var message = new PaymentCreatedMessage
         {
             ReservationId = entity.ReservationId,
-            UserId = reservation.UserId,
+            UserId = userId,
             Amount = entity.Amount
         };
 
@@ -86,21 +141,5 @@ public class PaymentService : IPaymentService
             routingKey: "paymentQueue",
             basicProperties: null,
             body: body);
-
-        // 🔥 Return DTO
-        return new PaymentDto
-        {
-            Id = entity.Id,
-            ReservationId = entity.ReservationId,
-            Amount = entity.Amount,
-            PaymentMethod = entity.PaymentMethod,
-            Status = entity.Status,
-            TransactionId = entity.TransactionId,
-            PaymentDate = entity.PaymentDate
-        };
     }
-
-
-
-
 }

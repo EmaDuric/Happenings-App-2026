@@ -1,6 +1,8 @@
 using Happenings.Model.Requests;
 using Happenings.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Happenings.WebAPI.Controllers
 {
@@ -32,8 +34,14 @@ namespace Happenings.WebAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Insert([FromBody] ReviewInsertRequest request)
         {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+
+            request.UserId = int.Parse(userIdClaim.Value);
+
             return Ok(_service.Insert(request));
         }
 
@@ -48,6 +56,26 @@ namespace Happenings.WebAPI.Controllers
         {
             _service.Delete(id);
             return NoContent();
+        }
+
+        [HttpGet("my-reviewed-events")]
+        [Authorize]
+        public IActionResult GetMyReviewedEvents()
+        {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int userId = int.Parse(userIdClaim.Value);
+            return Ok(_service.GetMyReviewedEvents(userId));
+        }
+
+        [HttpGet("eligible-events")]
+        [Authorize]
+        public IActionResult GetEligibleEvents()
+        {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int userId = int.Parse(userIdClaim.Value);
+            return Ok(_service.GetEligibleEvents(userId));
         }
     }
 }

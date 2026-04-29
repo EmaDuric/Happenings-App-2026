@@ -10,4 +10,5 @@ public interface ITicketService
     List<TicketDto> Get();
     TicketDto Insert(TicketInsertRequest request);
     TicketDto? GetById(int id);
+    public List<TicketDto> GetByUserId(int userId);
 }

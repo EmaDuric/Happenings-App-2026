@@ -7,5 +7,7 @@ public interface IEventTicketTypeService
 {
     List<EventTicketTypeDto> GetByEvent(int eventId);
     EventTicketTypeDto Insert(EventTicketTypeInsertRequest request);
-   
+    object Update(int id, EventTicketTypeInsertRequest request);
+    void Delete(int id);
+
 }

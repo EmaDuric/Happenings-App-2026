@@ -17,7 +17,7 @@ public class EventTicketTypeService : IEventTicketTypeService
 
     public List<EventTicketTypeDto> GetByEvent(int eventId)
     {
-        return _context.EventTicketType
+        return _context.EventTicketTypes
             .Where(t => t.EventId == eventId)
             .Select(t => new EventTicketTypeDto
             {
@@ -40,7 +40,7 @@ public class EventTicketTypeService : IEventTicketTypeService
             AvailableQuantity = request.AvailableQuantity
         };
 
-        _context.EventTicketType.Add(entity);
+        _context.EventTicketTypes.Add(entity);
         _context.SaveChanges();
 
         return new EventTicketTypeDto
@@ -51,5 +51,26 @@ public class EventTicketTypeService : IEventTicketTypeService
             Price = entity.Price,
             AvailableQuantity = entity.AvailableQuantity
         };
+    }
+    public object Update(int id, EventTicketTypeInsertRequest request)
+    {
+        var entity = _context.EventTicketTypes.Find(id)
+            ?? throw new Exception("Ticket type not found");
+
+        entity.Name = request.Name;
+        entity.Price = request.Price;
+        entity.AvailableQuantity = request.AvailableQuantity;
+
+        _context.SaveChanges();
+        return entity;
+    }
+
+    public void Delete(int id)
+    {
+        var entity = _context.EventTicketTypes.Find(id)
+            ?? throw new Exception("Ticket type not found");
+
+        _context.EventTicketTypes.Remove(entity);
+        _context.SaveChanges();
     }
 }

@@ -1,4 +1,4 @@
-using Happenings.Model.Entities;
+﻿using Happenings.Model.Entities;
 using Happenings.Services.Database;
 using Microsoft.EntityFrameworkCore;
 using BCrypt.Net;
@@ -81,20 +81,22 @@ namespace Happenings.Services.Data
             if (!context.Organizers.Any())
             {
                 var organizers = new List<Organizer>
-                {
+{
                     new Organizer
                     {
                         Name="EventPro",
-                        ContactEmail="info@eventpro.com",
+                        UserId = usersList[0].Id,
+                        ContactEmail="eventpro@mail.com",
                         PhoneNumber="061111111"
                     },
                     new Organizer
                     {
                         Name="TechEvents",
-                        ContactEmail="info@techevents.com",
+                        UserId = usersList[1].Id,
+                        ContactEmail="techevents@mail.com",
                         PhoneNumber="062222222"
                     }
-                };
+                };      
 
                 context.Organizers.AddRange(organizers);
                 context.SaveChanges();
@@ -162,7 +164,7 @@ namespace Happenings.Services.Data
 
 
             // TICKET TYPES
-            if (!context.EventTicketType.Any())
+            if (!context.EventTicketTypes.Any())
             {
                 var ticketTypes = new List<EventTicketType>();
 
@@ -185,11 +187,11 @@ namespace Happenings.Services.Data
                     });
                 }
                 
-                context.EventTicketType.AddRange(ticketTypes);
+                context.EventTicketTypes.AddRange(ticketTypes);
                 context.SaveChanges();
             }
 
-            var ticketTypesList = context.EventTicketType.ToList();
+            var ticketTypesList = context.EventTicketTypes.ToList();
 
 
             // RESERVATIONS

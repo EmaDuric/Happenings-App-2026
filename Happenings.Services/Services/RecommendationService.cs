@@ -1,4 +1,4 @@
-using Happenings.Model.Responses;
+﻿using Happenings.Model.Responses;
 using Happenings.Services.Database;
 using Happenings.Services.Interfaces;
 using MathNet.Numerics.LinearAlgebra;
@@ -23,6 +23,7 @@ public class RecommendationService : IRecommendationService
             .Include(e => e.EventCategory)
             .Include(e => e.Location)
             .Include(e => e.Reservations)
+             .Include(e => e.Images)
             .ToList();
 
         if (!users.Any() || !events.Any())
@@ -105,10 +106,15 @@ public class RecommendationService : IRecommendationService
                     EventCategoryId = e.EventCategoryId,
                     CategoryName = e.EventCategory?.Name,
                     LocationName = e.Location?.Name,
-                    Score = 0
+                    Score = 0,
+                    ImageUrl = e.Images.FirstOrDefault()?.ImageUrl
                 })
-                .ToList();
+                .ToList(); // ← .ToList() je DIO Select lanca, ne van njega
         }
+
+        // =========================
+        // SVD
+        // =========================
 
         // =========================
         // SVD
@@ -116,10 +122,14 @@ public class RecommendationService : IRecommendationService
 
         var svd = matrix.Svd(true);
 
-        var sigma = Matrix<double>.Build.DenseDiagonal(
-            svd.S.Count,
-            svd.S.Count,
-            i => svd.S[i]);
+        // ✅ FIX: koristi min(userCount, eventCount) za sigma dimenzije
+        int k = Math.Min(userCount, eventCount);
+
+        var sigma = Matrix<double>.Build.Dense(userCount, eventCount);
+        for (int i = 0; i < k; i++)
+        {
+            sigma[i, i] = svd.S[i];
+        }
 
         var reconstructed = svd.U * sigma * svd.VT;
 
@@ -144,7 +154,8 @@ public class RecommendationService : IRecommendationService
                 EventCategoryId = ev.EventCategoryId,
                 CategoryName = ev.EventCategory?.Name,
                 LocationName = ev.Location?.Name,
-                Score = reconstructed[targetUserIndex, eventIndex]
+                Score = reconstructed[targetUserIndex, eventIndex],
+                ImageUrl = ev.Images.FirstOrDefault()?.ImageUrl // ← DODAJ
             });
         }
 

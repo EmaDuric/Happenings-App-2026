@@ -1,248 +1,225 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../models/event_dto.dart';
-import '../services/api_service.dart';
 import '../services/auth_service.dart';
-import 'tickets_screen.dart'; // 🔥 DODANO
+import 'reservation_screen.dart';
+import 'edit_event_screen.dart';
 
 class EventDetailsScreen extends StatefulWidget {
-  const EventDetailsScreen({super.key});
+  final EventDto event;
+
+  const EventDetailsScreen({super.key, required this.event});
 
   @override
   State<EventDetailsScreen> createState() => _EventDetailsScreenState();
 }
 
 class _EventDetailsScreenState extends State<EventDetailsScreen> {
-  List ticketTypes = [];
-  int? selectedTicketTypeId;
-
-  String selectedPaymentMethod = "Card";
-  bool isLoading = false;
-  bool isLoadingTickets = true;
+  bool isOrganizer = false;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    loadTicketTypes();
+  void initState() {
+    super.initState();
+    checkRole();
   }
 
-  Future<void> loadTicketTypes() async {
-    try {
-      final event = ModalRoute.of(context)!.settings.arguments as EventDto;
-
-      final token = await AuthService.getToken();
-
-      final data = await ApiService.getTicketTypes(
-        event.id,
-        token!,
-      );
-
-      setState(() {
-        ticketTypes = data;
-        selectedTicketTypeId = data.isNotEmpty ? data[0]["id"] : null;
-        isLoadingTickets = false;
-      });
-    } catch (e) {
-      setState(() {
-        isLoadingTickets = false;
-      });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error loading tickets: $e")),
-      );
-    }
-  }
-
-  Future<void> reserveAndPay(EventDto event) async {
-    if (selectedTicketTypeId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Select ticket type")),
-      );
-      return;
-    }
-
-    setState(() {
-      isLoading = true;
-    });
-
-    try {
-      final token = await AuthService.getToken();
-
-      if (token == null) {
-        throw Exception("User not logged in");
-      }
-
-      final reservation = await ApiService.createReservation(
-        eventId: event.id,
-        eventTicketTypeId: selectedTicketTypeId!,
-        quantity: 1,
-        token: token,
-      );
-
-      final reservationId = reservation["id"];
-
-      final selectedTicket = ticketTypes.firstWhere(
-        (t) => t["id"] == selectedTicketTypeId,
-      );
-
-      await ApiService.createPayment(
-        reservationId: reservationId,
-        amount: (selectedTicket["price"] as num).toDouble(),
-        paymentMethod: selectedPaymentMethod,
-        token: token,
-      );
-
-      if (!mounted) return;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("🎉 Ticket successfully created!"),
-        ),
-      );
-
-      // ✅ DIREKTNA NAVIGACIJA (ISPRAVNO)
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const TicketsScreen(),
-        ),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error: $e")),
-      );
-    } finally {
-      if (mounted) {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    }
+  Future<void> checkRole() async {
+    final org = await AuthService.isOrganizer();
+    setState(() => isOrganizer = org);
   }
 
   @override
   Widget build(BuildContext context) {
-    final event = ModalRoute.of(context)!.settings.arguments as EventDto;
+    final event = widget.event;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(event.name),
-      ),
-      body: isLoadingTickets
-          ? const Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
+      backgroundColor: const Color(0xFFF4D35E),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 280,
+            pinned: true,
+            backgroundColor: const Color(0xFFF4D35E),
+            foregroundColor: Colors.black,
+            actions: [
+              if (isOrganizer)
+                IconButton(
+                  icon: const Icon(Icons.edit, color: Colors.black),
+                  onPressed: () async {
+                    final updated = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => EditEventScreen(event: event),
+                      ),
+                    );
+                    if (updated == true && mounted) {
+                      Navigator.pop(context, true);
+                    }
+                  },
+                ),
+            ],
+            flexibleSpace: FlexibleSpaceBar(
+              background: event.imageUrl != null && event.imageUrl!.isNotEmpty
+                  ? Image.network(
+                      event.imageUrl!,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => _placeholder(),
+                    )
+                  : _placeholder(),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              decoration: const BoxDecoration(color: Color(0xFFF4D35E)),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  if (event.categoryName != null)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        event.categoryName!,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  const SizedBox(height: 12),
                   Text(
                     event.name,
                     style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontSize: 28, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 10),
-                  Text(
-                    event.description,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 30),
-
-                  // 🎟️ TICKET TYPE
-                  const Text(
-                    "Select Ticket Type",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  DropdownButtonFormField<int>(
-                    value: selectedTicketTypeId,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                    items: ticketTypes.map((t) {
-                      return DropdownMenuItem<int>(
-                        value: t["id"],
-                        child: Text("${t["name"]} - ${t["price"]} KM"),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedTicketTypeId = value!;
-                      });
-                    },
-                  ),
-
-                  const SizedBox(height: 30),
-
-                  // 💳 PAYMENT
-                  const Text(
-                    "Payment Method",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  DropdownButtonFormField<String>(
-                    value: selectedPaymentMethod,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                    items: const [
-                      DropdownMenuItem(
-                        value: "Card",
-                        child: Text("💳 Card"),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      _infoCard(
+                        icon: Icons.calendar_today,
+                        label: "Date",
+                        value: DateFormat("dd.MM.yyyy").format(event.eventDate),
                       ),
-                      DropdownMenuItem(
-                        value: "PayPal",
-                        child: Text("🟡 PayPal"),
+                      const SizedBox(width: 12),
+                      _infoCard(
+                        icon: Icons.access_time,
+                        label: "Time",
+                        value: DateFormat("HH:mm").format(event.eventDate),
                       ),
                     ],
-                    onChanged: (value) {
-                      setState(() {
-                        selectedPaymentMethod = value!;
-                      });
-                    },
                   ),
-
-                  const SizedBox(height: 40),
-
-                  // 🔘 RESERVE BUTTON
+                  const SizedBox(height: 12),
+                  if (event.locationName != null)
+                    _infoCard(
+                      icon: Icons.location_on,
+                      label: "Location",
+                      value: event.locationName!,
+                      fullWidth: true,
+                    ),
+                  const SizedBox(height: 24),
+                  const Text(
+                    "About this event",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      event.description,
+                      style: const TextStyle(
+                          fontSize: 15, height: 1.6, color: Colors.black87),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: isLoading ? null : () => reserveAndPay(event),
-                      child: isLoading
-                          ? const CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                          : const Text("Reserve & Pay"),
-                    ),
-                  ),
-
-                  const SizedBox(height: 15),
-
-                  // 🔘 VIEW TICKETS (FIXED)
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const TicketsScreen(),
+                            builder: (_) => ReservationScreen(event: event),
                           ),
                         );
                       },
-                      child: const Text("View My Tickets 🎟️"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      child: const Text(
+                        "Reserve & Pay",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _infoCard({
+    required IconData icon,
+    required String label,
+    required String value,
+    bool fullWidth = false,
+  }) {
+    final card = Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 20, color: Colors.black54),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(label,
+                    style:
+                        const TextStyle(fontSize: 11, color: Colors.black45)),
+                Text(value,
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.ellipsis),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (fullWidth) return SizedBox(width: double.infinity, child: card);
+    return Expanded(child: card);
+  }
+
+  Widget _placeholder() {
+    return Container(
+      color: Colors.grey.shade300,
+      child: const Icon(Icons.event, size: 80, color: Colors.grey),
     );
   }
 }

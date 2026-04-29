@@ -10,6 +10,6 @@ public class EventDto
     public int OrganizerId { get; set; }
     public int LocationId { get; set; }
     public string? LocationName { get; set; }
-
+    public string? ImageUrl { get; set; }
     public string? CategoryName { get; set; }
 }
