@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: happenings-db
+    environment:
+      SA_PASSWORD: ${DB_PASSWORD}
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      - happenings-db-data:/var/opt/mssql
+    networks:
+      - happenings-network
+
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: happenings-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
+    networks:
+      - happenings-network
+
+  api:
+    build:
+      context: .
+      dockerfile: Happenings.WebAPI/Dockerfile
+    container_name: happenings-api
+    ports:
+      - "5000:8080"
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=db;Database=HappeningsDB;User Id=sa;Password=${DB_PASSWORD};TrustServerCertificate=True"
+      Jwt__Key: ${JWT_KEY}
+      Jwt__Issuer: ${JWT_ISSUER}
+      Jwt__Audience: ${JWT_AUDIENCE}
+      RabbitMQ__Host: rabbitmq
+      RabbitMQ__User: ${RABBITMQ_USER}
+      RabbitMQ__Pass: ${RABBITMQ_PASS}
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - happenings-network
+
+  subscriber:
+    build:
+      context: .
+      dockerfile: Happenings.Subscriber/Dockerfile
+    container_name: happenings-subscriber
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=db;Database=HappeningsDB;User Id=sa;Password=${DB_PASSWORD};TrustServerCertificate=True"
+      RabbitMQ__Host: rabbitmq
+      RabbitMQ__User: ${RABBITMQ_USER}
+      RabbitMQ__Pass: ${RABBITMQ_PASS}
+    depends_on:
+      - db
+      - rabbitmq
+      - api
+    networks:
+      - happenings-network
+
+volumes:
+  happenings-db-data:
+
+networks:
+  happenings-network:
+    driver: bridge

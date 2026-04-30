@@ -2,15 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\Happenings.Model",
-    "\\Happenings.Model\\Entities",
-    "\\Happenings.Model\\Responses",
     "\\Happenings.Services",
+    "\\Happenings.Subscriber",
     "\\Happenings.WebAPI",
-    "\\Happenings.WinUI",
-    "\\Happenings.WinUI\\Forms",
     "\\Happenings.WinUI\\Forms\\Reservations",
     "\\Happenings.WinUI\\Forms\\Users"
   ],
-  "SelectedNode": "\\Happenings.WinUI\\Forms\\frmMain.cs",
+  "SelectedNode": "\\.env",
   "PreviewInSolutionExplorer": false
 }
