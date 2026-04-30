@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Happenings.Model")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+692aad69f0a0a322126b111eda3ce0e16695f010")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5877b616ba20209f72ee0b214d2f5883d695385")]
 [assembly: System.Reflection.AssemblyProductAttribute("Happenings.Model")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Happenings.Model")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -366,8 +366,7 @@
               "RelativeToolTip": "Happenings.Services\\Interfaces\\IReservationService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T18:26:38.193Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T18:26:38.193Z"
             },
             {
               "$type": "Document",
@@ -379,8 +378,7 @@
               "RelativeToolTip": "Happenings.Services\\Services\\RecommendationService.cs",
               "ViewState": "AQIAAKIAAAAAAAAAAAAkwKsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T17:40:45.936Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T17:40:45.936Z"
             },
             {
               "$type": "Document",
@@ -392,8 +390,7 @@
               "RelativeToolTip": "Happenings.WinUI\\Forms\\frmLogin.cs",
               "ViewState": "AQIAAKsAAAAAAAAAAAAkwLQAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T17:44:41.332Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T17:44:41.332Z"
             },
             {
               "$type": "Document",
@@ -405,8 +402,7 @@
               "RelativeToolTip": "Happenings.WinUI\\Forms\\Reservations\\frmReservationList.cs",
               "ViewState": "AQIAAIQAAAAAAAAAAAAIwJUAAABqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T11:47:47.002Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T11:47:47.002Z"
             },
             {
               "$type": "Document",
@@ -418,8 +414,7 @@
               "RelativeToolTip": "Happenings.WinUI\\Forms\\Reports\\frmReports.cs",
               "ViewState": "AQIAAI8BAAAAAAAAAAAIwJ8BAAA+AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T19:10:19.834Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T19:10:19.834Z"
             },
             {
               "$type": "Document",
@@ -429,7 +424,7 @@
               "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\Events\\frmEventEdit.cs",
               "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Events\\frmEventEdit.cs",
               "RelativeToolTip": "Happenings.WinUI\\Forms\\Events\\frmEventEdit.cs",
-              "ViewState": "AQIAACMAAAAAAAAAAAAIwDEAAAARAAAA",
+              "ViewState": "AQIAACMAAAAAAAAAAAAIwDYAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-29T18:09:13.369Z",
               "EditorCaption": ""
@@ -444,8 +439,7 @@
               "RelativeToolTip": "Happenings.Services\\Services\\ReservationService.cs",
               "ViewState": "AQIAAI8AAAAAAAAAAAAwwK8AAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T18:27:02.278Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T18:27:02.278Z"
             },
             {
               "$type": "Document",
@@ -457,8 +451,7 @@
               "RelativeToolTip": "Happenings.Model\\Responses\\ReservationDto.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T18:28:19.048Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T18:28:19.048Z"
             },
             {
               "$type": "Document",
@@ -470,8 +463,7 @@
               "RelativeToolTip": "Happenings.Model\\Entities\\User.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T16:34:22.753Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T16:34:22.753Z"
             },
             {
               "$type": "Document",
@@ -483,8 +475,7 @@
               "RelativeToolTip": "Happenings.WinUI\\Forms\\Users\\frmUsersList.cs",
               "ViewState": "AQIAAE4AAAAAAAAAAAAiwF4AAABqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T11:46:01.303Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T11:46:01.303Z"
             },
             {
               "$type": "Document",
@@ -496,8 +487,7 @@
               "RelativeToolTip": "Happenings.Services\\Services\\AuthService.cs",
               "ViewState": "AQIAAHEAAAAAAAAAAAAkwH4AAABGAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T16:27:48.408Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T16:27:48.408Z"
             },
             {
               "$type": "Document",
@@ -509,8 +499,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\ReservationsController.cs",
               "ViewState": "AQIAAA8AAAAAAAAAAAAkwCsAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:13:27.062Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T22:13:27.062Z"
             },
             {
               "$type": "Document",
@@ -522,8 +511,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\ReportsController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T16:00:55.867Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T16:00:55.867Z"
             },
             {
               "$type": "Document",
@@ -535,8 +523,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\ReviewsController.cs",
               "ViewState": "AQIAABIAAAAAAAAAAAAkwEAAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T16:02:49.646Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T16:02:49.646Z"
             },
             {
               "$type": "Document",
@@ -548,8 +535,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\TicketsController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T16:03:21.433Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T16:03:21.433Z"
             },
             {
               "$type": "Document",
@@ -561,8 +547,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\UserPreferencesController.cs",
               "ViewState": "AQIAAA8AAAAAAAAAAAAUwBwAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T16:04:25.299Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T16:04:25.299Z"
             },
             {
               "$type": "Document",
@@ -574,8 +559,7 @@
               "RelativeToolTip": "Happenings.WinUI\\TokenStore.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T16:37:03.621Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T16:37:03.621Z"
             },
             {
               "$type": "Document",
@@ -587,8 +571,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\RecommendationsController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T16:00:33.691Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T16:00:33.691Z"
             },
             {
               "$type": "Document",
@@ -600,8 +583,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\PaymentsController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T15:59:17.07Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T15:59:17.07Z"
             },
             {
               "$type": "Document",
@@ -613,8 +595,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\OrganizersController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T15:59:17.873Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T15:59:17.873Z"
             },
             {
               "$type": "Document",
@@ -626,8 +607,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\NotificationsController.cs",
               "ViewState": "AQIAAAcAAAAAAAAAAAAkwDUAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T15:58:54.763Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T15:58:54.763Z"
             },
             {
               "$type": "Document",
@@ -639,8 +619,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\EventsController.cs",
               "ViewState": "AQIAAAwAAAAAAAAAAAAuwCgAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T11:10:12.166Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T11:10:12.166Z"
             },
             {
               "$type": "Document",
@@ -652,8 +631,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\EventTicketTypeController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACIAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T10:38:01.748Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T10:38:01.748Z"
             },
             {
               "$type": "Document",
@@ -665,8 +643,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\EventViewsController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACEAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T11:12:55.209Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T11:12:55.209Z"
             },
             {
               "$type": "Document",
@@ -678,8 +655,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\InvitationController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACwAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:09:45.103Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T22:09:45.103Z"
             },
             {
               "$type": "Document",
@@ -691,8 +667,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\LocationsController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:09:48.968Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T22:09:48.968Z"
             },
             {
               "$type": "Document",
@@ -704,8 +679,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\EventImagesController.cs",
               "ViewState": "AQIAABUAAAAAAAAAAAAuwDEAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T15:54:46.03Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T15:54:46.03Z"
             },
             {
               "$type": "Document",
@@ -717,8 +691,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\AnnouncementController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAiwBwAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:08:47.417Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T22:08:47.417Z"
             },
             {
               "$type": "Document",
@@ -730,8 +703,7 @@
               "RelativeToolTip": "Happenings.Model\\Entities\\Reservation.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAABBwBgAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T08:44:56.686Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T08:44:56.686Z"
             },
             {
               "$type": "Document",
@@ -743,8 +715,7 @@
               "RelativeToolTip": "Happenings.Services\\Interfaces\\IEventService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:15:47.743Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T22:15:47.743Z"
             },
             {
               "$type": "Document",
@@ -756,8 +727,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Controllers\\EventCategoriesController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACoAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:08:58.908Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T22:08:58.908Z"
             },
             {
               "$type": "Document",
@@ -769,8 +739,7 @@
               "RelativeToolTip": "Happenings.Services\\Services\\EventService.cs",
               "ViewState": "AQIAAHIAAAAAAAAAAAAowIoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:16:48.035Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T22:16:48.035Z"
             },
             {
               "$type": "Document",
@@ -782,8 +751,7 @@
               "RelativeToolTip": "Happenings.Services\\Interfaces\\IInvitationService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:01:03.267Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T22:01:03.267Z"
             },
             {
               "$type": "Document",
@@ -795,8 +763,7 @@
               "RelativeToolTip": "Happenings.Services\\Services\\AnnouncementService.cs",
               "ViewState": "AQIAADUAAAAAAAAAAAAcwDsAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:07:20.915Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T22:07:20.915Z"
             },
             {
               "$type": "Document",
@@ -808,8 +775,7 @@
               "RelativeToolTip": "README.md",
               "ViewState": "AQIAABAAAAAAAAAAAAAIwCoAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2026-04-30T12:26:28.23Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T12:26:28.23Z"
             },
             {
               "$type": "Document",
@@ -821,8 +787,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\Program.cs",
               "ViewState": "AQIAAA0AAAAAAAAAAAAcwB8AAAA8AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:02:14.103Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T22:02:14.103Z"
             },
             {
               "$type": "Document",
@@ -834,8 +799,7 @@
               "RelativeToolTip": "Happenings.Services\\Services\\InvitationService.cs",
               "ViewState": "AQIAAEwAAAAAAAAAAAAowG0AAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:01:35.714Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T22:01:35.714Z"
             },
             {
               "$type": "Document",
@@ -847,8 +811,7 @@
               "RelativeToolTip": "Happenings.Subscriber\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T12:27:53.327Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T12:27:53.327Z"
             },
             {
               "$type": "Document",
@@ -860,8 +823,7 @@
               "RelativeToolTip": "Happenings.Subscriber\\appsettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-30T12:27:57.944Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T12:27:57.944Z"
             },
             {
               "$type": "Document",
@@ -897,8 +859,7 @@
               "RelativeToolTip": "docker-compose.yml",
               "ViewState": "AQIAABgAAAAAAAAAAAAgwEgAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2026-04-30T12:25:51.859Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T12:25:51.859Z"
             },
             {
               "$type": "Document",
@@ -910,8 +871,7 @@
               "RelativeToolTip": "Happenings.Subscriber\\appsettings.Development.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-30T12:28:00.678Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T12:28:00.678Z"
             },
             {
               "$type": "Document",
@@ -935,8 +895,7 @@
               "RelativeToolTip": "Happenings.WebAPI\\appsettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-30T12:22:41.891Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T12:22:41.891Z"
             },
             {
               "$type": "Document",
@@ -948,8 +907,7 @@
               "RelativeToolTip": "Happenings.WinUI\\Models\\EventDto.cs",
               "ViewState": "AQIAAAIAAAAAAAAAAAAgwBkAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T10:06:24.186Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T10:06:24.186Z"
             },
             {
               "$type": "Document",
@@ -961,8 +919,7 @@
               "RelativeToolTip": "Happenings.WinUI\\Forms\\Events\\frmEventsList.cs",
               "ViewState": "AQIAAJIBAAAAAAAAAAAgwKkBAAAwAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T18:07:24.322Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T18:07:24.322Z"
             },
             {
               "$type": "Document",
@@ -974,8 +931,7 @@
               "RelativeToolTip": "Happenings.WinUI\\APIService.cs",
               "ViewState": "AQIAALsAAAAAAAAAAABBwNMAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T19:38:36.156Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T19:38:36.156Z"
             },
             {
               "$type": "Document",
@@ -987,8 +943,7 @@
               "RelativeToolTip": "Happenings.WinUI\\Forms\\frmMain.cs",
               "ViewState": "AQIAAB8BAAAAAAAAAADwvy8BAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T17:43:49.801Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T17:43:49.801Z"
             },
             {
               "$type": "Document",
@@ -1132,8 +1087,7 @@
               "RelativeToolTip": "Happenings.Services\\Data\\DbInitializer.cs",
               "ViewState": "AQIAAO4AAAAAAAAAAAAwwPkAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:44:45.361Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T22:44:45.361Z"
             },
             {
               "$type": "Document",

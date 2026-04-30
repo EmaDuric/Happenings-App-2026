@@ -493,7 +493,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.italic)),
                     const SizedBox(height: 12),
-                    ...eligibleEvents.map((e) => _reviewCard(e)).toList(),
+                    ...eligibleEvents.map((e) => _reviewCard(e)),
                   ],
                 ],
               ),
@@ -520,7 +520,7 @@ class _HomeScreenState extends State<HomeScreen> {
           name: rec["eventName"] ?? "",
           description: "",
           eventDate:
-              DateTime.tryParse(rec["eventDate"] ?? "") ?? DateTime.UtcNow(),
+              DateTime.tryParse(rec["eventDate"] ?? "") ?? DateTime.now(),
           locationName: rec["locationName"],
           categoryName: rec["categoryName"],
           imageUrl: rec["imageUrl"],

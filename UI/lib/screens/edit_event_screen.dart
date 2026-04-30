@@ -133,8 +133,8 @@ class _EditEventScreenState extends State<EditEventScreen> {
   Future<void> pickDate() async {
     final picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate ?? DateTime.UtcNow(),
-      firstDate: DateTime.UtcNow(),
+      initialDate: selectedDate ?? DateTime.now(),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2100),
     );
     if (picked != null) setState(() => selectedDate = picked);

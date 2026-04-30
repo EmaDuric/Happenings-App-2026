@@ -108,9 +108,9 @@ class _EventsScreenState extends State<EventsScreen> {
   Future<void> _pickDate() async {
     final picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.UtcNow(),
-      firstDate: DateTime.UtcNow().subtract(const Duration(days: 365)),
-      lastDate: DateTime.UtcNow().add(const Duration(days: 365 * 2)),
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(const Duration(days: 365)),
+      lastDate: DateTime.now().add(const Duration(days: 365 * 2)),
     );
     if (picked != null) {
       setState(() => selectedDate = picked);
@@ -179,7 +179,7 @@ class _EventsScreenState extends State<EventsScreen> {
                             children: [
                               Expanded(
                                 child: DropdownButtonFormField<String>(
-                                  value: selectedCategory,
+                                  initialValue: selectedCategory,
                                   hint: const Text("Category",
                                       style: TextStyle(fontSize: 12)),
                                   decoration: InputDecoration(
@@ -211,7 +211,7 @@ class _EventsScreenState extends State<EventsScreen> {
                               const SizedBox(width: 8),
                               Expanded(
                                 child: DropdownButtonFormField<String>(
-                                  value: selectedLocation,
+                                  initialValue: selectedLocation,
                                   hint: const Text("Location",
                                       style: TextStyle(fontSize: 12)),
                                   decoration: InputDecoration(
