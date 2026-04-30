@@ -1,74 +1,50 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Happenings.Services.Interfaces;
 using Happenings.Model.Requests;
 using Happenings.Model.Responses;
 
-namespace Happenings.WebAPI.Controllers
+namespace Happenings.WebAPI.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class EventImagesController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class EventImagesController : ControllerBase
+    private readonly IEventImageService _service;
+    public EventImagesController(IEventImageService service) => _service = service;
+
+    [HttpGet]
+    public ActionResult<List<EventImageDto>> GetAll() => Ok(_service.GetAll());
+
+    [HttpGet("{id}")]
+    public ActionResult<EventImageDto> GetById(int id)
     {
-        private readonly IEventImageService _service;
+        var result = _service.GetById(id);
+        return result == null ? NotFound() : Ok(result);
+    }
 
-        public EventImagesController(IEventImageService service)
-        {
-            _service = service;
-        }
+    [HttpGet("by-event/{eventId}")]
+    public ActionResult<List<EventImageDto>> GetByEvent(int eventId)
+        => Ok(_service.GetByEvent(eventId));
 
-        // GET: api/EventImages
-        [HttpGet]
-        public ActionResult<List<EventImageDto>> GetAll()
-        {
-            return Ok(_service.GetAll());
-        }
+    [HttpPost]
+    [Authorize]
+    public ActionResult<EventImageDto> Insert(EventImageInsertRequest request)
+        => Ok(_service.Insert(request));
 
-        // GET: api/EventImages/5
-        [HttpGet("{id}")]
-        public ActionResult<EventImageDto> GetById(int id)
-        {
-            var result = _service.GetById(id);
-            if (result == null)
-                return NotFound();
+    [HttpPut("{id}")]
+    [Authorize]
+    public ActionResult<EventImageDto> Update(int id, EventImageUpdateRequest request)
+    {
+        var result = _service.Update(id, request);
+        return result == null ? NotFound() : Ok(result);
+    }
 
-            return Ok(result);
-        }
-
-        // GET: api/EventImages/by-event/10
-        [HttpGet("by-event/{eventId}")]
-        public ActionResult<List<EventImageDto>> GetByEvent(int eventId)
-        {
-            return Ok(_service.GetByEvent(eventId));
-        }
-
-        // POST: api/EventImages
-        [HttpPost]
-        public ActionResult<EventImageDto> Insert(EventImageInsertRequest request)
-        {
-            var result = _service.Insert(request);
-            return Ok(result);
-        }
-
-        // PUT: api/EventImages/5
-        [HttpPut("{id}")]
-        public ActionResult<EventImageDto> Update(int id, EventImageUpdateRequest request)
-        {
-            var result = _service.Update(id, request);
-            if (result == null)
-                return NotFound();
-
-            return Ok(result);
-        }
-
-        // DELETE: api/EventImages/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            var success = _service.Delete(id);
-            if (!success)
-                return NotFound();
-
-            return NoContent();
-        }
+    [HttpDelete("{id}")]
+    [Authorize]
+    public IActionResult Delete(int id)
+    {
+        if (!_service.Delete(id)) return NotFound();
+        return NoContent();
     }
 }

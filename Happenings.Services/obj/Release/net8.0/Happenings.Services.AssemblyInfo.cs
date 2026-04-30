@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Happenings.Services")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24fed5442d8aa3fd6be755101125b39040f1e14a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+692aad69f0a0a322126b111eda3ce0e16695f010")]
 [assembly: System.Reflection.AssemblyProductAttribute("Happenings.Services")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Happenings.Services")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

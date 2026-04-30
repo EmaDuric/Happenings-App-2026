@@ -23,11 +23,36 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   Future<void> pay() async {
     if (selectedMethod == "Card") {
-      if (cardNumberController.text.trim().isEmpty ||
-          expiryController.text.trim().isEmpty ||
-          cvvController.text.trim().isEmpty) {
+      final cardNumber = cardNumberController.text.trim().replaceAll(' ', '');
+      final expiry = expiryController.text.trim();
+      final cvv = cvvController.text.trim();
+
+      if (cardNumber.isEmpty || expiry.isEmpty || cvv.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Please enter card details")),
+          const SnackBar(content: Text("Please enter all card details.")),
+        );
+        return;
+      }
+
+      if (!RegExp(r'^\d{16}$').hasMatch(cardNumber)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text(
+                  "Card number must be 16 digits (e.g. 4242 4242 4242 4242).")),
+        );
+        return;
+      }
+
+      if (!RegExp(r'^\d{2}/\d{2}$').hasMatch(expiry)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Expiry must be in MM/YY format.")),
+        );
+        return;
+      }
+
+      if (!RegExp(r'^\d{3,4}$').hasMatch(cvv)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("CVV must be 3 or 4 digits.")),
         );
         return;
       }

@@ -19,6 +19,18 @@ class _LoginScreenState extends State<LoginScreen> {
   String? errorMessage;
 
   Future<void> login() async {
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      setState(() => errorMessage = "Email and password are required.");
+      return;
+    }
+
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email)) {
+      setState(() => errorMessage = "Please enter a valid email address.");
+      return;
+    }
     setState(() {
       isLoading = true;
       errorMessage = null;
@@ -142,26 +154,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               const SizedBox(height: 10),
-
-              // FIND EVENTS
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const HomeScreen(),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[300],
-                    foregroundColor: Colors.black,
-                  ),
-                  child: const Text("FIND YOUR NEXT EVENT"),
-                ),
-              ),
             ],
           ),
         ),

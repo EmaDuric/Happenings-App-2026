@@ -145,6 +145,9 @@ namespace Happenings.WinUI.Forms.Reservations
             {
                 var httpClient = new HttpClient();
                 httpClient.BaseAddress = new Uri("http://localhost:5000/api/");
+                if (!string.IsNullOrEmpty(TokenStore.Token))
+                    httpClient.DefaultRequestHeaders.Authorization =
+                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", TokenStore.Token);
                 var response = await httpClient.GetAsync("Reservations");
                 response.EnsureSuccessStatusCode();
 

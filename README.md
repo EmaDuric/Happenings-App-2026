@@ -55,8 +55,9 @@ flutter run --dart-define=API_BASE_URL=http://10.0.2.2:5000
 
 | Context | Username | Password |
 |---------|----------|----------|
-| Desktop (Admin) | admin@mail.com | test |
-| Mobile | amar@mail.com | test |
+| Desktop (Admin) | admin@mail.com | admin2026 |
+| Mobile-User | mobile@mail.com | mobile2026 |
+| Mobile-Organiser| organiser@mail.com | organiser2026 |
 
 ## API Documentation
 

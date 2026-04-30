@@ -1,40 +1,24 @@
 using Happenings.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = "Admin")]
 public class ReportsController : ControllerBase
 {
     private readonly IReportService _service;
-
-    public ReportsController(IReportService service)
-    {
-        _service = service;
-    }
+    public ReportsController(IReportService service) => _service = service;
 
     [HttpGet("event-sales")]
-    public IActionResult EventSales()
-    {
-        return Ok(_service.GetEventSales());
-    }
+    public IActionResult EventSales() => Ok(_service.GetEventSales());
 
     [HttpGet("revenue")]
-    public IActionResult Revenue()
-    {
-        return Ok(_service.GetRevenuePerEvent());
-    }
+    public IActionResult Revenue() => Ok(_service.GetRevenuePerEvent());
 
     [HttpGet("ratings")]
-    public IActionResult Ratings()
-    {
-        return Ok(_service.GetAverageRatingPerEvent());
-    }
+    public IActionResult Ratings() => Ok(_service.GetAverageRatingPerEvent());
 
     [HttpGet("popular-events")]
-    public IActionResult GetMostPopularEvents()
-    {
-        var result = _service.GetMostPopularEvents();
-
-        return Ok(result);
-    }
+    public IActionResult GetMostPopularEvents() => Ok(_service.GetMostPopularEvents());
 }

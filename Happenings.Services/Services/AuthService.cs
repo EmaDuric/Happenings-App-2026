@@ -111,14 +111,21 @@ namespace Happenings.Services.Services
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var claims = new[]
-            {
+            string role;
+            if (user.IsAdmin)
+                role = "Admin";
+            else if (user.IsOrganizer)
+                role = "Organizer";
+            else
+                role = "User";
+
+                        var claims = new[]
+                        {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.Username),
-
-                // 🔥 KLJUČNO ZA ROLE
-                new Claim("isOrganizer", user.IsOrganizer.ToString())
+                new Claim("isOrganizer", user.IsOrganizer.ToString()),
+                new Claim(ClaimTypes.Role, role)
             };
 
             var token = new JwtSecurityToken(

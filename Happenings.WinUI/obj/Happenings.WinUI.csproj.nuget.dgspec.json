@@ -70,6 +70,10 @@
               "target": "Package",
               "version": "[13.0.4, )"
             },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.17.0, )"
+            },
             "System.Net.Http.Json": {
               "target": "Package",
               "version": "[7.0.0, )"

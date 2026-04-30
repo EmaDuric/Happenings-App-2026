@@ -1,19 +1,23 @@
-using Happenings.Services.Database;
+﻿using Happenings.Services.Database;
 using Happenings.Services.Interfaces;
 using Happenings.Model.Entities;
 using Happenings.Model.Requests;
 using Happenings.Model.Responses;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace Happenings.Services.Services;
 
 public class InvitationService : IInvitationService
 {
     private readonly HappeningsContext _context;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public InvitationService(HappeningsContext context)
+    public InvitationService(HappeningsContext context, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<List<InvitationResponse>> GetAsync(int? receiverId)
@@ -69,43 +73,38 @@ public class InvitationService : IInvitationService
 
     public async Task<InvitationResponse> InsertAsync(InvitationInsertRequest request)
     {
+        var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdClaim == null) throw new Exception("User not authenticated");
+        var senderId = int.Parse(userIdClaim);
+
         var entity = new Invitation
         {
             EventId = request.EventId,
             ReceiverId = request.ReceiverId,
-            SenderId = 1, // TODO: uzeti iz auth usera
+            SenderId = senderId,
             Status = "Pending",
-            SentAt = DateTime.Now
+            SentAt = DateTime.UtcNow
         };
 
         _context.Invitations.Add(entity);
         await _context.SaveChangesAsync();
-
         return await GetByIdAsync(entity.Id);
     }
 
-    //public async Task<InvitationResponse> UpdateAsync(int id, InvitationUpdateRequest request)
-    //{
-    //    var entity = await _context.Invitations.FindAsync(id);
-
-    //    if (entity == null) return null;
-
-    //    entity.Status = request.Status;
-
-    //    await _context.SaveChangesAsync();
-
-    //    return await GetByIdAsync(id);
-    //}
+    public async Task UpdateStatusAsync(int id, string status)
+    {
+        var entity = await _context.Invitations.FindAsync(id);
+        if (entity == null) return;
+        entity.Status = status;
+        await _context.SaveChangesAsync();
+    }
 
     public async Task<bool> DeleteAsync(int id)
     {
         var entity = await _context.Invitations.FindAsync(id);
-
         if (entity == null) return false;
-
         _context.Invitations.Remove(entity);
         await _context.SaveChangesAsync();
-
         return true;
     }
 }

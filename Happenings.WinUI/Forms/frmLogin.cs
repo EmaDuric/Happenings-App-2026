@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Drawing;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Happenings.WinUI.Forms
@@ -9,7 +11,6 @@ namespace Happenings.WinUI.Forms
     {
         private readonly APIService _apiService;
 
-        // Controls
         private Panel? panelHeader;
         private Label? lblTitle;
         private Label? lblUsername;
@@ -26,7 +27,6 @@ namespace Happenings.WinUI.Forms
 
         private void InitializeComponent()
         {
-            // Form setup
             this.Text = "Happenings - Admin Login";
             this.Size = new Size(450, 420);
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -35,7 +35,6 @@ namespace Happenings.WinUI.Forms
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = Color.White;
 
-            // Header Panel
             panelHeader = new Panel
             {
                 Dock = DockStyle.Top,
@@ -43,7 +42,6 @@ namespace Happenings.WinUI.Forms
                 BackColor = Color.FromArgb(243, 156, 18)
             };
 
-            // Title
             lblTitle = new Label
             {
                 Text = "HAPPENINGS",
@@ -54,7 +52,6 @@ namespace Happenings.WinUI.Forms
             };
             panelHeader.Controls.Add(lblTitle);
 
-            // Username Label
             lblUsername = new Label
             {
                 Text = "Username:",
@@ -63,16 +60,14 @@ namespace Happenings.WinUI.Forms
                 AutoSize = true
             };
 
-            // Username TextBox
             txtUsername = new TextBox
             {
                 Font = new Font("Segoe UI", 11),
                 Location = new Point(50, 145),
                 Size = new Size(350, 27),
-                Text = "admin" // Default za testiranje
+                Text = "admin@mail.com"
             };
 
-            // Password Label
             lblPassword = new Label
             {
                 Text = "Password:",
@@ -81,17 +76,15 @@ namespace Happenings.WinUI.Forms
                 AutoSize = true
             };
 
-            // Password TextBox
             txtPassword = new TextBox
             {
                 Font = new Font("Segoe UI", 11),
                 Location = new Point(50, 225),
                 Size = new Size(350, 27),
                 UseSystemPasswordChar = true,
-                Text = "test" // Default za testiranje
+                Text = "test"
             };
 
-            // Login Button
             btnLogin = new Button
             {
                 Text = "LOGIN",
@@ -106,7 +99,6 @@ namespace Happenings.WinUI.Forms
             btnLogin.FlatAppearance.BorderSize = 0;
             btnLogin.Click += btnLogin_Click;
 
-            // Add controls to form
             this.Controls.Add(panelHeader);
             this.Controls.Add(lblUsername);
             this.Controls.Add(txtUsername);
@@ -117,7 +109,6 @@ namespace Happenings.WinUI.Forms
 
         private async void btnLogin_Click(object? sender, EventArgs e)
         {
-            // Validacija
             if (string.IsNullOrWhiteSpace(txtUsername?.Text))
             {
                 MessageBox.Show("Please enter username.", "Validation Error",
@@ -143,12 +134,28 @@ namespace Happenings.WinUI.Forms
                 }
                 Cursor = Cursors.WaitCursor;
 
-                // PRAVI API POZIV
                 var response = await _apiService.LoginAsync(txtUsername.Text, txtPassword.Text);
 
                 if (response != null && !string.IsNullOrEmpty(response.Token))
                 {
-                    // Login successful - otvori Main Dashboard
+                    // Provjeri je li korisnik Admin
+                    var handler = new JwtSecurityTokenHandler();
+                    var jwt = handler.ReadJwtToken(response.Token);
+                    var role = jwt.Claims
+                        .FirstOrDefault(c => c.Type == "role" || c.Type == System.Security.Claims.ClaimTypes.Role)
+                        ?.Value;
+
+                    if (role != "Admin")
+                    {
+                        MessageBox.Show(
+                            "Access denied.\nOnly administrators can access this panel.",
+                            "Unauthorized",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    TokenStore.Token = response.Token;
                     var frmMain = new frmMain();
                     frmMain.Show();
                     this.Hide();

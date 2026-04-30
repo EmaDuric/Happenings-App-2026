@@ -6,6 +6,7 @@ import 'screens/notification_screen.dart';
 import 'screens/create_event_screen.dart';
 import 'screens/tickets_screen.dart';
 import 'services/auth_service.dart';
+import 'screens/my_reservations_screen.dart'; // ← dodaj
 
 void main() {
   runApp(const MyApp());

@@ -29,3 +29,11 @@ C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WinUI\bin\Debug\net
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WinUI\bin\Debug\net7.0-windows\LiveCharts.Wpf.dll
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WinUI\bin\Debug\net7.0-windows\SixLabors.Fonts.dll
 C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WinUI\bin\Debug\net7.0-windows\XLParser.dll
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WinUI\bin\Debug\net7.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WinUI\bin\Debug\net7.0-windows\Microsoft.Bcl.TimeProvider.dll
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WinUI\bin\Debug\net7.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WinUI\bin\Debug\net7.0-windows\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WinUI\bin\Debug\net7.0-windows\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WinUI\bin\Debug\net7.0-windows\Microsoft.IdentityModel.Logging.dll
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WinUI\bin\Debug\net7.0-windows\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Ema\Documents\GitHub\Happenings-App-2026\Happenings.WinUI\bin\Debug\net7.0-windows\System.IdentityModel.Tokens.Jwt.dll

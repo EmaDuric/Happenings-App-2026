@@ -4,33 +4,39 @@ using Happenings.Model.Entities;
 using Happenings.Services.Database;
 using Happenings.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace Happenings.Services.Services;
 
 public class AnnouncementService : IAnnouncementService
 {
     private readonly HappeningsContext _context;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public AnnouncementService(HappeningsContext context)
+    public AnnouncementService(HappeningsContext context, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
+        _httpContextAccessor = httpContextAccessor;
     }
 
-    // ORGANIZER KREIRA
     public async Task<AnnouncementResponse> InsertAsync(AnnouncementInsertRequest request)
     {
+        var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdClaim == null) throw new Exception("User not authenticated");
+        var createdById = int.Parse(userIdClaim);
+
         var entity = new Announcement
         {
             EventId = request.EventId,
             Title = request.Title,
             Content = request.Content,
-            CreatedById = 1, // TODO: auth
-            CreatedAt = DateTime.Now
+            CreatedById = createdById,  // ← iz JWT
+            CreatedAt = DateTime.UtcNow
         };
 
         _context.Announcements.Add(entity);
         await _context.SaveChangesAsync();
-
         return await Map(entity.Id);
     }
 
@@ -48,15 +54,15 @@ public class AnnouncementService : IAnnouncementService
     // 🔥 ZA USERA
     public async Task<List<AnnouncementResponse>> GetForUserAsync(int userId)
     {
-        var today = DateTime.Now;
+        var today = DateTime.UtcNow;
 
         var list = await _context.Announcements
             .Include(a => a.Event)
             .Where(a =>
                 a.Event.EventDate > today &&
-                _context.Tickets.Any(t =>
-                    t.EventId == a.EventId &&
-                    t.UserId == userId
+                _context.Reservations.Any(r =>
+                    r.EventId == a.EventId &&
+                    r.UserId == userId
                 )
             )
             .ToListAsync();

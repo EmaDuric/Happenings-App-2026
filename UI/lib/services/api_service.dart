@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/event_dto.dart';
+import 'auth_service.dart';
 
 class ApiService {
   // za Flutter web
@@ -506,5 +507,111 @@ class ApiService {
     if (response.statusCode < 200 || response.statusCode >= 300) {
       throw Exception("Failed to update image");
     }
+  }
+
+  static Future<List<dynamic>> getAnnouncements({
+    required int eventId,
+    required String token,
+  }) async {
+    final response = await http.get(
+      Uri.parse("$baseUrl/Announcement?eventId=$eventId"),
+      headers: {"Authorization": "Bearer $token"},
+    );
+    if (response.statusCode == 200) return jsonDecode(response.body);
+    return [];
+  }
+
+  static Future<List<dynamic>> getMyInvitations({required String token}) async {
+    final userId = await AuthService.getUserId();
+    if (userId == null) return [];
+    final response = await http.get(
+      Uri.parse("$baseUrl/Invitation?receiverId=$userId"),
+      headers: {"Authorization": "Bearer $token"},
+    );
+    if (response.statusCode == 200) return jsonDecode(response.body);
+    return [];
+  }
+
+  static Future<void> createAnnouncement({
+    required int eventId,
+    required String title,
+    required String content,
+    required String token,
+  }) async {
+    final response = await http.post(
+      Uri.parse("$baseUrl/Announcement"),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+      body:
+          jsonEncode({"eventId": eventId, "title": title, "content": content}),
+    );
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw Exception("Failed to create announcement: ${response.body}");
+    }
+  }
+
+  static Future<void> createInvitation({
+    required int eventId,
+    required int receiverId,
+    required String token,
+  }) async {
+    final response = await http.post(
+      Uri.parse("$baseUrl/Invitation"),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+      body: jsonEncode({"eventId": eventId, "receiverId": receiverId}),
+    );
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw Exception("Failed to send invitation: ${response.body}");
+    }
+  }
+
+  static Future<List<dynamic>> getUsers({required String token}) async {
+    final response = await http.get(
+      Uri.parse("$baseUrl/Users"),
+      headers: {"Authorization": "Bearer $token"},
+    );
+    if (response.statusCode == 200) return jsonDecode(response.body);
+    return [];
+  }
+
+  static Future<List<dynamic>> getMyAnnouncements(
+      {required String token}) async {
+    final userId = await AuthService.getUserId();
+    if (userId == null) return [];
+    final response = await http.get(
+      Uri.parse("$baseUrl/Announcement/user/$userId"),
+      headers: {"Authorization": "Bearer $token"},
+    );
+    if (response.statusCode == 200) return jsonDecode(response.body);
+    return [];
+  }
+
+  static Future<void> respondToInvitation({
+    required int invitationId,
+    required String action,
+    required String token,
+  }) async {
+    final response = await http.put(
+      Uri.parse("$baseUrl/Invitation/$invitationId/$action"),
+      headers: {"Authorization": "Bearer $token"},
+    );
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw Exception("Failed to $action invitation: ${response.body}");
+    }
+  }
+
+  static Future<List<dynamic>> getMyReservations(
+      {required String token}) async {
+    final response = await http.get(
+      Uri.parse("$baseUrl/Reservations/my"),
+      headers: {"Authorization": "Bearer $token"},
+    );
+    if (response.statusCode == 200) return jsonDecode(response.body);
+    return [];
   }
 }

@@ -152,5 +152,27 @@ namespace Happenings.Services.Services
 
             _context.SaveChanges();
         }
+
+        public List<ReservationDto> GetByUserId(int userId)
+        {
+            return _context.Reservations
+                .Include(r => r.Event)
+                .Include(r => r.EventTicketType)
+                .Where(r => r.UserId == userId)
+                .Select(r => new ReservationDto
+                {
+                    Id = r.Id,
+                    EventId = r.EventId,
+                    EventName = r.Event.Name,
+                    EventDate = r.Event.EventDate,
+                    EventTicketTypeId = r.EventTicketTypeId,
+                    TicketTypeName = r.EventTicketType.Name,
+                    Quantity = r.Quantity,
+                    Status = r.Status.ToString(),
+                    ReservedAt = r.ReservedAt,
+                    UserId = r.UserId
+                })
+                .ToList();
+        }
     }
 }

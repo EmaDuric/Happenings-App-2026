@@ -3,6 +3,146 @@
   "WorkspaceRootPath": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IReservationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Interfaces\\IReservationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\ReservationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Services\\ReservationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Responses\\ReservationDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Model\\Responses\\ReservationDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReservationsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\ReservationsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\RecommendationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Services\\RecommendationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\frmLogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WinUI\\Forms\\frmLogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\AuthService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Services\\AuthService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Users\\frmUsersList.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WinUI\\Forms\\Users\\frmUsersList.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Reservations\\frmReservationList.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WinUI\\Forms\\Reservations\\frmReservationList.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\User.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Model\\Entities\\User.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\TokenStore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WinUI\\TokenStore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\UserPreferencesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\UserPreferencesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\TicketsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\TicketsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReviewsController.cs||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\ReviewsController.cs||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReportsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\ReportsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\RecommendationsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\RecommendationsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\PaymentsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\PaymentsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\OrganizersController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\OrganizersController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\NotificationsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\NotificationsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\LocationsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\LocationsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\InvitationController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\InvitationController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventViewsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\EventViewsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventTicketTypeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\EventTicketTypeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\EventsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventImagesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\EventImagesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventCategoriesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\EventCategoriesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\AnnouncementController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\AnnouncementController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\EventService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Services\\EventService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\Reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Model\\Entities\\Reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IEventService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Interfaces\\IEventService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\AnnouncementService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Services\\AnnouncementService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IInvitationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Interfaces\\IInvitationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\InvitationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Services\\InvitationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Subscriber\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
     },
@@ -31,24 +171,12 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Subscriber\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Subscriber\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\frmMain.cs||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WinUI\\Forms\\frmMain.cs||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Reservations\\frmReservationList.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WinUI\\Forms\\Reservations\\frmReservationList.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Users\\frmUsersList.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WinUI\\Forms\\Users\\frmUsersList.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Reports\\frmReports.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -65,10 +193,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Events\\frmEventsList.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WinUI\\Forms\\Events\\frmEventsList.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\EventsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Events\\frmEventEdit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -91,10 +215,6 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WinUI\\Forms\\ReferenceData\\frmCategoriesList.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventCategoriesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\EventCategoriesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Models\\EventViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WinUI\\Models\\EventViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -109,10 +229,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Services\\MockDataService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WinUI\\Services\\MockDataService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\frmLogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WinUI\\Forms\\frmLogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\Worker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -139,36 +255,8 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Database\\HappeningsContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\Reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Model\\Entities\\Reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IInvitationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Interfaces\\IInvitationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\InvitationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Services\\InvitationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\InvitationController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\InvitationController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\AnnouncementController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\AnnouncementController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\Announcement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Model\\Entities\\Announcement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\AnnouncementService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Services\\AnnouncementService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\EventService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Services\\EventService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IAnnouncementService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -183,20 +271,8 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Interfaces\\IEventViewService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IEventService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Interfaces\\IEventService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\Invitation.cs||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Model\\Entities\\Invitation.cs||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReservationsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\ReservationsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\LocationsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\LocationsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\AuthController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -229,10 +305,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IEventCategoryService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Interfaces\\IEventCategoryService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\EventViewService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -271,20 +343,8 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Services\\Services\\EventTicketTypeService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventTicketTypeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\EventTicketTypeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventViewsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\EventViewsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Requests\\EventUpdateRequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.Model\\Requests\\EventUpdateRequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReviewsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Happenings.WebAPI\\Controllers\\ReviewsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -294,102 +354,436 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Dockerfile-Subscriber.txt",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\Dockerfile-Subscriber.txt",
-              "RelativeDocumentMoniker": "Happenings.Subscriber\\Dockerfile-Subscriber.txt",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\Dockerfile-Subscriber.txt",
-              "RelativeToolTip": "Happenings.Subscriber\\Dockerfile-Subscriber.txt",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAyAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2026-04-30T12:28:11.935Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "appsettings.Development.json",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\appsettings.Development.json",
-              "RelativeDocumentMoniker": "Happenings.Subscriber\\appsettings.Development.json",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\appsettings.Development.json",
-              "RelativeToolTip": "Happenings.Subscriber\\appsettings.Development.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-30T12:28:00.678Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "docker-compose.yml",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\docker-compose.yml",
-              "RelativeDocumentMoniker": "docker-compose.yml",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\docker-compose.yml",
-              "RelativeToolTip": "docker-compose.yml",
-              "ViewState": "AQIAABgAAAAAAAAAAAAgwEgAAAASAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2026-04-30T12:25:51.859Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": ".env",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\.env",
-              "RelativeDocumentMoniker": ".env",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\.env",
-              "RelativeToolTip": ".env",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAATAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-04-30T12:26:05.751Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Dockerfile-WebAPI.txt",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Dockerfile-WebAPI.txt",
-              "RelativeDocumentMoniker": "Happenings.WebAPI\\Dockerfile-WebAPI.txt",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Dockerfile-WebAPI.txt",
-              "RelativeToolTip": "Happenings.WebAPI\\Dockerfile-WebAPI.txt",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAuAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2026-04-30T12:27:36.142Z",
+              "Title": "ReservationDto.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Responses\\ReservationDto.cs",
+              "RelativeDocumentMoniker": "Happenings.Model\\Responses\\ReservationDto.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Responses\\ReservationDto.cs",
+              "RelativeToolTip": "Happenings.Model\\Responses\\ReservationDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T18:28:19.048Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ReservationService.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\ReservationService.cs",
+              "RelativeDocumentMoniker": "Happenings.Services\\Services\\ReservationService.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\ReservationService.cs",
+              "RelativeToolTip": "Happenings.Services\\Services\\ReservationService.cs",
+              "ViewState": "AQIAAI8AAAAAAAAAAAAwwK8AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T18:27:02.278Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "IReservationService.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IReservationService.cs",
+              "RelativeDocumentMoniker": "Happenings.Services\\Interfaces\\IReservationService.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IReservationService.cs",
+              "RelativeToolTip": "Happenings.Services\\Interfaces\\IReservationService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T18:26:38.193Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RecommendationService.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\RecommendationService.cs",
+              "RelativeDocumentMoniker": "Happenings.Services\\Services\\RecommendationService.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\RecommendationService.cs",
+              "RelativeToolTip": "Happenings.Services\\Services\\RecommendationService.cs",
+              "ViewState": "AQIAAKIAAAAAAAAAAAAkwKsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T17:40:45.936Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "frmLogin.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\frmLogin.cs",
+              "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\frmLogin.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\frmLogin.cs",
+              "RelativeToolTip": "Happenings.WinUI\\Forms\\frmLogin.cs",
+              "ViewState": "AQIAAKsAAAAAAAAAAAAkwLQAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T17:44:41.332Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "frmReservationList.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Reservations\\frmReservationList.cs",
+              "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\Reservations\\frmReservationList.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Reservations\\frmReservationList.cs",
+              "RelativeToolTip": "Happenings.WinUI\\Forms\\Reservations\\frmReservationList.cs",
+              "ViewState": "AQIAAIQAAAAAAAAAAAAIwJUAAABqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T11:47:47.002Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "Happenings.Model\\Entities\\User.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\User.cs",
+              "RelativeToolTip": "Happenings.Model\\Entities\\User.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T16:34:22.753Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "frmUsersList.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Users\\frmUsersList.cs",
+              "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\Users\\frmUsersList.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Users\\frmUsersList.cs",
+              "RelativeToolTip": "Happenings.WinUI\\Forms\\Users\\frmUsersList.cs",
+              "ViewState": "AQIAAE4AAAAAAAAAAAAiwF4AAABqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T11:46:01.303Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Happenings.Services\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\AuthService.cs",
+              "RelativeToolTip": "Happenings.Services\\Services\\AuthService.cs",
+              "ViewState": "AQIAAHEAAAAAAAAAAAAkwH4AAABGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T16:27:48.408Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ReservationsController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReservationsController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\ReservationsController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReservationsController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\ReservationsController.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAkwCsAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T22:13:27.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ReportsController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReportsController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\ReportsController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReportsController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\ReportsController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T16:00:55.867Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ReviewsController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReviewsController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\ReviewsController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReviewsController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\ReviewsController.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAkwEAAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T16:02:49.646Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "TicketsController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\TicketsController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\TicketsController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\TicketsController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\TicketsController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T16:03:21.433Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UserPreferencesController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\UserPreferencesController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\UserPreferencesController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\UserPreferencesController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\UserPreferencesController.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAUwBwAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T16:04:25.299Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "TokenStore.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\TokenStore.cs",
+              "RelativeDocumentMoniker": "Happenings.WinUI\\TokenStore.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\TokenStore.cs",
+              "RelativeToolTip": "Happenings.WinUI\\TokenStore.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T16:37:03.621Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "RecommendationsController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\RecommendationsController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\RecommendationsController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\RecommendationsController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\RecommendationsController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T16:00:33.691Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "PaymentsController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\PaymentsController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\PaymentsController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\PaymentsController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\PaymentsController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T15:59:17.07Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "OrganizersController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\OrganizersController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\OrganizersController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\OrganizersController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\OrganizersController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T15:59:17.873Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "NotificationsController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\NotificationsController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\NotificationsController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\NotificationsController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\NotificationsController.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAkwDUAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T15:58:54.763Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "EventsController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventsController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\EventsController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventsController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\EventsController.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAuwCgAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T11:10:12.166Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "EventTicketTypeController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventTicketTypeController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\EventTicketTypeController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventTicketTypeController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\EventTicketTypeController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACIAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T10:38:01.748Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "EventViewsController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventViewsController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\EventViewsController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventViewsController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\EventViewsController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACEAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T11:12:55.209Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "InvitationController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\InvitationController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\InvitationController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\InvitationController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\InvitationController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACwAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T22:09:45.103Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "LocationsController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\LocationsController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\LocationsController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\LocationsController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\LocationsController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T22:09:48.968Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "EventImagesController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventImagesController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\EventImagesController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventImagesController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\EventImagesController.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAuwDEAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T15:54:46.03Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "AnnouncementController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\AnnouncementController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\AnnouncementController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\AnnouncementController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\AnnouncementController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAiwBwAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T22:08:47.417Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Reservation.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\Reservation.cs",
+              "RelativeDocumentMoniker": "Happenings.Model\\Entities\\Reservation.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\Reservation.cs",
+              "RelativeToolTip": "Happenings.Model\\Entities\\Reservation.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAABgAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T08:44:56.686Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "IEventService.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IEventService.cs",
+              "RelativeDocumentMoniker": "Happenings.Services\\Interfaces\\IEventService.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IEventService.cs",
+              "RelativeToolTip": "Happenings.Services\\Interfaces\\IEventService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T22:15:47.743Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "EventCategoriesController.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventCategoriesController.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\EventCategoriesController.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventCategoriesController.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\EventCategoriesController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACoAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T22:08:58.908Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "EventService.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\EventService.cs",
+              "RelativeDocumentMoniker": "Happenings.Services\\Services\\EventService.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\EventService.cs",
+              "RelativeToolTip": "Happenings.Services\\Services\\EventService.cs",
+              "ViewState": "AQIAAHIAAAAAAAAAAAAowIoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T22:16:48.035Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "IInvitationService.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IInvitationService.cs",
+              "RelativeDocumentMoniker": "Happenings.Services\\Interfaces\\IInvitationService.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IInvitationService.cs",
+              "RelativeToolTip": "Happenings.Services\\Interfaces\\IInvitationService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T22:01:03.267Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "AnnouncementService.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\AnnouncementService.cs",
+              "RelativeDocumentMoniker": "Happenings.Services\\Services\\AnnouncementService.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\AnnouncementService.cs",
+              "RelativeToolTip": "Happenings.Services\\Services\\AnnouncementService.cs",
+              "ViewState": "AQIAADUAAAAAAAAAAAAcwDsAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T22:07:20.915Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
               "Title": "README.md",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\README.md",
               "RelativeDocumentMoniker": "README.md",
               "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\README.md",
               "RelativeToolTip": "README.md",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAowBoAAAADAAAA",
+              "ViewState": "AQIAABAAAAAAAAAAAAAIwCoAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2026-04-30T12:26:28.23Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T12:26:28.23Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\appsettings.json",
-              "RelativeDocumentMoniker": "Happenings.Subscriber\\appsettings.json",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\appsettings.json",
-              "RelativeToolTip": "Happenings.Subscriber\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-30T12:27:57.944Z",
-              "EditorCaption": ""
+              "DocumentIndex": 33,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Program.cs",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Program.cs",
+              "RelativeToolTip": "Happenings.WebAPI\\Program.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAcwB8AAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T22:02:14.103Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 32,
+              "Title": "InvitationService.cs",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\InvitationService.cs",
+              "RelativeDocumentMoniker": "Happenings.Services\\Services\\InvitationService.cs",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\InvitationService.cs",
+              "RelativeToolTip": "Happenings.Services\\Services\\InvitationService.cs",
+              "ViewState": "AQIAAEwAAAAAAAAAAAAowG0AAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T22:01:35.714Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\Program.cs",
               "RelativeDocumentMoniker": "Happenings.Subscriber\\Program.cs",
@@ -397,12 +791,83 @@
               "RelativeToolTip": "Happenings.Subscriber\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T12:27:53.327Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T12:27:53.327Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 41,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\appsettings.json",
+              "RelativeDocumentMoniker": "Happenings.Subscriber\\appsettings.json",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\appsettings.json",
+              "RelativeToolTip": "Happenings.Subscriber\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-30T12:27:57.944Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "Dockerfile-WebAPI.txt",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Dockerfile-WebAPI.txt",
+              "RelativeDocumentMoniker": "Happenings.WebAPI\\Dockerfile-WebAPI.txt",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Dockerfile-WebAPI.txt",
+              "RelativeToolTip": "Happenings.WebAPI\\Dockerfile-WebAPI.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-04-30T12:27:36.142Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": ".env",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\.env",
+              "RelativeDocumentMoniker": ".env",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\.env",
+              "RelativeToolTip": ".env",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-04-30T12:26:05.751Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "docker-compose.yml",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\docker-compose.yml",
+              "RelativeDocumentMoniker": "docker-compose.yml",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\docker-compose.yml",
+              "RelativeToolTip": "docker-compose.yml",
+              "ViewState": "AQIAABgAAAAAAAAAAAAgwEgAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2026-04-30T12:25:51.859Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "Happenings.Subscriber\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\appsettings.Development.json",
+              "RelativeToolTip": "Happenings.Subscriber\\appsettings.Development.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-30T12:28:00.678Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Dockerfile-Subscriber.txt",
+              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\Dockerfile-Subscriber.txt",
+              "RelativeDocumentMoniker": "Happenings.Subscriber\\Dockerfile-Subscriber.txt",
+              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\Dockerfile-Subscriber.txt",
+              "RelativeToolTip": "Happenings.Subscriber\\Dockerfile-Subscriber.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-04-30T12:28:11.935Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\appsettings.json",
               "RelativeDocumentMoniker": "Happenings.WebAPI\\appsettings.json",
@@ -410,36 +875,11 @@
               "RelativeToolTip": "Happenings.WebAPI\\appsettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-30T12:22:41.891Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-30T12:22:41.891Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "frmUsersList.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Users\\frmUsersList.cs",
-              "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\Users\\frmUsersList.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Users\\frmUsersList.cs",
-              "RelativeToolTip": "Happenings.WinUI\\Forms\\Users\\frmUsersList.cs",
-              "ViewState": "AQIAAHYAAAAAAAAAAAAiwIgAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T11:46:01.303Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "EventsController.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventsController.cs",
-              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\EventsController.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventsController.cs",
-              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\EventsController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAC0AAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T11:10:12.166Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 48,
               "Title": "frmEventEdit.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Events\\frmEventEdit.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\Events\\frmEventEdit.cs",
@@ -451,7 +891,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 46,
               "Title": "EventDto.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Models\\EventDto.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Models\\EventDto.cs",
@@ -463,7 +903,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 47,
               "Title": "frmEventsList.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Events\\frmEventsList.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\Events\\frmEventsList.cs",
@@ -475,7 +915,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 45,
               "Title": "APIService.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\APIService.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\APIService.cs",
@@ -487,7 +927,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 43,
               "Title": "frmMain.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\frmMain.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\frmMain.cs",
@@ -495,24 +935,11 @@
               "RelativeToolTip": "Happenings.WinUI\\Forms\\frmMain.cs",
               "ViewState": "AQIAAB8BAAAAAAAAAADwvy8BAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T17:43:49.801Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T17:43:49.801Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "frmReservationList.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Reservations\\frmReservationList.cs",
-              "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\Reservations\\frmReservationList.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Reservations\\frmReservationList.cs",
-              "RelativeToolTip": "Happenings.WinUI\\Forms\\Reservations\\frmReservationList.cs",
-              "ViewState": "AQIAANsAAAAAAAAAAAAiwO0AAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T11:47:47.002Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 49,
               "Title": "frmVenueEdit.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\ReferenceData\\frmVenueEdit.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\ReferenceData\\frmVenueEdit.cs",
@@ -524,7 +951,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 44,
               "Title": "frmReports.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\Reports\\frmReports.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\Reports\\frmReports.cs",
@@ -536,7 +963,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 50,
               "Title": "frmVenuesList.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\ReferenceData\\frmVenuesList.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\ReferenceData\\frmVenuesList.cs",
@@ -548,7 +975,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 51,
               "Title": "frmCategoryEdit.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\ReferenceData\\frmCategoryEdit.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\ReferenceData\\frmCategoryEdit.cs",
@@ -560,7 +987,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 52,
               "Title": "frmCategoriesList.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\ReferenceData\\frmCategoriesList.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\ReferenceData\\frmCategoriesList.cs",
@@ -572,19 +999,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "EventCategoriesController.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventCategoriesController.cs",
-              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\EventCategoriesController.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventCategoriesController.cs",
-              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\EventCategoriesController.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAYwDEAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:08:58.908Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 53,
               "Title": "EventViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Models\\EventViewModel.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Models\\EventViewModel.cs",
@@ -596,7 +1011,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 54,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Program.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Program.cs",
@@ -608,7 +1023,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 55,
               "Title": "Happenings.WinUI.csproj",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Happenings.WinUI.csproj",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Happenings.WinUI.csproj",
@@ -620,7 +1035,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 56,
               "Title": "MockDataService.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Services\\MockDataService.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Services\\MockDataService.cs",
@@ -632,43 +1047,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "frmLogin.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\frmLogin.cs",
-              "RelativeDocumentMoniker": "Happenings.WinUI\\Forms\\frmLogin.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Forms\\frmLogin.cs",
-              "RelativeToolTip": "Happenings.WinUI\\Forms\\frmLogin.cs",
-              "ViewState": "AQIAAJIAAAAAAAAAAAAQwLEAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T17:44:41.332Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 41,
-              "Title": "EventService.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\EventService.cs",
-              "RelativeDocumentMoniker": "Happenings.Services\\Services\\EventService.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\EventService.cs",
-              "RelativeToolTip": "Happenings.Services\\Services\\EventService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:16:48.035Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "Reservation.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\Reservation.cs",
-              "RelativeDocumentMoniker": "Happenings.Model\\Entities\\Reservation.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\Reservation.cs",
-              "RelativeToolTip": "Happenings.Model\\Entities\\Reservation.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T08:44:56.686Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 60,
               "Title": "Event.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\Event.cs",
               "RelativeDocumentMoniker": "Happenings.Model\\Entities\\Event.cs",
@@ -680,7 +1059,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 62,
               "Title": "HappeningsContext.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Database\\HappeningsContext.cs",
               "RelativeDocumentMoniker": "Happenings.Services\\Database\\HappeningsContext.cs",
@@ -692,7 +1071,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 59,
               "Title": "Ticket.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\Ticket.cs",
               "RelativeDocumentMoniker": "Happenings.Model\\Entities\\Ticket.cs",
@@ -704,7 +1083,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 58,
               "Title": "DbInitializer.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Data\\DbInitializer.cs",
               "RelativeDocumentMoniker": "Happenings.Services\\Data\\DbInitializer.cs",
@@ -716,7 +1095,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 57,
               "Title": "Worker.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Subscriber\\Worker.cs",
               "RelativeDocumentMoniker": "Happenings.Subscriber\\Worker.cs",
@@ -728,7 +1107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 61,
               "Title": "20260430090104_AddMissingTables.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Migrations\\20260430090104_AddMissingTables.cs",
               "RelativeDocumentMoniker": "Happenings.Services\\Migrations\\20260430090104_AddMissingTables.cs",
@@ -740,43 +1119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "IInvitationService.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IInvitationService.cs",
-              "RelativeDocumentMoniker": "Happenings.Services\\Interfaces\\IInvitationService.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IInvitationService.cs",
-              "RelativeToolTip": "Happenings.Services\\Interfaces\\IInvitationService.cs",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAqwA0AAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:01:03.267Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 40,
-              "Title": "AnnouncementService.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\AnnouncementService.cs",
-              "RelativeDocumentMoniker": "Happenings.Services\\Services\\AnnouncementService.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\AnnouncementService.cs",
-              "RelativeToolTip": "Happenings.Services\\Services\\AnnouncementService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFEAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:07:20.915Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "InvitationService.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\InvitationService.cs",
-              "RelativeDocumentMoniker": "Happenings.Services\\Services\\InvitationService.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\InvitationService.cs",
-              "RelativeToolTip": "Happenings.Services\\Services\\InvitationService.cs",
-              "ViewState": "AQIAAE4AAAAAAAAAAAAAABkAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:01:35.714Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 63,
               "Title": "Announcement.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\Announcement.cs",
               "RelativeDocumentMoniker": "Happenings.Model\\Entities\\Announcement.cs",
@@ -788,31 +1131,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "AnnouncementController.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\AnnouncementController.cs",
-              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\AnnouncementController.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\AnnouncementController.cs",
-              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\AnnouncementController.cs",
-              "ViewState": "AQIAABUAAAAAAAAAAAAAACkAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:08:47.417Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "InvitationController.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\InvitationController.cs",
-              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\InvitationController.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\InvitationController.cs",
-              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\InvitationController.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAAACQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:09:45.103Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 64,
               "Title": "IAnnouncementService.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IAnnouncementService.cs",
               "RelativeDocumentMoniker": "Happenings.Services\\Interfaces\\IAnnouncementService.cs",
@@ -824,7 +1143,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 65,
               "Title": "IPaymentService.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IPaymentService.cs",
               "RelativeDocumentMoniker": "Happenings.Services\\Interfaces\\IPaymentService.cs",
@@ -836,7 +1155,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 66,
               "Title": "IEventViewService.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IEventViewService.cs",
               "RelativeDocumentMoniker": "Happenings.Services\\Interfaces\\IEventViewService.cs",
@@ -848,43 +1167,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
-              "Title": "IEventService.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IEventService.cs",
-              "RelativeDocumentMoniker": "Happenings.Services\\Interfaces\\IEventService.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IEventService.cs",
-              "RelativeToolTip": "Happenings.Services\\Interfaces\\IEventService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:15:47.743Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 47,
-              "Title": "ReservationsController.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReservationsController.cs",
-              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\ReservationsController.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReservationsController.cs",
-              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\ReservationsController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:13:27.062Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 48,
-              "Title": "LocationsController.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\LocationsController.cs",
-              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\LocationsController.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\LocationsController.cs",
-              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\LocationsController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:09:48.968Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 67,
               "Title": "Invitation.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Entities\\Invitation.cs",
               "RelativeDocumentMoniker": "Happenings.Model\\Entities\\Invitation.cs",
@@ -896,7 +1179,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 68,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\AuthController.cs",
@@ -908,7 +1191,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 69,
               "Title": "IReportService.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IReportService.cs",
               "RelativeDocumentMoniker": "Happenings.Services\\Interfaces\\IReportService.cs",
@@ -920,7 +1203,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 70,
               "Title": "IReviewService.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IReviewService.cs",
               "RelativeDocumentMoniker": "Happenings.Services\\Interfaces\\IReviewService.cs",
@@ -932,7 +1215,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 71,
               "Title": "LocationService.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\LocationService.cs",
               "RelativeDocumentMoniker": "Happenings.Services\\Services\\LocationService.cs",
@@ -944,7 +1227,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 72,
               "Title": "EventImageService.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\EventImageService.cs",
               "RelativeDocumentMoniker": "Happenings.Services\\Services\\EventImageService.cs",
@@ -956,7 +1239,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 73,
               "Title": "AnnouncementDto.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Responses\\AnnouncementDto.cs",
               "RelativeDocumentMoniker": "Happenings.Model\\Responses\\AnnouncementDto.cs",
@@ -968,7 +1251,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 74,
               "Title": "AnnouncementInsertRequest.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Requests\\AnnouncementInsertRequest.cs",
               "RelativeDocumentMoniker": "Happenings.Model\\Requests\\AnnouncementInsertRequest.cs",
@@ -980,7 +1263,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 75,
               "Title": "IEventCategoryService.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IEventCategoryService.cs",
               "RelativeDocumentMoniker": "Happenings.Services\\Interfaces\\IEventCategoryService.cs",
@@ -992,19 +1275,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Program.cs",
-              "RelativeDocumentMoniker": "Happenings.WebAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Program.cs",
-              "RelativeToolTip": "Happenings.WebAPI\\Program.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAACEAAABMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T22:02:14.103Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 76,
               "Title": "EventViewService.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\EventViewService.cs",
               "RelativeDocumentMoniker": "Happenings.Services\\Services\\EventViewService.cs",
@@ -1016,7 +1287,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 77,
               "Title": "EventSalesReportDto.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Responses\\EventSalesReportDto.cs",
               "RelativeDocumentMoniker": "Happenings.Model\\Responses\\EventSalesReportDto.cs",
@@ -1028,7 +1299,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 78,
               "Title": "InvitationDto.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Responses\\InvitationDto.cs",
               "RelativeDocumentMoniker": "Happenings.Model\\Responses\\InvitationDto.cs",
@@ -1040,7 +1311,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 79,
               "Title": "InvitationInsertRequest.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Requests\\InvitationInsertRequest.cs",
               "RelativeDocumentMoniker": "Happenings.Model\\Requests\\InvitationInsertRequest.cs",
@@ -1052,7 +1323,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 80,
               "Title": "OrganizerViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Models\\OrganizerViewModel.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Models\\OrganizerViewModel.cs",
@@ -1064,7 +1335,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 81,
               "Title": " CategoryViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Models\\ CategoryViewModel.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Models\\ CategoryViewModel.cs",
@@ -1076,7 +1347,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 82,
               "Title": "VenueViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WinUI\\Models\\VenueViewModel.cs",
               "RelativeDocumentMoniker": "Happenings.WinUI\\Models\\VenueViewModel.cs",
@@ -1088,19 +1359,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
-              "Title": "EventViewsController.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventViewsController.cs",
-              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\EventViewsController.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventViewsController.cs",
-              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\EventViewsController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T11:12:55.209Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 84,
               "Title": "EventTicketTypeService.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Services\\EventTicketTypeService.cs",
               "RelativeDocumentMoniker": "Happenings.Services\\Services\\EventTicketTypeService.cs",
@@ -1112,7 +1371,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 83,
               "Title": "IEventTicketTypeService.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Services\\Interfaces\\IEventTicketTypeService.cs",
               "RelativeDocumentMoniker": "Happenings.Services\\Interfaces\\IEventTicketTypeService.cs",
@@ -1124,19 +1383,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
-              "Title": "EventTicketTypeController.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventTicketTypeController.cs",
-              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\EventTicketTypeController.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\EventTicketTypeController.cs",
-              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\EventTicketTypeController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACoAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T10:38:01.748Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 85,
               "Title": "EventUpdateRequest.cs",
               "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.Model\\Requests\\EventUpdateRequest.cs",
               "RelativeDocumentMoniker": "Happenings.Model\\Requests\\EventUpdateRequest.cs",
@@ -1145,18 +1392,6 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-29T10:07:42.336Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 70,
-              "Title": "ReviewsController.cs",
-              "DocumentMoniker": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReviewsController.cs",
-              "RelativeDocumentMoniker": "Happenings.WebAPI\\Controllers\\ReviewsController.cs",
-              "ToolTip": "C:\\Users\\Ema\\Documents\\GitHub\\Happenings-App-2026\\Happenings.WebAPI\\Controllers\\ReviewsController.cs",
-              "RelativeToolTip": "Happenings.WebAPI\\Controllers\\ReviewsController.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAACQAAAATAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T10:01:55.479Z"
             }
           ]
         }

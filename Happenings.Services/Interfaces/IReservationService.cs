@@ -12,5 +12,7 @@ namespace Happenings.Services.Interfaces
         void Delete(int id);
         void Approve(int id);
         void Reject(int id);
+        List<ReservationDto> GetByUserId(int userId);
+
     }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/event_dto.dart';
 import '../services/auth_service.dart';
+import '../services/api_service.dart';
 import 'reservation_screen.dart';
 import 'edit_event_screen.dart';
 
@@ -16,16 +17,30 @@ class EventDetailsScreen extends StatefulWidget {
 
 class _EventDetailsScreenState extends State<EventDetailsScreen> {
   bool isOrganizer = false;
+  List<dynamic> announcements = [];
 
   @override
   void initState() {
     super.initState();
     checkRole();
+    loadAnnouncements();
   }
 
   Future<void> checkRole() async {
     final org = await AuthService.isOrganizer();
     setState(() => isOrganizer = org);
+  }
+
+  Future<void> loadAnnouncements() async {
+    try {
+      final token = await AuthService.getToken();
+      if (token == null) return;
+      final result = await ApiService.getAnnouncements(
+        eventId: widget.event.id,
+        token: token,
+      );
+      setState(() => announcements = result);
+    } catch (_) {}
   }
 
   @override
@@ -141,6 +156,52 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                           fontSize: 15, height: 1.6, color: Colors.black87),
                     ),
                   ),
+
+                  // ANNOUNCEMENTS
+                  if (announcements.isNotEmpty) ...[
+                    const SizedBox(height: 24),
+                    const Text(
+                      "Announcements",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    ...announcements.map((a) => Container(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(color: Colors.orange.shade200),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(Icons.campaign,
+                                      color: Colors.orange, size: 20),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Text(
+                                      a["title"] ?? "",
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                a["content"] ?? "",
+                                style: const TextStyle(fontSize: 13),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ],
+
                   const SizedBox(height: 32),
                   SizedBox(
                     width: double.infinity,

@@ -11,11 +11,7 @@ namespace Happenings.WebAPI.Controllers;
 public class EventsController : ControllerBase
 {
     private readonly IEventService _service;
-
-    public EventsController(IEventService service)
-    {
-        _service = service;
-    }
+    public EventsController(IEventService service) => _service = service;
 
     [HttpGet]
     public async Task<IActionResult> Get([FromQuery] EventSearchObject search)
@@ -31,16 +27,15 @@ public class EventsController : ControllerBase
     [HttpPost]
     [Authorize]
     public async Task<IActionResult> Insert([FromBody] EventInsertRequest request)
-    {
-        // 🔥 NIŠTA NE DIRAŠ OVDJE
-        return Ok(await _service.InsertAsync(request));
-    }
+        => Ok(await _service.InsertAsync(request));
 
     [HttpPut("{id:int}")]
+    [Authorize]
     public async Task<IActionResult> Update(int id, [FromBody] EventUpdateRequest request)
         => Ok(await _service.UpdateAsync(id, request));
 
     [HttpDelete("{id:int}")]
+    [Authorize]
     public async Task<IActionResult> Delete(int id)
         => Ok(await _service.DeleteAsync(id));
 }

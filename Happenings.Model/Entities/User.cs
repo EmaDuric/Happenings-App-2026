@@ -22,6 +22,7 @@
         public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
+        public bool IsAdmin { get; set; } = false;
 
         public ICollection<UserPreference> Preferences { get; set; } = new List<UserPreference>();
     }

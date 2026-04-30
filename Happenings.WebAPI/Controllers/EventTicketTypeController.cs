@@ -1,6 +1,7 @@
 using Happenings.Model.Requests;
 using Happenings.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Happenings.WebAPI.Controllers;
 
@@ -9,32 +10,23 @@ namespace Happenings.WebAPI.Controllers;
 public class EventTicketTypeController : ControllerBase
 {
     private readonly IEventTicketTypeService _service;
-
-    public EventTicketTypeController(IEventTicketTypeService service)
-    {
-        _service = service;
-    }
-
-    [HttpPost]
-    public IActionResult Insert([FromBody] EventTicketTypeInsertRequest request)
-    {
-        return Ok(_service.Insert(request));
-    }
+    public EventTicketTypeController(IEventTicketTypeService service) => _service = service;
 
     [HttpGet]
-    public IActionResult Get([FromQuery] int eventId)
-    {
-        var result = _service.GetByEvent(eventId);
-        return Ok(result);
-    }
+    public IActionResult Get([FromQuery] int eventId) => Ok(_service.GetByEvent(eventId));
+
+    [HttpPost]
+    [Authorize]
+    public IActionResult Insert([FromBody] EventTicketTypeInsertRequest request)
+        => Ok(_service.Insert(request));
 
     [HttpPut("{id}")]
+    [Authorize]
     public IActionResult Update(int id, [FromBody] EventTicketTypeInsertRequest request)
-    {
-        return Ok(_service.Update(id, request));
-    }
+        => Ok(_service.Update(id, request));
 
     [HttpDelete("{id}")]
+    [Authorize]
     public IActionResult Delete(int id)
     {
         _service.Delete(id);

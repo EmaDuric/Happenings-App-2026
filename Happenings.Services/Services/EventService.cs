@@ -98,4 +98,54 @@ public class EventService
 
         // ❌ NE DIRAJ OrganizerId
     }
+
+    public new async Task<bool> DeleteAsync(int id)
+    {
+        var entity = await _context.Events
+            .Include(e => e.Images)
+            .Include(e => e.TicketTypes)
+            .Include(e => e.Reservations)
+            .Include(e => e.Reviews)
+            .Include(e => e.Announcements)
+            .FirstOrDefaultAsync(e => e.Id == id);
+
+        if (entity == null) return false;
+
+        // Briši tickete i payments vezane za rezervacije
+        // 1. Tickets i Payments (zavisni od Reservations)
+        var reservationIds = entity.Reservations.Select(r => r.Id).ToList();
+
+        var tickets = await _context.Tickets
+            .Where(t => reservationIds.Contains(t.ReservationId))
+            .ToListAsync();
+        _context.Tickets.RemoveRange(tickets);
+
+        var payments = await _context.Payments
+            .Where(p => reservationIds.Contains(p.ReservationId))
+            .ToListAsync();
+        _context.Payments.RemoveRange(payments);
+
+        // 2. EventViews
+        var eventViews = await _context.EventViews
+            .Where(v => v.EventId == id)
+            .ToListAsync();
+        _context.EventViews.RemoveRange(eventViews);
+
+        // 3. Invitations  ← NOVO
+        var invitations = await _context.Invitations
+            .Where(i => i.EventId == id)
+            .ToListAsync();
+        _context.Invitations.RemoveRange(invitations);
+
+        // 4. Ostalo
+        _context.Reservations.RemoveRange(entity.Reservations);
+        _context.EventImages.RemoveRange(entity.Images);
+        _context.EventTicketTypes.RemoveRange(entity.TicketTypes);
+        _context.Reviews.RemoveRange(entity.Reviews);
+        _context.Announcements.RemoveRange(entity.Announcements);
+        _context.Events.Remove(entity);
+
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }

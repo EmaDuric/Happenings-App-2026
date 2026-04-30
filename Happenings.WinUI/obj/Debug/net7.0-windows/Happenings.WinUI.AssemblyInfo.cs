@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Happenings.WinUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24fed5442d8aa3fd6be755101125b39040f1e14a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+692aad69f0a0a322126b111eda3ce0e16695f010")]
 [assembly: System.Reflection.AssemblyProductAttribute("Happenings.WinUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Happenings.WinUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

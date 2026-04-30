@@ -6,4 +6,5 @@ namespace Happenings.Services.Interfaces;
 
 public interface IEventService : ICRUDService<EventDto, EventSearchObject, EventInsertRequest, EventUpdateRequest>
 {
+    Task<bool> DeleteAsync(int id);
 }
