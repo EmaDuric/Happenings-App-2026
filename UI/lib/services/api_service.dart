@@ -5,7 +5,7 @@ import 'auth_service.dart';
 
 class ApiService {
   // za Flutter web
-  static const String baseUrl = "http://localhost:5000/api";
+  static const String baseUrl = "http://10.0.2.2:5000/api";
 
   // LOGIN
   static Future<Map<String, dynamic>> login(

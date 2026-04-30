@@ -4,13 +4,11 @@
     "\\Happenings.Services",
     "\\Happenings.Services\\Data",
     "\\Happenings.Services\\Database",
-    "\\Happenings.Services\\Services",
-    "\\Happenings.WebAPI",
     "\\Happenings.WebAPI\\Controllers",
     "\\Happenings.WinUI",
     "\\Happenings.WinUI\\Forms",
     "\\Happenings.WinUI\\Forms\\Users"
   ],
-  "SelectedNode": "\\Happenings.Services\\Data\\DbInitializer.cs",
+  "SelectedNode": "\\Happenings.WinUI\\APIService.cs",
   "PreviewInSolutionExplorer": false
 }
