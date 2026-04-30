@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Happenings.WebAPI", "Happen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Happenings.Subscriber", "Happenings.Subscriber\Happenings.Subscriber.csproj", "{38FF2BFE-5747-40A8-BF43-74CE43C76A77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Happenings.WinUI", "Happenings.WinUI\Happenings.WinUI.csproj", "{ED2034D5-4030-44C4-B608-69C4610B81AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{38FF2BFE-5747-40A8-BF43-74CE43C76A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38FF2BFE-5747-40A8-BF43-74CE43C76A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38FF2BFE-5747-40A8-BF43-74CE43C76A77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED2034D5-4030-44C4-B608-69C4610B81AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED2034D5-4030-44C4-B608-69C4610B81AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED2034D5-4030-44C4-B608-69C4610B81AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED2034D5-4030-44C4-B608-69C4610B81AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

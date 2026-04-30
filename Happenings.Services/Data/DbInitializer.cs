@@ -219,6 +219,7 @@ namespace Happenings.Services.Data
             var reservationsList = context.Reservations.ToList();
 
 
+
             // PAYMENTS
             if (!context.Payments.Any())
             {
@@ -250,6 +251,8 @@ namespace Happenings.Services.Data
                     tickets.Add(new Ticket
                     {
                         ReservationId = r.Id,
+                        EventId = r.EventId,       // ← dodaj ovo
+                        UserId = r.UserId,          // ← dodaj ovo
                         QRCode = Guid.NewGuid().ToString(),
                         IsUsed = false
                     });
@@ -258,7 +261,6 @@ namespace Happenings.Services.Data
                 context.Tickets.AddRange(tickets);
                 context.SaveChanges();
             }
-
 
             // REVIEWS
             if (!context.Reviews.Any())

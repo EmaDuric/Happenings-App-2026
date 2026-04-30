@@ -14,7 +14,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _passwordController = TextEditingController();
 
   bool isLoading = false;
-  bool isOrganizer = false; // 🔥 KLJUČNO
+  bool isOrganizer = false;
 
   Future<void> register() async {
     if (_usernameController.text.isEmpty ||
@@ -33,7 +33,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         username: _usernameController.text,
         email: _emailController.text,
         password: _passwordController.text,
-        isOrganizer: isOrganizer, // 🔥 BITNO
+        isOrganizer: isOrganizer,
       );
 
       if (!mounted) return;
@@ -55,93 +55,112 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Create Account")),
+      backgroundColor: const Color(0xFFF4D35E), // 🔥 isti background kao login
       body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            width: 400,
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Text(
-                  "Register",
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
+        child: Container(
+          width: 350,
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.orange, width: 2),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.person_add, size: 80),
+
+              const SizedBox(height: 20),
+
+              const Text(
+                "REGISTER",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              TextField(
+                controller: _usernameController,
+                decoration: const InputDecoration(
+                  hintText: "Username",
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(
+                  hintText: "Email",
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              TextField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  hintText: "Password",
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              // 🔥 ORGANIZER CHECK
+              Row(
+                children: [
+                  Checkbox(
+                    value: isOrganizer,
+                    onChanged: (value) {
+                      setState(() {
+                        isOrganizer = value!;
+                      });
+                    },
                   ),
-                  textAlign: TextAlign.center,
-                ),
+                  const Text("Register as Organizer"),
+                ],
+              ),
 
-                const SizedBox(height: 30),
+              const SizedBox(height: 10),
 
-                TextField(
-                  controller: _usernameController,
-                  decoration: const InputDecoration(
-                    labelText: "Username",
-                    border: OutlineInputBorder(),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: isLoading ? null : register,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey[300],
+                    foregroundColor: Colors.black,
                   ),
+                  child: isLoading
+                      ? const CircularProgressIndicator()
+                      : const Text("CREATE ACCOUNT"),
                 ),
+              ),
 
-                const SizedBox(height: 15),
+              const SizedBox(height: 10),
 
-                TextField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    labelText: "Email",
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-
-                const SizedBox(height: 15),
-
-                TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: "Password",
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                // 🔥 ROLE SELECTION
-                CheckboxListTile(
-                  title: const Text("Register as Organizer"),
-                  value: isOrganizer,
-                  onChanged: (value) {
-                    setState(() {
-                      isOrganizer = value!;
-                    });
-                  },
-                ),
-
-                const SizedBox(height: 20),
-
-                isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : ElevatedButton(
-                        onPressed: register,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                        ),
-                        child: const Text(
-                          "Create Account",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-
-                const SizedBox(height: 10),
-
-                TextButton(
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text("Already have an account? Login"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey[300],
+                    foregroundColor: Colors.black,
+                  ),
+                  child: const Text("BACK TO LOGIN"),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

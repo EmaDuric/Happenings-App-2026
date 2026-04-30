@@ -2,14 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\Happenings.Model",
+    "\\Happenings.Model\\Entities",
+    "\\Happenings.Model\\Responses",
     "\\Happenings.Services",
-    "\\Happenings.Services\\Interfaces",
-    "\\Happenings.Services\\Services",
-    "\\Happenings.Subscriber",
     "\\Happenings.WebAPI",
-    "\\Happenings.WebAPI\\Controllers",
-    "\\Happenings.WebAPI\\Middleware"
+    "\\Happenings.WinUI",
+    "\\Happenings.WinUI\\Forms",
+    "\\Happenings.WinUI\\Forms\\Reservations",
+    "\\Happenings.WinUI\\Forms\\Users"
   ],
-  "SelectedNode": "\\Happenings.Services\\Interfaces\\IEventTicketTypeService.cs",
+  "SelectedNode": "\\Happenings.WinUI\\Forms\\frmMain.cs",
   "PreviewInSolutionExplorer": false
 }

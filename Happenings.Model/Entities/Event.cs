@@ -21,5 +21,6 @@ public class Event
     public ICollection<Review> Reviews { get; set; } = new List<Review>();
     public ICollection<EventImage> Images { get; set; } = new List<EventImage>();
     public ICollection<EventTicketType> TicketTypes { get; set; } = new List<EventTicketType>();
+    public ICollection<Announcement> Announcements { get; set; }
 }
 

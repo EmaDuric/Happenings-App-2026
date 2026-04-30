@@ -22,6 +22,45 @@ namespace Happenings.Services.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Happenings.Model.Entities.Announcement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AnnouncementId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnnouncementId");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("EventId");
+
+                    b.ToTable("Announcements");
+                });
+
             modelBuilder.Entity("Happenings.Model.Entities.Event", b =>
                 {
                     b.Property<int>("Id")
@@ -125,13 +164,14 @@ namespace Happenings.Services.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("EventTicketType");
+                    b.ToTable("EventTicketType", (string)null);
                 });
 
             modelBuilder.Entity("Happenings.Model.Entities.EventView", b =>
@@ -154,6 +194,41 @@ namespace Happenings.Services.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EventViews");
+                });
+
+            modelBuilder.Entity("Happenings.Model.Entities.Invitation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReceiverId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Invitations");
                 });
 
             modelBuilder.Entity("Happenings.Model.Entities.Location", b =>
@@ -251,6 +326,7 @@ namespace Happenings.Services.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("PaymentDate")
@@ -352,6 +428,9 @@ namespace Happenings.Services.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("GeneratedAt")
                         .HasColumnType("datetime2");
 
@@ -365,9 +444,16 @@ namespace Happenings.Services.Migrations
                     b.Property<int>("ReservationId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("EventId");
+
                     b.HasIndex("ReservationId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tickets");
                 });
@@ -435,6 +521,29 @@ namespace Happenings.Services.Migrations
                     b.ToTable("UserPreferences");
                 });
 
+            modelBuilder.Entity("Happenings.Model.Entities.Announcement", b =>
+                {
+                    b.HasOne("Happenings.Model.Entities.Announcement", null)
+                        .WithMany("Announcements")
+                        .HasForeignKey("AnnouncementId");
+
+                    b.HasOne("Happenings.Model.Entities.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Happenings.Model.Entities.Event", "Event")
+                        .WithMany("Announcements")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("Event");
+                });
+
             modelBuilder.Entity("Happenings.Model.Entities.Event", b =>
                 {
                     b.HasOne("Happenings.Model.Entities.EventCategory", "EventCategory")
@@ -484,6 +593,33 @@ namespace Happenings.Services.Migrations
                     b.Navigation("Event");
                 });
 
+            modelBuilder.Entity("Happenings.Model.Entities.Invitation", b =>
+                {
+                    b.HasOne("Happenings.Model.Entities.Event", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Happenings.Model.Entities.User", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Happenings.Model.Entities.User", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("Happenings.Model.Entities.Organizer", b =>
                 {
                     b.HasOne("Happenings.Model.Entities.User", "User")
@@ -511,7 +647,7 @@ namespace Happenings.Services.Migrations
                     b.HasOne("Happenings.Model.Entities.Event", "Event")
                         .WithMany("Reservations")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Happenings.Model.Entities.EventTicketType", "EventTicketType")
@@ -554,13 +690,29 @@ namespace Happenings.Services.Migrations
 
             modelBuilder.Entity("Happenings.Model.Entities.Ticket", b =>
                 {
+                    b.HasOne("Happenings.Model.Entities.Event", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Happenings.Model.Entities.Reservation", "Reservation")
                         .WithMany()
                         .HasForeignKey("ReservationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Happenings.Model.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
                     b.Navigation("Reservation");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Happenings.Model.Entities.UserPreference", b =>
@@ -572,8 +724,15 @@ namespace Happenings.Services.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Happenings.Model.Entities.Announcement", b =>
+                {
+                    b.Navigation("Announcements");
+                });
+
             modelBuilder.Entity("Happenings.Model.Entities.Event", b =>
                 {
+                    b.Navigation("Announcements");
+
                     b.Navigation("Images");
 
                     b.Navigation("Reservations");

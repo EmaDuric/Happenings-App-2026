@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Happenings.Subscriber")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6f74f0ae5f686c0c15758163c46d5e7e8fe971cc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24fed5442d8aa3fd6be755101125b39040f1e14a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Happenings.Subscriber")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Happenings.Subscriber")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

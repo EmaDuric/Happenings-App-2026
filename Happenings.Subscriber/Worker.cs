@@ -111,16 +111,16 @@ public class Worker : BackgroundService
                 });
 
                 // 🎟️ Kreiraj tickete
-                for (int i = 0; i < reservation.Quantity; i++)
+                context.Tickets.Add(new Ticket
+
                 {
-                    context.Tickets.Add(new Ticket
-                    {
-                        ReservationId = reservation.Id,
-                        GeneratedAt = DateTime.UtcNow,
-                        QRCode = Guid.NewGuid().ToString(),
-                        IsUsed = false
-                    });
-                }
+                    ReservationId = reservation.Id,
+                    EventId = reservation.EventId,      // ← dodaj
+                    UserId = reservation.UserId,         // ← dodaj
+                    GeneratedAt = DateTime.UtcNow,
+                    QRCode = Guid.NewGuid().ToString(),
+                    IsUsed = false
+                });
 
                 // ✅ Ažuriraj status rezervacije
                 reservation.Status = Happenings.Model.Enums.ReservationStatus.Approved;

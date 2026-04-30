@@ -34,6 +34,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddScoped<QrCodeService>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IInvitationService, InvitationService>();
 
 
 // DATABASE
