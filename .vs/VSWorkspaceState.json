@@ -1,9 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Happenings.Model",
-    "\\Happenings.Model\\Responses",
     "\\Happenings.Services",
+    "\\Happenings.Services\\Data",
+    "\\Happenings.Services\\Database",
     "\\Happenings.Services\\Services",
     "\\Happenings.WebAPI",
     "\\Happenings.WebAPI\\Controllers",
@@ -11,5 +11,6 @@
     "\\Happenings.WinUI\\Forms",
     "\\Happenings.WinUI\\Forms\\Users"
   ],
+  "SelectedNode": "\\Happenings.Services\\Data\\DbInitializer.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -278,8 +278,9 @@ class ApiService {
       Uri.parse("$baseUrl/eventcategories"),
       headers: {"Authorization": "Bearer $token"},
     );
-    if (response.statusCode != 200)
+    if (response.statusCode != 200) {
       throw Exception("Failed to load categories");
+    }
     return jsonDecode(response.body);
   }
 
@@ -325,8 +326,9 @@ class ApiService {
       Uri.parse("$baseUrl/notifications/my"),
       headers: {"Authorization": "Bearer $token"},
     );
-    if (response.statusCode != 200)
+    if (response.statusCode != 200) {
       throw Exception("Failed to load notifications");
+    }
     return jsonDecode(response.body);
   }
 
@@ -335,8 +337,9 @@ class ApiService {
       Uri.parse("$baseUrl/notifications/my/clear"),
       headers: {"Authorization": "Bearer $token"},
     );
-    if (response.statusCode != 204)
+    if (response.statusCode != 204) {
       throw Exception("Failed to clear notifications");
+    }
   }
 
   static Future<void> addEventImage({
@@ -369,8 +372,9 @@ class ApiService {
       Uri.parse("$baseUrl/recommendations/$userId"),
       headers: {"Authorization": "Bearer $token"},
     );
-    if (response.statusCode != 200)
+    if (response.statusCode != 200) {
       throw Exception("Failed to load recommendations");
+    }
     return jsonDecode(response.body);
   }
 
@@ -379,8 +383,9 @@ class ApiService {
       Uri.parse("$baseUrl/reviews/eligible-events"),
       headers: {"Authorization": "Bearer $token"},
     );
-    if (response.statusCode != 200)
+    if (response.statusCode != 200) {
       throw Exception("Failed to load eligible events");
+    }
     return jsonDecode(response.body);
   }
 
