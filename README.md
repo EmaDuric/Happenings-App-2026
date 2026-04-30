@@ -62,3 +62,5 @@ flutter run --dart-define=API_BASE_URL=http://10.0.2.2:5000
 ## API Documentation
 
 Swagger available at: `http://localhost:5000/swagger`
+
+password za .env-tajne je "fit".
