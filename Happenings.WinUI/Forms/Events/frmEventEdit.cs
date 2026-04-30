@@ -48,8 +48,8 @@ namespace Happenings.WinUI.Forms.Events
             {
                 Event = new EventViewModel
                 {
-                    StartDateTime = DateTime.Now.AddDays(7),
-                    EndDateTime = DateTime.Now.AddDays(7).AddHours(2),
+                    StartDateTime = DateTime.UtcNow.AddDays(7),
+                    EndDateTime = DateTime.UtcNow.AddDays(7).AddHours(2),
                     Status = "Active",
                     AvailableTickets = 100,
                     TotalTickets = 100
@@ -235,7 +235,7 @@ namespace Happenings.WinUI.Forms.Events
             txtName!.Text = Event.Name;
             txtDescription!.Text = Event.Description;
 
-            var startDate = Event.StartDateTime > DateTime.MinValue ? Event.StartDateTime : DateTime.Now.AddDays(7);
+            var startDate = Event.StartDateTime > DateTime.MinValue ? Event.StartDateTime : DateTime.UtcNow.AddDays(7);
             dtpStartDate!.Value = startDate;
             dtpStartTime!.Value = startDate;
 

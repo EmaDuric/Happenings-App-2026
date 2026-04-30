@@ -97,8 +97,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   Future<void> pickDate() async {
     final picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now().add(const Duration(days: 1)),
-      firstDate: DateTime.now(),
+      initialDate: DateTime.UtcNow().add(const Duration(days: 1)),
+      firstDate: DateTime.UtcNow(),
       lastDate: DateTime(2100),
     );
     if (picked != null) setState(() => selectedDate = picked);

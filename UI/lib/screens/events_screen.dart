@@ -108,9 +108,9 @@ class _EventsScreenState extends State<EventsScreen> {
   Future<void> _pickDate() async {
     final picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now().subtract(const Duration(days: 365)),
-      lastDate: DateTime.now().add(const Duration(days: 365 * 2)),
+      initialDate: DateTime.UtcNow(),
+      firstDate: DateTime.UtcNow().subtract(const Duration(days: 365)),
+      lastDate: DateTime.UtcNow().add(const Duration(days: 365 * 2)),
     );
     if (picked != null) {
       setState(() => selectedDate = picked);

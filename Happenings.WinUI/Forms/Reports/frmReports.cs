@@ -84,7 +84,7 @@ namespace Happenings.WinUI.Forms.Reports
                 Location = new SystemDrawing.Point(20, 70),
                 Size = new SystemDrawing.Size(150, 27),
                 Format = DateTimePickerFormat.Short,
-                Value = DateTime.Now.AddMonths(-3)
+                Value = DateTime.UtcNow.AddMonths(-3)
             };
             panelFilters.Controls.Add(dtpStartDate);
 
@@ -102,7 +102,7 @@ namespace Happenings.WinUI.Forms.Reports
                 Location = new SystemDrawing.Point(190, 70),
                 Size = new SystemDrawing.Size(150, 27),
                 Format = DateTimePickerFormat.Short,
-                Value = DateTime.Now.AddMonths(3)
+                Value = DateTime.UtcNow.AddMonths(3)
             };
             panelFilters.Controls.Add(dtpEndDate);
 
@@ -413,7 +413,7 @@ namespace Happenings.WinUI.Forms.Reports
                 var saveDialog = new SaveFileDialog
                 {
                     Filter = "PDF Files|*.pdf",
-                    FileName = $"EventsReport_{DateTime.Now:yyyyMMdd}.pdf"
+                    FileName = $"EventsReport_{DateTime.UtcNow:yyyyMMdd}.pdf"
                 };
 
                 if (saveDialog.ShowDialog() == DialogResult.OK)
@@ -435,7 +435,7 @@ namespace Happenings.WinUI.Forms.Reports
                 var saveDialog = new SaveFileDialog
                 {
                     Filter = "Excel Files|*.xlsx",
-                    FileName = $"EventsReport_{DateTime.Now:yyyyMMdd}.xlsx"
+                    FileName = $"EventsReport_{DateTime.UtcNow:yyyyMMdd}.xlsx"
                 };
 
                 if (saveDialog.ShowDialog() == DialogResult.OK)

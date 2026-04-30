@@ -520,7 +520,7 @@ class _HomeScreenState extends State<HomeScreen> {
           name: rec["eventName"] ?? "",
           description: "",
           eventDate:
-              DateTime.tryParse(rec["eventDate"] ?? "") ?? DateTime.now(),
+              DateTime.tryParse(rec["eventDate"] ?? "") ?? DateTime.UtcNow(),
           locationName: rec["locationName"],
           categoryName: rec["categoryName"],
           imageUrl: rec["imageUrl"],

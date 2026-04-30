@@ -130,7 +130,7 @@ namespace Happenings.Services.Data
                     {
                         Name = name,
                         Description = $"Join us at {name}. Great speakers and networking.",
-                        EventDate = DateTime.Now.AddDays(random.Next(5, 90)),
+                        EventDate = DateTime.UtcNow.AddDays(random.Next(5, 90)),
                         OrganizerId = organizersList[random.Next(organizersList.Count)].Id,
                         LocationId = locationsList[random.Next(locationsList.Count)].Id,
                         EventCategoryId = categoriesList[random.Next(categoriesList.Count)].Id
