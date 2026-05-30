@@ -1,5 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Happenings.WinUI
@@ -13,12 +15,17 @@ namespace Happenings.WinUI
         {
             ApplicationConfiguration.Initialize();
 
-            // Setup Dependency Injection
+            // Uèitaj konfiguraciju iz appsettings.json
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+
             var services = new ServiceCollection();
+            services.AddSingleton<IConfiguration>(configuration);
             ConfigureServices(services);
             ServiceProvider = services.BuildServiceProvider();
 
-            // Pokreni Login Form umjesto Form1
             Application.Run(new Forms.frmLogin());
         }
 

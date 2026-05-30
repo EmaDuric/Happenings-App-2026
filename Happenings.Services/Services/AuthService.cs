@@ -24,77 +24,76 @@ namespace Happenings.Services.Services
 
         public AuthResponse Login(LoginRequest request)
         {
-            var email = request.Email.Trim();
-            var password = request.Password.Trim();
+            if (string.IsNullOrWhiteSpace(request.Email))
+                throw new Exception("Email is required");
 
-            var user = _context.Users
-                .FirstOrDefault(x => x.Email == email);
+            if (string.IsNullOrWhiteSpace(request.Password))
+                throw new Exception("Password is required");
+
+            var email = request.Email.Trim().ToLowerInvariant();
+
+            var user = _context.Users.FirstOrDefault(x => x.Email == email);
 
             if (user == null)
                 throw new Exception("Invalid credentials");
 
-            if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 throw new Exception("Invalid credentials");
 
             var token = GenerateToken(user);
 
-            return new AuthResponse
-            {
-                Token = token
-            };
+            return new AuthResponse { Token = token };
+        }
+
+        public void ChangePassword(int userId, ChangePasswordRequest request)
+        {
+            var user = _context.Users.Find(userId)
+                ?? throw new Exception("User not found");
+
+            if (!BCrypt.Net.BCrypt.Verify(request.CurrentPassword, user.PasswordHash))
+                throw new Exception("Current password is incorrect");
+
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
+            _context.SaveChanges();
         }
 
         public UserDto Register(UserInsertRequest request)
         {
-            // VALIDACIJA
-            if (_context.Users.Any(x => x.Email == request.Email))
+            if (string.IsNullOrWhiteSpace(request.Email))
+                throw new Exception("Email is required");
+
+            if (string.IsNullOrWhiteSpace(request.Password))
+                throw new Exception("Password is required");
+
+            if (string.IsNullOrWhiteSpace(request.Username))
+                throw new Exception("Username is required");
+
+            // Normalizuj email
+            var email = request.Email.Trim().ToLowerInvariant();
+
+            if (_context.Users.Any(x => x.Email == email))
                 throw new Exception("User already exists");
 
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
             var user = new User
             {
-                Username = request.Username,
-                Email = request.Email.Trim(),
+                Username = request.Username.Trim(),
+                Email = email,
                 PasswordHash = hashedPassword,
                 CreatedAt = DateTime.UtcNow,
-                IsOrganizer = request.IsOrganizer // 🔥 BITNO
+                IsOrganizer = false, // klijent ne može sam sebi dodijeliti organizer ulogu
+                IsAdmin = false      // klijent ne može sam sebi dodijeliti admin ulogu
             };
 
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            var savedUser = _context.Users.FirstOrDefault(x => x.Id == user.Id);
-
-            if (savedUser == null)
-                throw new Exception("User was not saved correctly");
-
-            // ORGANIZER LOGIKA
-            if (request.IsOrganizer)
-            {
-                var existingOrganizer = _context.Organizers
-                    .FirstOrDefault(x => x.UserId == savedUser.Id);
-
-                if (existingOrganizer == null)
-                {
-                    var organizer = new Organizer
-                    {
-                        UserId = savedUser.Id,
-                        Name = savedUser.Username,
-                        ContactEmail = savedUser.Email, // 🔥 BITNO zbog NOT NULL
-                        PhoneNumber = "000000000" // može placeholder
-                    };
-
-                    _context.Organizers.Add(organizer);
-                    _context.SaveChanges();
-                }
-            }
-
             return new UserDto
             {
-                Id = savedUser.Id,
-                Username = savedUser.Username,
-                Email = savedUser.Email
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email
             };
         }
 
@@ -105,10 +104,7 @@ namespace Happenings.Services.Services
             if (string.IsNullOrEmpty(keyString))
                 throw new Exception("JWT Key is missing");
 
-            var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(keyString)
-            );
-
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(keyString));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             string role;
@@ -119,8 +115,8 @@ namespace Happenings.Services.Services
             else
                 role = "User";
 
-                        var claims = new[]
-                        {
+            var claims = new[]
+            {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.Username),

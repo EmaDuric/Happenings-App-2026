@@ -8,6 +8,5 @@ public interface IEventViewService
     List<EventViewDto> GetAll();
     List<EventViewDto> GetByEvent(int eventId);
     List<EventViewDto> GetByUser(int userId);
-
-    EventViewDto Insert(EventViewInsertRequest request);
+    EventViewDto Insert(EventViewInsertRequest request, int userId);
 }

@@ -72,7 +72,6 @@ namespace Happenings.WinUI.Forms.Reservations
             cmbStatus.SelectedIndexChanged += (s, e) => FilterReservations();
             panelTop.Controls.Add(cmbStatus);
 
-            // Approve/Reject buttons
             var btnApprove = new Button
             {
                 Text = "✅ Approve",
@@ -128,12 +127,15 @@ namespace Happenings.WinUI.Forms.Reservations
             dgvReservations.RowTemplate.Height = 35;
             dgvReservations.DefaultCellStyle.Padding = new Padding(10, 5, 10, 5);
 
-            dgvReservations.Columns.Add(new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "ID", DataPropertyName = "Id", Width = 60 });
-            dgvReservations.Columns.Add(new DataGridViewTextBoxColumn { Name = "UserId", HeaderText = "User ID", DataPropertyName = "UserId", Width = 80 });
-            dgvReservations.Columns.Add(new DataGridViewTextBoxColumn { Name = "EventId", HeaderText = "Event ID", DataPropertyName = "EventId", Width = 80 });
+            // ID je sakriven — koristi se interno za akcije
+            dgvReservations.Columns.Add(new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "ID", DataPropertyName = "Id", Visible = false });
+            dgvReservations.Columns.Add(new DataGridViewTextBoxColumn { Name = "UserName", HeaderText = "User", DataPropertyName = "UserName" });
+            dgvReservations.Columns.Add(new DataGridViewTextBoxColumn { Name = "EventName", HeaderText = "Event", DataPropertyName = "EventName" });
+            dgvReservations.Columns.Add(new DataGridViewTextBoxColumn { Name = "EventDate", HeaderText = "Event Date", DataPropertyName = "FormattedEventDate", Width = 120 });
+            dgvReservations.Columns.Add(new DataGridViewTextBoxColumn { Name = "TicketTypeName", HeaderText = "Ticket Type", DataPropertyName = "TicketTypeName", Width = 120 });
             dgvReservations.Columns.Add(new DataGridViewTextBoxColumn { Name = "Quantity", HeaderText = "Qty", DataPropertyName = "Quantity", Width = 60 });
-            dgvReservations.Columns.Add(new DataGridViewTextBoxColumn { Name = "Status", HeaderText = "Status", DataPropertyName = "Status", Width = 120 });
-            dgvReservations.Columns.Add(new DataGridViewTextBoxColumn { Name = "ReservedAt", HeaderText = "Reserved At", DataPropertyName = "FormattedDate", Width = 150 });
+            dgvReservations.Columns.Add(new DataGridViewTextBoxColumn { Name = "Status", HeaderText = "Status", DataPropertyName = "Status", Width = 100 });
+            dgvReservations.Columns.Add(new DataGridViewTextBoxColumn { Name = "ReservedAt", HeaderText = "Reserved At", DataPropertyName = "FormattedDate", Width = 140 });
 
             this.Controls.Add(dgvReservations);
             this.Controls.Add(panelTop);
@@ -172,8 +174,8 @@ namespace Happenings.WinUI.Forms.Reservations
             {
                 var searchText = txtSearch.Text.ToLower();
                 filtered = filtered.Where(r =>
-                    r.UserId.ToString().Contains(searchText) ||
-                    r.EventId.ToString().Contains(searchText)).ToList();
+                    (r.UserName?.ToLower().Contains(searchText) ?? false) ||
+                    (r.EventName?.ToLower().Contains(searchText) ?? false)).ToList();
             }
 
             if (cmbStatus?.SelectedIndex > 0)
@@ -195,6 +197,9 @@ namespace Happenings.WinUI.Forms.Reservations
             {
                 var httpClient = new HttpClient();
                 httpClient.BaseAddress = new Uri("http://localhost:5000/api/");
+                if (!string.IsNullOrEmpty(TokenStore.Token))
+                    httpClient.DefaultRequestHeaders.Authorization =
+                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", TokenStore.Token);
                 var response = await httpClient.PostAsync($"Reservations/{id}/approve", null);
                 response.EnsureSuccessStatusCode();
                 MessageBox.Show("Reservation approved!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -215,6 +220,9 @@ namespace Happenings.WinUI.Forms.Reservations
             {
                 var httpClient = new HttpClient();
                 httpClient.BaseAddress = new Uri("http://localhost:5000/api/");
+                if (!string.IsNullOrEmpty(TokenStore.Token))
+                    httpClient.DefaultRequestHeaders.Authorization =
+                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", TokenStore.Token);
                 var response = await httpClient.PostAsync($"Reservations/{id}/reject", null);
                 response.EnsureSuccessStatusCode();
                 MessageBox.Show("Reservation rejected!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -231,11 +239,15 @@ namespace Happenings.WinUI.Forms.Reservations
     {
         public int Id { get; set; }
         public int UserId { get; set; }
+        public string? UserName { get; set; }
         public int EventId { get; set; }
-        public int EventTicketTypeId { get; set; }
+        public string? EventName { get; set; }
+        public DateTime EventDate { get; set; }
+        public string? TicketTypeName { get; set; }
         public int Quantity { get; set; }
         public string Status { get; set; } = string.Empty;
         public DateTime ReservedAt { get; set; }
         public string FormattedDate => ReservedAt.ToString("dd.MM.yyyy HH:mm");
+        public string FormattedEventDate => EventDate.ToString("dd.MM.yyyy");
     }
 }

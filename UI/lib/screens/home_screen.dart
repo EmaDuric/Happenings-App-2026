@@ -8,6 +8,8 @@ import 'notification_screen.dart';
 import 'event_details_screen.dart';
 import '../models/event_dto.dart';
 import 'my_reservations_screen.dart';
+import 'profile_screen.dart';
+import 'tickets_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -198,10 +200,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: 12))),
             ),
           IconButton(
-              icon: const Icon(Icons.account_circle, color: Colors.black),
-              onPressed: () {}),
+            icon: const Icon(Icons.account_circle, color: Colors.black),
+            tooltip: "Profile",
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (_) => const ProfileScreen())),
+          ),
+          IconButton(
+            icon: const Icon(Icons.confirmation_number, color: Colors.black),
+            tooltip: "My Tickets",
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (_) => const TicketsScreen())),
+          ),
           IconButton(
             icon: const Icon(Icons.bookmark, color: Colors.black),
+            tooltip: "My Reservations",
             onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -209,6 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(
             icon: const Icon(Icons.notifications, color: Colors.black),
+            tooltip: "Notifications",
             onPressed: () => Navigator.push(context,
                 MaterialPageRoute(builder: (_) => const NotificationsScreen())),
           ),
@@ -346,38 +359,34 @@ class _HomeScreenState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(16),
                             border: Border.all(color: Colors.orange.shade200),
                           ),
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    color: Colors.orange.shade100,
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: const Icon(Icons.campaign,
-                                    color: Colors.orange, size: 28),
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
+                          child: Row(children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Colors.orange.shade100,
+                                  borderRadius: BorderRadius.circular(12)),
+                              child: const Icon(Icons.campaign,
+                                  color: Colors.orange, size: 28),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(a["eventName"] ?? "",
-                                        style: const TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 12)),
-                                    Text(a["title"] ?? "",
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14)),
-                                    Text(a["content"] ?? "",
-                                        style: const TextStyle(fontSize: 13),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(a["eventName"] ?? "",
+                                    style: const TextStyle(
+                                        color: Colors.black54, fontSize: 12)),
+                                Text(a["title"] ?? "",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14)),
+                                Text(a["content"] ?? "",
+                                    style: const TextStyle(fontSize: 13),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis),
+                              ],
+                            )),
+                          ]),
                         )),
                   ],
 
@@ -404,78 +413,67 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      color: Colors.orange.shade100,
-                                      borderRadius: BorderRadius.circular(12)),
-                                  child: const Icon(Icons.mail_outline,
-                                      color: Colors.orange, size: 28),
-                                ),
-                                const SizedBox(width: 12),
-                                Expanded(
+                            Row(children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: Colors.orange.shade100,
+                                    borderRadius: BorderRadius.circular(12)),
+                                child: const Icon(Icons.mail_outline,
+                                    color: Colors.orange, size: 28),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          inv["eventName"] ??
-                                              "Event invitation",
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14)),
-                                      const SizedBox(height: 4),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8, vertical: 2),
-                                        decoration: BoxDecoration(
-                                            color: _invitationStatusColor(
-                                                inv["status"]),
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Text(inv["status"] ?? "Pending",
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 11)),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            if (isPending) ...[
-                              const SizedBox(height: 10),
-                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Expanded(
-                                    child: OutlinedButton.icon(
-                                      onPressed: () => respondToInvitation(
-                                          inv["id"], "decline"),
-                                      icon: const Icon(Icons.close,
-                                          color: Colors.red, size: 16),
-                                      label: const Text("Decline",
-                                          style: TextStyle(color: Colors.red)),
-                                      style: OutlinedButton.styleFrom(
-                                          side: const BorderSide(
-                                              color: Colors.red)),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Expanded(
-                                    child: ElevatedButton.icon(
-                                      onPressed: () => respondToInvitation(
-                                          inv["id"], "accept"),
-                                      icon: const Icon(Icons.check, size: 16),
-                                      label: const Text("Accept"),
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.green,
-                                          foregroundColor: Colors.white),
-                                    ),
+                                  Text(inv["eventName"] ?? "Event invitation",
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14)),
+                                  const SizedBox(height: 4),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 2),
+                                    decoration: BoxDecoration(
+                                        color: _invitationStatusColor(
+                                            inv["status"]),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Text(inv["status"] ?? "Pending",
+                                        style: const TextStyle(
+                                            color: Colors.white, fontSize: 11)),
                                   ),
                                 ],
-                              ),
+                              )),
+                            ]),
+                            if (isPending) ...[
+                              const SizedBox(height: 10),
+                              Row(children: [
+                                Expanded(
+                                    child: OutlinedButton.icon(
+                                  onPressed: () =>
+                                      respondToInvitation(inv["id"], "decline"),
+                                  icon: const Icon(Icons.close,
+                                      color: Colors.red, size: 16),
+                                  label: const Text("Decline",
+                                      style: TextStyle(color: Colors.red)),
+                                  style: OutlinedButton.styleFrom(
+                                      side:
+                                          const BorderSide(color: Colors.red)),
+                                )),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                    child: ElevatedButton.icon(
+                                  onPressed: () =>
+                                      respondToInvitation(inv["id"], "accept"),
+                                  icon: const Icon(Icons.check, size: 16),
+                                  label: const Text("Accept"),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.green,
+                                      foregroundColor: Colors.white),
+                                )),
+                              ]),
                             ],
                           ],
                         ),
@@ -594,48 +592,44 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.85),
           borderRadius: BorderRadius.circular(16)),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: event["imageUrl"] != null
-                ? Image.network(event["imageUrl"],
-                    width: 70,
-                    height: 70,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => _reviewPlaceholder())
-                : _reviewPlaceholder(),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
+      child: Row(children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: event["imageUrl"] != null
+              ? Image.network(event["imageUrl"],
+                  width: 70,
+                  height: 70,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => _reviewPlaceholder())
+              : _reviewPlaceholder(),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(event["eventName"] ?? "",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 14)),
-                const SizedBox(height: 4),
-                Row(
-                    children: List.generate(
-                        5,
-                        (i) => Icon(i < rating ? Icons.star : Icons.star_border,
-                            color: Colors.amber, size: 18))),
-                if (hasReview && event["existingComment"] != null)
-                  Text(event["existingComment"],
-                      style:
-                          const TextStyle(color: Colors.black54, fontSize: 12),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis),
-              ],
-            ),
-          ),
-          IconButton(
-            icon: Icon(hasReview ? Icons.edit : Icons.rate_review,
-                color: Colors.black54),
-            onPressed: () => showReviewDialog(event),
-          ),
-        ],
-      ),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(event["eventName"] ?? "",
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            const SizedBox(height: 4),
+            Row(
+                children: List.generate(
+                    5,
+                    (i) => Icon(i < rating ? Icons.star : Icons.star_border,
+                        color: Colors.amber, size: 18))),
+            if (hasReview && event["existingComment"] != null)
+              Text(event["existingComment"],
+                  style: const TextStyle(color: Colors.black54, fontSize: 12),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis),
+          ],
+        )),
+        IconButton(
+          icon: Icon(hasReview ? Icons.edit : Icons.rate_review,
+              color: Colors.black54),
+          onPressed: () => showReviewDialog(event),
+        ),
+      ]),
     );
   }
 

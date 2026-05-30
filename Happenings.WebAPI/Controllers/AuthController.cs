@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Happenings.Services.Interfaces;
 using Happenings.Model.Requests;
 using Happenings.Model.Responses;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Happenings.WebAPI.Controllers
 {
@@ -45,6 +46,22 @@ namespace Happenings.WebAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPost("change-password")]
+        [Authorize]
+        public IActionResult ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            try
+            {
+                var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value);
+                _service.ChangePassword(userId, request);
+                return Ok(new { message = "Password changed successfully" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
             }
         }
     }

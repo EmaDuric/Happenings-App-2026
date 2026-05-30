@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Happenings.Services.Interfaces;
 using Happenings.Model.Requests;
 using Happenings.Model.Responses;
+using System.Security.Claims;
 
 namespace Happenings.WebAPI.Controllers;
 
@@ -38,17 +39,34 @@ public class NotificationsController : ControllerBase
     [HttpGet("my")]
     public ActionResult<List<NotificationDto>> GetMy()
     {
-        var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-        if (userIdClaim == null) return Unauthorized();
-        return Ok(_service.GetByUserId(int.Parse(userIdClaim.Value)));
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        return Ok(_service.GetByUserId(userId));
+    }
+
+    // Mark single notification as read
+    [HttpPut("{id}/mark-read")]
+    public IActionResult MarkAsRead(int id)
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var result = _service.MarkAsRead(id, userId);
+        if (!result) return NotFound();
+        return Ok();
+    }
+
+    // Mark all as read
+    [HttpPut("my/mark-all-read")]
+    public IActionResult MarkAllAsRead()
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        _service.MarkAllAsRead(userId);
+        return Ok();
     }
 
     [HttpDelete("my/clear")]
     public IActionResult ClearMy()
     {
-        var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-        if (userIdClaim == null) return Unauthorized();
-        _service.ClearByUserId(int.Parse(userIdClaim.Value));
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        _service.ClearByUserId(userId);
         return NoContent();
     }
 }

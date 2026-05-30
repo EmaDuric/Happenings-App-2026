@@ -1,4 +1,4 @@
-using Happenings.Services.Database;
+﻿using Happenings.Services.Database;
 using Happenings.Services.Interfaces;
 using Happenings.Model.Entities;
 using Happenings.Model.Requests;
@@ -56,11 +56,12 @@ public class EventViewService : IEventViewService
             .ToList();
     }
 
-    public EventViewDto Insert(EventViewInsertRequest request)
+    // userId dolazi iz JWT tokena, ne iz requesta
+    public EventViewDto Insert(EventViewInsertRequest request, int userId)
     {
         var entity = new EventView
         {
-            UserId = request.UserId,
+            UserId = userId,  // ← iz JWT, ne iz requesta
             EventId = request.EventId,
             ViewedAt = DateTime.UtcNow
         };
@@ -76,4 +77,8 @@ public class EventViewService : IEventViewService
             EventId = entity.EventId
         };
     }
+
+    // Stara metoda za kompatibilnost
+    public EventViewDto Insert(EventViewInsertRequest request)
+        => Insert(request, request.UserId);
 }

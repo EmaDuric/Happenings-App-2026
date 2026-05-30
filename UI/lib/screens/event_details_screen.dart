@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
 import '../models/event_dto.dart';
 import '../services/auth_service.dart';
 import '../services/api_service.dart';
@@ -24,6 +25,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     super.initState();
     checkRole();
     loadAnnouncements();
+    _recordView();
   }
 
   Future<void> checkRole() async {
@@ -36,11 +38,25 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
       final token = await AuthService.getToken();
       if (token == null) return;
       final result = await ApiService.getAnnouncements(
-        eventId: widget.event.id,
-        token: token,
-      );
+          eventId: widget.event.id, token: token);
       setState(() => announcements = result);
     } catch (_) {}
+  }
+
+  Future<void> _recordView() async {
+    try {
+      final token = await AuthService.getToken();
+      if (token == null) return;
+      await ApiService.recordEventView(eventId: widget.event.id, token: token);
+    } catch (_) {}
+  }
+
+  void _shareEvent() {
+    final event = widget.event;
+    final text = "Check out this event: ${event.name}\n"
+        "${event.locationName != null ? '📍 ${event.locationName}\n' : ''}"
+        "📅 ${DateFormat('dd.MM.yyyy HH:mm').format(event.eventDate)}";
+    Share.share(text);
   }
 
   @override
@@ -57,29 +73,53 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
             backgroundColor: const Color(0xFFF4D35E),
             foregroundColor: Colors.black,
             actions: [
+              // Share dugme — vidljivo na tamnoj i svijetloj slici
+              Padding(
+                padding: const EdgeInsets.only(right: 4),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.45),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: IconButton(
+                    icon:
+                        const Icon(Icons.share, color: Colors.white, size: 20),
+                    tooltip: "Share event",
+                    onPressed: _shareEvent,
+                  ),
+                ),
+              ),
               if (isOrganizer)
-                IconButton(
-                  icon: const Icon(Icons.edit, color: Colors.black),
-                  onPressed: () async {
-                    final updated = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => EditEventScreen(event: event),
-                      ),
-                    );
-                    if (updated == true && mounted) {
-                      Navigator.pop(context, true);
-                    }
-                  },
+                Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.45),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: IconButton(
+                      icon:
+                          const Icon(Icons.edit, color: Colors.white, size: 20),
+                      onPressed: () async {
+                        final updated = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => EditEventScreen(event: event)),
+                        );
+                        if (updated == true && mounted)
+                          Navigator.pop(context, true);
+                      },
+                    ),
+                  ),
                 ),
             ],
             flexibleSpace: FlexibleSpaceBar(
               background: event.imageUrl != null && event.imageUrl!.isNotEmpty
-                  ? Image.network(
-                      event.imageUrl!,
+                  ? Image.network(event.imageUrl!,
                       fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => _placeholder(),
-                    )
+                      errorBuilder: (_, __, ___) => _placeholder())
                   : _placeholder(),
             ),
           ),
@@ -95,76 +135,60 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Text(
-                        event.categoryName!,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Text(event.categoryName!,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold)),
                     ),
                   const SizedBox(height: 12),
-                  Text(
-                    event.name,
-                    style: const TextStyle(
-                        fontSize: 28, fontWeight: FontWeight.bold),
-                  ),
+                  Text(event.name,
+                      style: const TextStyle(
+                          fontSize: 28, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      _infoCard(
+                  Row(children: [
+                    _infoCard(
                         icon: Icons.calendar_today,
                         label: "Date",
-                        value: DateFormat("dd.MM.yyyy").format(event.eventDate),
-                      ),
-                      const SizedBox(width: 12),
-                      _infoCard(
+                        value:
+                            DateFormat("dd.MM.yyyy").format(event.eventDate)),
+                    const SizedBox(width: 12),
+                    _infoCard(
                         icon: Icons.access_time,
                         label: "Time",
-                        value: DateFormat("HH:mm").format(event.eventDate),
-                      ),
-                    ],
-                  ),
+                        value: DateFormat("HH:mm").format(event.eventDate)),
+                  ]),
                   const SizedBox(height: 12),
                   if (event.locationName != null)
                     _infoCard(
-                      icon: Icons.location_on,
-                      label: "Location",
-                      value: event.locationName!,
-                      fullWidth: true,
-                    ),
+                        icon: Icons.location_on,
+                        label: "Location",
+                        value: event.locationName!,
+                        fullWidth: true),
                   const SizedBox(height: 24),
-                  const Text(
-                    "About this event",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
+                  const Text("About this event",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 10),
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Text(
-                      event.description,
-                      style: const TextStyle(
-                          fontSize: 15, height: 1.6, color: Colors.black87),
-                    ),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Text(event.description,
+                        style: const TextStyle(
+                            fontSize: 15, height: 1.6, color: Colors.black87)),
                   ),
 
                   // ANNOUNCEMENTS
                   if (announcements.isNotEmpty) ...[
                     const SizedBox(height: 24),
-                    const Text(
-                      "Announcements",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
+                    const Text("Announcements",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 10),
                     ...announcements.map((a) => Container(
                           margin: const EdgeInsets.only(bottom: 10),
@@ -177,26 +201,19 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  const Icon(Icons.campaign,
-                                      color: Colors.orange, size: 20),
-                                  const SizedBox(width: 8),
-                                  Expanded(
-                                    child: Text(
-                                      a["title"] ?? "",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              Row(children: [
+                                const Icon(Icons.campaign,
+                                    color: Colors.orange, size: 20),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                    child: Text(a["title"] ?? "",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15))),
+                              ]),
                               const SizedBox(height: 6),
-                              Text(
-                                a["content"] ?? "",
-                                style: const TextStyle(fontSize: 13),
-                              ),
+                              Text(a["content"] ?? "",
+                                  style: const TextStyle(fontSize: 13)),
                             ],
                           ),
                         )),
@@ -206,27 +223,21 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => ReservationScreen(event: event),
-                          ),
-                        );
-                      },
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => ReservationScreen(event: event)),
+                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
+                            borderRadius: BorderRadius.circular(14)),
                       ),
-                      child: const Text(
-                        "Reserve & Pay",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
+                      child: const Text("Reserve & Pay",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -239,48 +250,39 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     );
   }
 
-  Widget _infoCard({
-    required IconData icon,
-    required String label,
-    required String value,
-    bool fullWidth = false,
-  }) {
+  Widget _infoCard(
+      {required IconData icon,
+      required String label,
+      required String value,
+      bool fullWidth = false}) {
     final card = Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, size: 20, color: Colors.black54),
-          const SizedBox(width: 10),
-          Expanded(
+          color: Colors.white, borderRadius: BorderRadius.circular(14)),
+      child: Row(children: [
+        Icon(icon, size: 20, color: Colors.black54),
+        const SizedBox(width: 10),
+        Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(label,
-                    style:
-                        const TextStyle(fontSize: 11, color: Colors.black45)),
-                Text(value,
-                    style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.bold),
-                    overflow: TextOverflow.ellipsis),
-              ],
-            ),
-          ),
-        ],
-      ),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(label,
+                style: const TextStyle(fontSize: 11, color: Colors.black45)),
+            Text(value,
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                overflow: TextOverflow.ellipsis),
+          ],
+        )),
+      ]),
     );
-
     if (fullWidth) return SizedBox(width: double.infinity, child: card);
     return Expanded(child: card);
   }
 
   Widget _placeholder() {
     return Container(
-      color: Colors.grey.shade300,
-      child: const Icon(Icons.event, size: 80, color: Colors.grey),
-    );
+        color: Colors.grey.shade300,
+        child: const Icon(Icons.event, size: 80, color: Colors.grey));
   }
 }

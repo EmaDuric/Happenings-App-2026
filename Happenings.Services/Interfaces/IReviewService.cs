@@ -9,8 +9,8 @@ namespace Happenings.Services.Interfaces
         ReviewDto? GetById(int id);
 
         ReviewDto Insert(ReviewInsertRequest request);
-        ReviewDto Update(int id, ReviewUpdateRequest request);
-        void Delete(int id);
+        ReviewDto? Update(int id, ReviewUpdateRequest request, int userId, bool isAdmin);
+        bool Delete(int id, int userId, bool isAdmin);
         List<EligibleEventDto> GetEligibleEvents(int userId);
         List<ReviewDto> GetMyReviewedEvents(int userId);
     }

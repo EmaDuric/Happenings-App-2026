@@ -6,6 +6,7 @@ using Happenings.Model.Messaging;
 using Happenings.Services.Database;
 using Happenings.Model.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Happenings.Subscriber;
 
@@ -13,18 +14,30 @@ public class Worker : BackgroundService
 {
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly ILogger<Worker> _logger;
+    private readonly IConfiguration _configuration;
     private IConnection? _connection;
     private IModel? _channel;
 
-    public Worker(IServiceScopeFactory scopeFactory, ILogger<Worker> logger)
+    public Worker(IServiceScopeFactory scopeFactory, ILogger<Worker> logger, IConfiguration configuration)
     {
         _scopeFactory = scopeFactory;
         _logger = logger;
+        _configuration = configuration;
     }
 
     public override async Task StartAsync(CancellationToken cancellationToken)
     {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
+        // Čita RabbitMQ konfiguraciju iz environment varijabli
+        var host = _configuration["RabbitMQ:Host"] ?? "localhost";
+        var user = _configuration["RabbitMQ:User"] ?? "guest";
+        var pass = _configuration["RabbitMQ:Pass"] ?? "guest";
+
+        var factory = new ConnectionFactory()
+        {
+            HostName = host,
+            UserName = user,
+            Password = pass
+        };
 
         for (int attempt = 1; attempt <= 5; attempt++)
         {
@@ -66,7 +79,6 @@ public class Worker : BackgroundService
 
         var consumer = new EventingBasicConsumer(_channel);
 
-        // ✅ FIX: sync handler — EventingBasicConsumer ne podržava async void ispravno
         consumer.Received += (model, ea) =>
         {
             var deliveryTag = ea.DeliveryTag;
@@ -89,7 +101,7 @@ public class Worker : BackgroundService
                 using var scope = _scopeFactory.CreateScope();
                 var context = scope.ServiceProvider.GetRequiredService<HappeningsContext>();
 
-                // 🎟️ Dohvati rezervaciju
+                // Dohvati rezervaciju
                 var reservation = context.Reservations
                     .Include(r => r.Event)
                     .FirstOrDefault(r => r.Id == message.ReservationId);
@@ -101,49 +113,42 @@ public class Worker : BackgroundService
                     return;
                 }
 
-                // 🔔 Notifikacija
+                // Notifikacija
                 context.Notifications.Add(new Notification
                 {
                     UserId = message.UserId,
                     Title = "Payment Successful",
-                    Message = $"Payment of {message.Amount} completed.",
+                    Message = $"Payment of {message.Amount} KM completed. Your tickets are ready.",
                     CreatedAt = DateTime.UtcNow
                 });
 
-                // 🎟️ Kreiraj tickete
-                context.Tickets.Add(new Ticket
-
+                // Kreiraj onoliko ticketa koliko je korisnik kupio (Quantity)
+                for (int i = 0; i < reservation.Quantity; i++)
                 {
-                    ReservationId = reservation.Id,
-                    EventId = reservation.EventId,      // ← dodaj
-                    UserId = reservation.UserId,         // ← dodaj
-                    GeneratedAt = DateTime.UtcNow,
-                    QRCode = Guid.NewGuid().ToString(),
-                    IsUsed = false
-                });
+                    context.Tickets.Add(new Ticket
+                    {
+                        ReservationId = reservation.Id,
+                        EventId = reservation.EventId,
+                        UserId = reservation.UserId,
+                        GeneratedAt = DateTime.UtcNow,
+                        QRCode = $"TICKET-{Guid.NewGuid()}", // jedinstveni QR za svaki ticket
+                        IsUsed = false
+                    });
+                }
 
-                // ✅ Ažuriraj status rezervacije
-                reservation.Status = Happenings.Model.Enums.ReservationStatus.Approved;
-
-                // ✅ FIX: SaveChanges (sync), ne SaveChangesAsync
-                context.SaveChanges();
-
-                _logger.LogInformation("✅ Saved: {Count} ticket(s) for reservation {Id}",
+                _logger.LogInformation("✅ Created {Count} ticket(s) for reservation {Id}",
                     reservation.Quantity, reservation.Id);
+
+                context.SaveChanges();
 
                 _channel!.BasicAck(deliveryTag, multiple: false);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "❌ Error processing message");
-                Console.WriteLine(ex.StackTrace);
                 if (ex.InnerException != null)
-                {
-                    Console.WriteLine("INNER: " + ex.InnerException.Message);
-                    Console.WriteLine(ex.InnerException.StackTrace);
-                }
+                    _logger.LogError("INNER: {Message}", ex.InnerException.Message);
 
-                // requeue: false — da ne loopa beskonačno
                 _channel!.BasicNack(deliveryTag, multiple: false, requeue: false);
             }
         };

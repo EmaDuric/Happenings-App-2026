@@ -104,7 +104,7 @@ namespace Happenings.Services.Database
                 .HasForeignKey(r => r.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // RESERVATION ↔ EVENT (single, authoritative definition)
+            // RESERVATION ↔ EVENT
             modelBuilder.Entity<Reservation>()
                 .HasOne(r => r.Event)
                 .WithMany(e => e.Reservations)
@@ -150,6 +150,11 @@ namespace Happenings.Services.Database
                 .HasForeignKey(p => p.ReservationId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // PAYMENT — jedna rezervacija može imati samo jedan payment
+            modelBuilder.Entity<Payment>()
+                .HasIndex(p => p.ReservationId)
+                .IsUnique();
+
             // REVIEW ↔ USER
             modelBuilder.Entity<Review>()
                 .HasOne(r => r.User)
@@ -163,6 +168,12 @@ namespace Happenings.Services.Database
                 .WithMany(e => e.Reviews)
                 .HasForeignKey(r => r.EventId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // REVIEW — jedan korisnik može ostaviti samo jednu recenziju po eventu
+            modelBuilder.Entity<Review>()
+                .HasIndex(r => new { r.UserId, r.EventId })
+                .IsUnique();
+
 
             // INVITATION
             modelBuilder.Entity<Invitation>()

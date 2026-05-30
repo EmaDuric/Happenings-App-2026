@@ -27,7 +27,7 @@ public class EventService
         var query = _set
             .Include(e => e.Location)
             .Include(e => e.EventCategory)
-            .Include(e=> e.Images)
+            .Include(e => e.Images)
             .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(search.Name))
@@ -65,14 +65,10 @@ public class EventService
 
     protected override Event MapInsertToEntity(EventInsertRequest request)
     {
-        // 🔥 USER ID IZ JWT
         var userId = int.Parse(_httpContextAccessor.HttpContext!
-            .User
-            .FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            .User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
-        // 🔥 PRONAĐI ORGANIZER
-        var organizer = _context.Organizers
-            .FirstOrDefault(x => x.UserId == userId);
+        var organizer = _context.Organizers.FirstOrDefault(x => x.UserId == userId);
 
         if (organizer == null)
             throw new Exception("User is not an organizer");
@@ -82,7 +78,7 @@ public class EventService
             Name = request.Name,
             Description = request.Description,
             EventDate = request.EventDate,
-            OrganizerId = organizer.Id, // 🔥 OVDJE JE FIX
+            OrganizerId = organizer.Id,
             LocationId = request.LocationId,
             EventCategoryId = request.EventCategoryId
         };
@@ -95,11 +91,28 @@ public class EventService
         entity.EventDate = request.EventDate;
         entity.LocationId = request.LocationId;
         entity.EventCategoryId = request.EventCategoryId;
-
-        // ❌ NE DIRAJ OrganizerId
     }
 
-    public new async Task<bool> DeleteAsync(int id)
+    // Ownership provjera za Update
+    public async Task<EventDto?> UpdateAsync(int id, EventUpdateRequest request, int userId, bool isAdmin)
+    {
+        var entity = await _context.Events.FindAsync(id);
+        if (entity == null) return null;
+
+        if (!isAdmin)
+        {
+            var organizer = _context.Organizers.FirstOrDefault(o => o.UserId == userId);
+            if (organizer == null || entity.OrganizerId != organizer.Id)
+                return null; // Forbidden
+        }
+
+        MapUpdateToEntity(request, entity);
+        await _context.SaveChangesAsync();
+        return MapToDto(entity);
+    }
+
+    // Ownership provjera za Delete
+    public async Task<bool> DeleteAsync(int id, int userId, bool isAdmin)
     {
         var entity = await _context.Events
             .Include(e => e.Images)
@@ -111,33 +124,27 @@ public class EventService
 
         if (entity == null) return false;
 
-        // Briši tickete i payments vezane za rezervacije
-        // 1. Tickets i Payments (zavisni od Reservations)
+        if (!isAdmin)
+        {
+            var organizer = _context.Organizers.FirstOrDefault(o => o.UserId == userId);
+            if (organizer == null || entity.OrganizerId != organizer.Id)
+                return false; // Forbidden
+        }
+
         var reservationIds = entity.Reservations.Select(r => r.Id).ToList();
 
-        var tickets = await _context.Tickets
-            .Where(t => reservationIds.Contains(t.ReservationId))
-            .ToListAsync();
+        var tickets = await _context.Tickets.Where(t => reservationIds.Contains(t.ReservationId)).ToListAsync();
         _context.Tickets.RemoveRange(tickets);
 
-        var payments = await _context.Payments
-            .Where(p => reservationIds.Contains(p.ReservationId))
-            .ToListAsync();
+        var payments = await _context.Payments.Where(p => reservationIds.Contains(p.ReservationId)).ToListAsync();
         _context.Payments.RemoveRange(payments);
 
-        // 2. EventViews
-        var eventViews = await _context.EventViews
-            .Where(v => v.EventId == id)
-            .ToListAsync();
+        var eventViews = await _context.EventViews.Where(v => v.EventId == id).ToListAsync();
         _context.EventViews.RemoveRange(eventViews);
 
-        // 3. Invitations  ← NOVO
-        var invitations = await _context.Invitations
-            .Where(i => i.EventId == id)
-            .ToListAsync();
+        var invitations = await _context.Invitations.Where(i => i.EventId == id).ToListAsync();
         _context.Invitations.RemoveRange(invitations);
 
-        // 4. Ostalo
         _context.Reservations.RemoveRange(entity.Reservations);
         _context.EventImages.RemoveRange(entity.Images);
         _context.EventTicketTypes.RemoveRange(entity.TicketTypes);
@@ -148,4 +155,7 @@ public class EventService
         await _context.SaveChangesAsync();
         return true;
     }
+
+    public new async Task<bool> DeleteAsync(int id)
+        => await DeleteAsync(id, 0, true); // fallback za base klasu
 }

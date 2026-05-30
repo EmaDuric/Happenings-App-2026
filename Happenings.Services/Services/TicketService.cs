@@ -34,9 +34,7 @@ public class TicketService : ITicketService
     public TicketDto? GetById(int id)
     {
         var entity = _context.Tickets.Find(id);
-
-        if (entity == null)
-            return null;
+        if (entity == null) return null;
 
         return new TicketDto
         {
@@ -53,25 +51,18 @@ public class TicketService : ITicketService
         var entity = new Ticket
         {
             ReservationId = request.ReservationId,
-            IsUsed = false
+            IsUsed = false,
+            GeneratedAt = DateTime.UtcNow
         };
 
         _context.Tickets.Add(entity);
         _context.SaveChanges();
 
-        // nakon SaveChanges imamo ID
-        entity.QRCode = _qrService.GenerateQRCode(entity.Id.ToString());
-
+        // Generiraj QR kod koristeći isti servis kao i Worker
+        entity.QRCode = GenerateQRCode(entity.Id);
         _context.SaveChanges();
 
-        return new TicketDto
-        {
-            Id = entity.Id,
-            ReservationId = entity.ReservationId,
-            QRCode = entity.QRCode,
-            IsUsed = entity.IsUsed,
-            GeneratedAt = entity.GeneratedAt
-        };
+        return MapToDto(entity);
     }
 
     public List<TicketDto> GetByUserId(int userId)
@@ -79,7 +70,8 @@ public class TicketService : ITicketService
         return _context.Tickets
             .Include(t => t.Reservation)
             .ThenInclude(r => r.Event)
-            .Where(t => t.Reservation.UserId == userId)
+            .ThenInclude(e => e.Location)
+            .Where(t => t.UserId == userId)
             .Select(t => new TicketDto
             {
                 Id = t.Id,
@@ -87,12 +79,25 @@ public class TicketService : ITicketService
                 QRCode = t.QRCode,
                 IsUsed = t.IsUsed,
                 GeneratedAt = t.GeneratedAt,
-
-                // 🔥 DODAJ OVO
                 EventName = t.Reservation.Event.Name,
                 EventDate = t.Reservation.Event.EventDate,
                 Location = t.Reservation.Event.Location.Name
             })
             .ToList();
     }
+
+    // Centralizovana metoda za generisanje QR koda — koristi se i u Workeru
+    public string GenerateQRCode(int ticketId)
+    {
+        return _qrService.GenerateQRCode($"TICKET-{ticketId}");
+    }
+
+    private TicketDto MapToDto(Ticket entity) => new TicketDto
+    {
+        Id = entity.Id,
+        ReservationId = entity.ReservationId,
+        QRCode = entity.QRCode,
+        IsUsed = entity.IsUsed,
+        GeneratedAt = entity.GeneratedAt
+    };
 }

@@ -30,6 +30,20 @@ public class EventTicketTypeService : IEventTicketTypeService
             .ToList();
     }
 
+    public EventTicketTypeDto? GetById(int id)
+    {
+        var t = _context.EventTicketTypes.Find(id);
+        if (t == null) return null;
+        return new EventTicketTypeDto
+        {
+            Id = t.Id,
+            EventId = t.EventId,
+            Name = t.Name,
+            Price = t.Price,
+            AvailableQuantity = t.AvailableQuantity
+        };
+    }
+
     public EventTicketTypeDto Insert(EventTicketTypeInsertRequest request)
     {
         var entity = new EventTicketType

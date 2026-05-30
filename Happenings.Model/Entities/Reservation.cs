@@ -17,9 +17,21 @@ public class Reservation
     public int EventTicketTypeId { get; set; }
     public EventTicketType EventTicketType { get; set; } = null!;
 
-    // koliko karata korisnik rezerviše
     public int Quantity { get; set; }
 
-    // status rezervacije
     public ReservationStatus Status { get; set; } = ReservationStatus.Pending;
+
+    // AUDIT TRAG — Approve
+    public DateTime? ApprovedAt { get; set; }
+    public int? ApprovedByUserId { get; set; }
+
+    // AUDIT TRAG — Reject
+    public DateTime? RejectedAt { get; set; }
+    public int? RejectedByUserId { get; set; }
+    public string? RejectedReason { get; set; }
+
+    // AUDIT TRAG — Cancel
+    public DateTime? CancelledAt { get; set; }
+    public int? CancelledByUserId { get; set; }
+    public string? CancellationReason { get; set; }
 }

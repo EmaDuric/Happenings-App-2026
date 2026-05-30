@@ -1,41 +1,29 @@
-using Happenings.WinUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Happenings.WinUI.Forms.Events
 {
     public class frmEventEdit : Form
     {
-        public EventViewModel? Event { get; private set; }
+        public EventEditModel? Event { get; private set; }
         private bool isEditMode = false;
 
-        private Label? lblTitle;
         private TextBox? txtName;
         private TextBox? txtDescription;
-        private DateTimePicker? dtpStartDate;
-        private DateTimePicker? dtpStartTime;
-        private DateTimePicker? dtpEndDate;
-        private DateTimePicker? dtpEndTime;
-        private NumericUpDown? nudPrice;
-        private NumericUpDown? nudTotalTickets;
-        private NumericUpDown? nudAvailableTickets;
-        private ComboBox? cmbStatus;
-        private Button? btnSave;
-        private Button? btnCancel;
+        private DateTimePicker? dtpEventDate;
         private ComboBox? cmbCategory;
         private ComboBox? cmbVenue;
-        private ComboBox? cmbOrganizer;
+        private Button? btnSave;
+        private Button? btnCancel;
 
-        private List<CategoryViewModel> _categories = new();
-        private List<VenueViewModel> _venues = new();
-        private List<OrganizerViewModel> _organizers = new();
+        private List<CategoryDto> _categories = new();
+        private List<LocationDto> _venues = new();
 
         private readonly APIService _apiService;
 
-        public frmEventEdit(EventViewModel? eventToEdit = null)
+        public frmEventEdit(EventEditModel? eventToEdit = null)
         {
             _apiService = (APIService)Program.ServiceProvider.GetService(typeof(APIService))!;
 
@@ -46,13 +34,9 @@ namespace Happenings.WinUI.Forms.Events
             }
             else
             {
-                Event = new EventViewModel
+                Event = new EventEditModel
                 {
-                    StartDateTime = DateTime.UtcNow.AddDays(7),
-                    EndDateTime = DateTime.UtcNow.AddDays(7).AddHours(2),
-                    Status = "Active",
-                    AvailableTickets = 100,
-                    TotalTickets = 100
+                    EventDate = DateTime.Now.AddDays(7)
                 };
             }
 
@@ -63,98 +47,53 @@ namespace Happenings.WinUI.Forms.Events
         private void InitializeComponent()
         {
             this.Text = isEditMode ? "Edit Event" : "Add New Event";
-            this.Size = new Size(620, 750);
+            this.Size = new Size(560, 480);
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.BackColor = Color.White;
 
-            int y = 20, left = 30, labelW = 150, ctrlW = 400;
+            int y = 20, left = 30, labelW = 130, ctrlW = 350;
 
-            lblTitle = new Label
-            {
-                Text = isEditMode ? "Edit Event" : "Create New Event",
-                Font = new Font(new FontFamily("Segoe UI"), 16, FontStyle.Bold),
-                ForeColor = Color.FromArgb(44, 62, 80),
-                Location = new Point(left, y),
-                AutoSize = true
-            };
-            this.Controls.Add(lblTitle);
+            AddLabel(isEditMode ? "Edit Event" : "Create New Event", left, y, 16, true);
             y += 50;
 
             AddLabel("Event Name:", left, y);
-            txtName = new TextBox { Location = new Point(left + labelW, y - 5), Size = new Size(ctrlW, 27), Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Regular) };
+            txtName = new TextBox { Location = new Point(left + labelW, y - 5), Size = new Size(ctrlW, 27), Font = new Font("Segoe UI", 10) };
             this.Controls.Add(txtName);
             y += 40;
 
             AddLabel("Description:", left, y);
-            txtDescription = new TextBox { Location = new Point(left + labelW, y - 5), Size = new Size(ctrlW, 60), Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Regular), Multiline = true };
+            txtDescription = new TextBox { Location = new Point(left + labelW, y - 5), Size = new Size(ctrlW, 60), Font = new Font("Segoe UI", 10), Multiline = true };
             this.Controls.Add(txtDescription);
             y += 75;
 
-            AddLabel("Start Date & Time:", left, y);
-            dtpStartDate = new DateTimePicker { Location = new Point(left + labelW, y - 5), Size = new Size(200, 27), Format = DateTimePickerFormat.Short, Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Regular) };
-            this.Controls.Add(dtpStartDate);
-            dtpStartTime = new DateTimePicker { Location = new Point(left + labelW + 210, y - 5), Size = new Size(190, 27), Format = DateTimePickerFormat.Time, ShowUpDown = true, Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Regular) };
-            this.Controls.Add(dtpStartTime);
-            y += 40;
-
-            AddLabel("End Date & Time:", left, y);
-            dtpEndDate = new DateTimePicker { Location = new Point(left + labelW, y - 5), Size = new Size(200, 27), Format = DateTimePickerFormat.Short, Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Regular) };
-            this.Controls.Add(dtpEndDate);
-            dtpEndTime = new DateTimePicker { Location = new Point(left + labelW + 210, y - 5), Size = new Size(190, 27), Format = DateTimePickerFormat.Time, ShowUpDown = true, Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Regular) };
-            this.Controls.Add(dtpEndTime);
+            AddLabel("Event Date:", left, y);
+            dtpEventDate = new DateTimePicker { Location = new Point(left + labelW, y - 5), Size = new Size(220, 27), Format = DateTimePickerFormat.Short, Font = new Font("Segoe UI", 10) };
+            this.Controls.Add(dtpEventDate);
             y += 40;
 
             AddLabel("Category:", left, y);
-            cmbCategory = new ComboBox { Location = new Point(left + labelW, y - 5), Size = new Size(ctrlW, 27), DropDownStyle = ComboBoxStyle.DropDownList, Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Regular) };
+            cmbCategory = new ComboBox { Location = new Point(left + labelW, y - 5), Size = new Size(ctrlW, 27), DropDownStyle = ComboBoxStyle.DropDownList, Font = new Font("Segoe UI", 10) };
             cmbCategory.DisplayMember = "Name";
             cmbCategory.ValueMember = "Id";
             this.Controls.Add(cmbCategory);
             y += 40;
 
-            AddLabel("Venue:", left, y);
-            cmbVenue = new ComboBox { Location = new Point(left + labelW, y - 5), Size = new Size(ctrlW, 27), DropDownStyle = ComboBoxStyle.DropDownList, Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Regular) };
+            AddLabel("Location:", left, y);
+            cmbVenue = new ComboBox { Location = new Point(left + labelW, y - 5), Size = new Size(ctrlW, 27), DropDownStyle = ComboBoxStyle.DropDownList, Font = new Font("Segoe UI", 10) };
             cmbVenue.DisplayMember = "Name";
             cmbVenue.ValueMember = "Id";
             this.Controls.Add(cmbVenue);
-            y += 40;
-
-            AddLabel("Price ($):", left, y);
-            nudPrice = new NumericUpDown { Location = new Point(left + labelW, y - 5), Size = new Size(150, 27), DecimalPlaces = 2, Maximum = 10000, Minimum = 0, Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Regular) };
-            this.Controls.Add(nudPrice);
-            y += 40;
-
-            AddLabel("Total Tickets:", left, y);
-            nudTotalTickets = new NumericUpDown { Location = new Point(left + labelW, y - 5), Size = new Size(150, 27), Maximum = 100000, Minimum = 1, Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Regular) };
-            this.Controls.Add(nudTotalTickets);
-            y += 40;
-
-            AddLabel("Available Tickets:", left, y);
-            nudAvailableTickets = new NumericUpDown { Location = new Point(left + labelW, y - 5), Size = new Size(150, 27), Maximum = 100000, Minimum = 0, Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Regular) };
-            this.Controls.Add(nudAvailableTickets);
-            y += 40;
-
-            AddLabel("Status:", left, y);
-            cmbStatus = new ComboBox { Location = new Point(left + labelW, y - 5), Size = new Size(200, 27), DropDownStyle = ComboBoxStyle.DropDownList, Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Regular) };
-            cmbStatus.Items.AddRange(new object[] { "Active", "Completed", "Cancelled" });
-            this.Controls.Add(cmbStatus);
-            y += 40;
-
-            AddLabel("Organizer:", left, y);
-            cmbOrganizer = new ComboBox { Location = new Point(left + labelW, y - 5), Size = new Size(ctrlW, 27), DropDownStyle = ComboBoxStyle.DropDownList, Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Regular) };
-            cmbOrganizer.DisplayMember = "Name";
-            cmbOrganizer.ValueMember = "Id";
-            this.Controls.Add(cmbOrganizer);
-            y += 50;
+            y += 55;
 
             btnCancel = new Button
             {
                 Text = "Cancel",
-                Font = new Font(new FontFamily("Segoe UI"), 11, FontStyle.Bold),
+                Font = new Font("Segoe UI", 11, FontStyle.Bold),
                 Size = new Size(120, 40),
-                Location = new Point(left + labelW + 150, y),
+                Location = new Point(left + labelW + 100, y),
                 BackColor = Color.FromArgb(149, 165, 166),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
@@ -167,9 +106,9 @@ namespace Happenings.WinUI.Forms.Events
             btnSave = new Button
             {
                 Text = isEditMode ? "Update Event" : "Create Event",
-                Font = new Font(new FontFamily("Segoe UI"), 11, FontStyle.Bold),
+                Font = new Font("Segoe UI", 11, FontStyle.Bold),
                 Size = new Size(150, 40),
-                Location = new Point(left + labelW + 280, y),
+                Location = new Point(left + labelW + 230, y),
                 BackColor = Color.FromArgb(46, 204, 113),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
@@ -182,12 +121,12 @@ namespace Happenings.WinUI.Forms.Events
             this.CancelButton = btnCancel;
         }
 
-        private void AddLabel(string text, int x, int y)
+        private void AddLabel(string text, int x, int y, int fontSize = 10, bool bold = false)
         {
             this.Controls.Add(new Label
             {
                 Text = text,
-                Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Regular),
+                Font = new Font("Segoe UI", fontSize, bold ? FontStyle.Bold : FontStyle.Regular),
                 ForeColor = Color.FromArgb(44, 62, 80),
                 Location = new Point(x, y),
                 AutoSize = true
@@ -198,28 +137,18 @@ namespace Happenings.WinUI.Forms.Events
         {
             try
             {
-                // Load categories
                 var categoryDtos = await _apiService.GetCategoriesAsync();
-                _categories = categoryDtos.Select(d => new CategoryViewModel { Id = d.Id, Name = d.Name, Description = d.Description ?? "", IsActive = true }).ToList();
+                _categories = categoryDtos;
                 cmbCategory!.DataSource = _categories;
                 cmbCategory.DisplayMember = "Name";
                 cmbCategory.ValueMember = "Id";
 
-                // Load venues
                 var locationDtos = await _apiService.GetLocationsAsync();
-                _venues = locationDtos.Select(d => new VenueViewModel { Id = d.Id, Name = d.Name, Address = d.Address, City = d.City, IsActive = true }).ToList();
+                _venues = locationDtos;
                 cmbVenue!.DataSource = _venues;
                 cmbVenue.DisplayMember = "Name";
                 cmbVenue.ValueMember = "Id";
 
-                // Load organizers
-                var organizerDtos = await _apiService.GetOrganizersAsync();
-                _organizers = organizerDtos.Select(d => new OrganizerViewModel { Id = d.Id, Name = d.Name, IsActive = true }).ToList();
-                cmbOrganizer!.DataSource = _organizers;
-                cmbOrganizer.DisplayMember = "Name";
-                cmbOrganizer.ValueMember = "Id";
-
-                // Now populate fields
                 LoadEventData();
             }
             catch (Exception ex)
@@ -234,102 +163,73 @@ namespace Happenings.WinUI.Forms.Events
 
             txtName!.Text = Event.Name;
             txtDescription!.Text = Event.Description;
+            dtpEventDate!.Value = Event.EventDate > DateTime.MinValue ? Event.EventDate : DateTime.Now.AddDays(7);
 
-            var startDate = Event.StartDateTime > DateTime.MinValue ? Event.StartDateTime : DateTime.UtcNow.AddDays(7);
-            dtpStartDate!.Value = startDate;
-            dtpStartTime!.Value = startDate;
-
-            var endDate = (Event.EndDateTime.HasValue && Event.EndDateTime.Value > DateTime.MinValue)
-                ? Event.EndDateTime.Value
-                : startDate.AddHours(2);
-            dtpEndDate!.Value = endDate;
-            dtpEndTime!.Value = endDate;
-
-            if (Event.CategoryId > 0)
-                cmbCategory!.SelectedValue = Event.CategoryId;
+            if (Event.EventCategoryId > 0)
+                cmbCategory!.SelectedValue = Event.EventCategoryId;
             else if (cmbCategory!.Items.Count > 0)
                 cmbCategory.SelectedIndex = 0;
 
-            if (Event.VenueId > 0)
-                cmbVenue!.SelectedValue = Event.VenueId;
+            if (Event.LocationId > 0)
+                cmbVenue!.SelectedValue = Event.LocationId;
             else if (cmbVenue!.Items.Count > 0)
                 cmbVenue.SelectedIndex = 0;
-
-            nudPrice!.Value = Event.Price;
-            nudTotalTickets!.Value = Math.Max(1, Event.TotalTickets);
-            nudAvailableTickets!.Value = Math.Max(0, Event.AvailableTickets);
-
-            cmbStatus!.SelectedItem = Event.Status;
-            if (cmbStatus.SelectedIndex < 0)
-                cmbStatus.SelectedIndex = 0;
-
-            if (Event.OrganizerId > 0)
-                cmbOrganizer!.SelectedValue = Event.OrganizerId;
-            else if (cmbOrganizer!.Items.Count > 0)
-                cmbOrganizer.SelectedIndex = 0;
         }
 
         private void btnSave_Click(object? sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtName?.Text))
             {
-                MessageBox.Show("Please enter event name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please enter event name.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtName?.Focus();
                 return;
             }
 
-            if (cmbCategory?.SelectedIndex < 0)
+            if (string.IsNullOrWhiteSpace(txtDescription?.Text))
             {
-                MessageBox.Show("Please select a category.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cmbCategory?.Focus();
+                MessageBox.Show("Please enter description.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDescription?.Focus();
+                return;
+            }
+
+            if (cmbCategory?.SelectedValue == null)
+            {
+                MessageBox.Show("Please select a category.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (cmbVenue?.SelectedValue == null)
             {
-                MessageBox.Show("Please select a venue.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cmbVenue?.Focus();
+                MessageBox.Show("Please select a location.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (cmbOrganizer?.SelectedValue == null)
+            Event = new EventEditModel
             {
-                MessageBox.Show("Please select an organizer.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cmbOrganizer?.Focus();
-                return;
-            }
-
-            if (nudAvailableTickets!.Value > nudTotalTickets!.Value)
-            {
-                MessageBox.Show("Available tickets cannot exceed total tickets.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                nudAvailableTickets?.Focus();
-                return;
-            }
-
-            if (Event != null)
-            {
-                Event.Name = txtName!.Text;
-                Event.Description = txtDescription!.Text;
-
-                Event.StartDateTime = dtpStartDate!.Value.Date.Add(dtpStartTime!.Value.TimeOfDay);
-                Event.EndDateTime = dtpEndDate!.Value.Date.Add(dtpEndTime!.Value.TimeOfDay);
-
-                Event.CategoryId = (int)(cmbCategory!.SelectedValue ?? 0);
-                Event.VenueId = (int)(cmbVenue!.SelectedValue ?? 0);
-                Event.OrganizerId = (int)(cmbOrganizer!.SelectedValue ?? 0);
-
-                Event.Category = ((CategoryViewModel?)cmbCategory.SelectedItem)?.Name ?? "";
-                Event.Venue = ((VenueViewModel?)cmbVenue.SelectedItem)?.Name ?? "";
-                Event.Organizer = ((OrganizerViewModel?)cmbOrganizer.SelectedItem)?.Name ?? "";
-
-                Event.Price = nudPrice!.Value;
-                Event.TotalTickets = (int)nudTotalTickets!.Value;
-                Event.AvailableTickets = (int)nudAvailableTickets!.Value;
-                Event.Status = cmbStatus!.SelectedItem?.ToString() ?? "Active";
-            }
+                Id = Event?.Id ?? 0,
+                Name = txtName!.Text.Trim(),
+                Description = txtDescription!.Text.Trim(),
+                EventDate = dtpEventDate!.Value,
+                EventCategoryId = (int)(cmbCategory!.SelectedValue ?? 0),
+                LocationId = (int)(cmbVenue!.SelectedValue ?? 0),
+                CategoryName = ((CategoryDto?)cmbCategory.SelectedItem)?.Name ?? "",
+                LocationName = ((LocationDto?)cmbVenue.SelectedItem)?.Name ?? ""
+            };
 
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+    }
+
+    public class EventEditModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public DateTime EventDate { get; set; }
+        public int EventCategoryId { get; set; }
+        public int LocationId { get; set; }
+        public string CategoryName { get; set; } = string.Empty;
+        public string LocationName { get; set; } = string.Empty;
     }
 }

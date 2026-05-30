@@ -7,12 +7,13 @@ namespace Happenings.Services.Interfaces
     {
         List<ReservationDto> Get();
         ReservationDto GetById(int id);
+        ReservationDto? GetById(int id, int userId, bool isAdmin);
         ReservationDto Insert(ReservationInsertRequest request);
         ReservationDto Update(int id, ReservationUpdateRequest request);
-        void Delete(int id);
+        ReservationDto? Update(int id, ReservationUpdateRequest request, int userId, bool isAdmin);
+        bool Cancel(int id, int userId, bool isAdmin);
         void Approve(int id);
         void Reject(int id);
         List<ReservationDto> GetByUserId(int userId);
-
     }
 }

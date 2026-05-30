@@ -22,9 +22,12 @@ public class NotificationService : INotificationService
             .Select(n => new NotificationDto
             {
                 Id = n.Id,
+                Title = n.Title,
                 Message = n.Message,
                 IsSent = n.IsSent,
-                CreatedAt = n.CreatedAt
+                IsRead = n.IsRead,
+                CreatedAt = n.CreatedAt,
+                UserId = n.UserId
             })
             .ToList();
     }
@@ -36,8 +39,10 @@ public class NotificationService : INotificationService
             .Select(n => new NotificationDto
             {
                 Id = n.Id,
+                Title = n.Title,
                 Message = n.Message,
                 IsSent = n.IsSent,
+                IsRead = n.IsRead,
                 CreatedAt = n.CreatedAt
             })
             .ToList();
@@ -48,11 +53,11 @@ public class NotificationService : INotificationService
         var entity = new Notification
         {
             Message = request.Message,
+            Title = request.Title,
             IsSent = false,
+            IsRead = false,
             CreatedAt = DateTime.UtcNow,
-            UserId = request.UserId,
-            Title=request.Title
-
+            UserId = request.UserId
         };
 
         _context.Notifications.Add(entity);
@@ -61,19 +66,19 @@ public class NotificationService : INotificationService
         return new NotificationDto
         {
             Id = entity.Id,
+            Title = entity.Title,
             Message = entity.Message,
             IsSent = entity.IsSent,
+            IsRead = entity.IsRead,
             CreatedAt = entity.CreatedAt,
-            UserId = entity.UserId,
-            Title = entity.Title
+            UserId = entity.UserId
         };
     }
 
     public NotificationDto? MarkAsSent(int id)
     {
         var entity = _context.Notifications.Find(id);
-        if (entity == null)
-            return null;
+        if (entity == null) return null;
 
         entity.IsSent = true;
         _context.SaveChanges();
@@ -81,8 +86,10 @@ public class NotificationService : INotificationService
         return new NotificationDto
         {
             Id = entity.Id,
+            Title = entity.Title,
             Message = entity.Message,
             IsSent = entity.IsSent,
+            IsRead = entity.IsRead,
             CreatedAt = entity.CreatedAt
         };
     }
@@ -98,9 +105,37 @@ public class NotificationService : INotificationService
                 Title = n.Title,
                 Message = n.Message,
                 IsSent = n.IsSent,
+                IsRead = n.IsRead,
                 CreatedAt = n.CreatedAt
             })
             .ToList();
+    }
+
+    public bool MarkAsRead(int id, int userId)
+    {
+        var entity = _context.Notifications
+            .FirstOrDefault(n => n.Id == id && n.UserId == userId);
+        if (entity == null) return false;
+
+        entity.IsRead = true;
+        entity.ReadAt = DateTime.UtcNow;
+        _context.SaveChanges();
+        return true;
+    }
+
+    public void MarkAllAsRead(int userId)
+    {
+        var notifications = _context.Notifications
+            .Where(n => n.UserId == userId && !n.IsRead)
+            .ToList();
+
+        foreach (var n in notifications)
+        {
+            n.IsRead = true;
+            n.ReadAt = DateTime.UtcNow;
+        }
+
+        _context.SaveChanges();
     }
 
     public void ClearByUserId(int userId)

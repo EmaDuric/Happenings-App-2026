@@ -18,12 +18,15 @@ public class RecommendationService : IRecommendationService
     public List<RecommendedEventDto> GetRecommendedEvents(int userId)
     {
         var users = _context.Users.ToList();
+        var now = DateTime.UtcNow;
 
+        // Filtriramo samo buduće evente
         var events = _context.Events
             .Include(e => e.EventCategory)
             .Include(e => e.Location)
             .Include(e => e.Reservations)
-             .Include(e => e.Images)
+            .Include(e => e.Images)
+            .Where(e => e.EventDate > now)
             .ToList();
 
         if (!users.Any() || !events.Any())
@@ -38,15 +41,11 @@ public class RecommendationService : IRecommendationService
         var eventViews = _context.EventViews.ToList();
         var reviews = _context.Reviews.ToList();
 
-        // =========================
         // MATRICA INTERAKCIJA
-        // =========================
-
         foreach (var reservation in reservations)
         {
             int userIndex = users.FindIndex(u => u.Id == reservation.UserId);
             int eventIndex = events.FindIndex(e => e.Id == reservation.EventId);
-
             if (userIndex >= 0 && eventIndex >= 0)
                 matrix[userIndex, eventIndex] = Math.Max(matrix[userIndex, eventIndex], 5);
         }
@@ -55,49 +54,42 @@ public class RecommendationService : IRecommendationService
         {
             int userIndex = users.FindIndex(u => u.Id == view.UserId);
             int eventIndex = events.FindIndex(e => e.Id == view.EventId);
-
             if (userIndex >= 0 && eventIndex >= 0)
                 matrix[userIndex, eventIndex] = Math.Max(matrix[userIndex, eventIndex], 3);
         }
 
+        // Koristi stvarni Rating iz recenzije umjesto fiksne vrijednosti 4
         foreach (var review in reviews)
         {
             int userIndex = users.FindIndex(u => u.Id == review.UserId);
             int eventIndex = events.FindIndex(e => e.Id == review.EventId);
-
             if (userIndex >= 0 && eventIndex >= 0)
-                matrix[userIndex, eventIndex] = Math.Max(matrix[userIndex, eventIndex], 4);
+            {
+                // Normalizuj rating na skalu 1-5 → za matricu koristimo stvarni rating
+                double ratingScore = review.Rating; // 1-5
+                matrix[userIndex, eventIndex] = Math.Max(matrix[userIndex, eventIndex], ratingScore);
+            }
         }
 
         int targetUserIndex = users.FindIndex(u => u.Id == userId);
-
         if (targetUserIndex < 0)
             return new List<RecommendedEventDto>();
 
-        // =========================
         // INTERAKCIJE KORISNIKA
-        // =========================
-
         var interactedEventIds = new HashSet<int>();
-
         foreach (var r in reservations.Where(x => x.UserId == userId))
             interactedEventIds.Add(r.EventId);
-
         foreach (var v in eventViews.Where(x => x.UserId == userId))
             interactedEventIds.Add(v.EventId);
-
         foreach (var r in reviews.Where(x => x.UserId == userId))
             interactedEventIds.Add(r.EventId);
 
-        // =========================
-        // COLD START USER
-        // =========================
-
+        // COLD START — popularity-based
         if (!interactedEventIds.Any())
         {
             return events
                 .OrderByDescending(e => e.Reservations.Count)
-                .Take(5)
+                .Take(6)
                 .Select(e => new RecommendedEventDto
                 {
                     EventId = e.Id,
@@ -107,36 +99,23 @@ public class RecommendationService : IRecommendationService
                     CategoryName = e.EventCategory?.Name,
                     LocationName = e.Location?.Name,
                     Score = 0,
+                    Reason = "Popular event",
                     ImageUrl = e.Images.FirstOrDefault()?.ImageUrl
                 })
-                .ToList(); // ← .ToList() je DIO Select lanca, ne van njega
+                .ToList();
         }
 
-        // =========================
         // SVD
-        // =========================
-
-        // =========================
-        // SVD
-        // =========================
-
         var svd = matrix.Svd(true);
-
-        // ✅ FIX: koristi min(userCount, eventCount) za sigma dimenzije
         int k = Math.Min(userCount, eventCount);
 
         var sigma = Matrix<double>.Build.Dense(userCount, eventCount);
         for (int i = 0; i < k; i++)
-        {
             sigma[i, i] = svd.S[i];
-        }
 
         var reconstructed = svd.U * sigma * svd.VT;
 
-        // =========================
         // GENERISANJE PREPORUKA
-        // =========================
-
         var recommendations = new List<RecommendedEventDto>();
 
         for (int eventIndex = 0; eventIndex < eventCount; eventIndex++)
@@ -146,6 +125,11 @@ public class RecommendationService : IRecommendationService
             if (interactedEventIds.Contains(ev.Id))
                 continue;
 
+            var score = reconstructed[targetUserIndex, eventIndex];
+
+            // Generiši kratko objašnjenje preporuke
+            string reason = GenerateReason(ev, score, reservations, reviews);
+
             recommendations.Add(new RecommendedEventDto
             {
                 EventId = ev.Id,
@@ -154,18 +138,35 @@ public class RecommendationService : IRecommendationService
                 EventCategoryId = ev.EventCategoryId,
                 CategoryName = ev.EventCategory?.Name,
                 LocationName = ev.Location?.Name,
-                Score = reconstructed[targetUserIndex, eventIndex],
-                ImageUrl = ev.Images.FirstOrDefault()?.ImageUrl // ← DODAJ
+                Score = score,
+                Reason = reason,
+                ImageUrl = ev.Images.FirstOrDefault()?.ImageUrl
             });
         }
 
         return recommendations
             .OrderByDescending(x => x.Score)
-            .Take(5)
+            .Take(6)
             .ToList();
     }
+
+    private string GenerateReason(
+        Happenings.Model.Entities.Event ev,
+        double score,
+        List<Happenings.Model.Entities.Reservation> reservations,
+        List<Happenings.Model.Entities.Review> reviews)
+    {
+        var reservationCount = reservations.Count(r => r.EventId == ev.Id);
+        var avgRating = reviews.Where(r => r.EventId == ev.Id).Any()
+            ? reviews.Where(r => r.EventId == ev.Id).Average(r => r.Rating)
+            : 0;
+
+        if (avgRating >= 4)
+            return $"Highly rated ({avgRating:F1}★)";
+        if (reservationCount > 10)
+            return $"Popular — {reservationCount} reservations";
+        if (score > 3)
+            return "Based on your interests";
+        return "Recommended for you";
+    }
 }
-
-
-
-

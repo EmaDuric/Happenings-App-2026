@@ -7,9 +7,10 @@ public interface INotificationService
 {
     List<NotificationDto> GetAll();
     List<NotificationDto> GetPending();
-
     NotificationDto Insert(NotificationInsertRequest request);
     NotificationDto? MarkAsSent(int id);
     List<NotificationDto> GetByUserId(int userId);
     void ClearByUserId(int userId);
+    bool MarkAsRead(int id, int userId);
+    void MarkAllAsRead(int userId);
 }

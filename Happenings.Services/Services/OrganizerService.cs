@@ -48,6 +48,7 @@ namespace Happenings.Services.Services
                 Name = request.Name,
                 ContactEmail = request.ContactEmail,
                 PhoneNumber = request.PhoneNumber
+                // UserId se mora postaviti — admin mora navesti userId
             };
 
             _context.Organizers.Add(entity);
@@ -56,10 +57,15 @@ namespace Happenings.Services.Services
             return GetById(entity.Id);
         }
 
-        public OrganizerDto Update(int id, OrganizerUpdateRequest request)
+        // Ownership provjera za Update
+        public OrganizerDto Update(int id, OrganizerUpdateRequest request, int userId, bool isAdmin)
         {
             var entity = _context.Organizers.Find(id)
                 ?? throw new Exception("Organizer not found");
+
+            // Samo vlasnik ili admin mogu mijenjati
+            if (!isAdmin && entity.UserId != userId)
+                throw new UnauthorizedAccessException("You can only update your own organizer profile");
 
             entity.ContactEmail = request.ContactEmail;
             entity.PhoneNumber = request.PhoneNumber;
@@ -68,6 +74,10 @@ namespace Happenings.Services.Services
 
             return GetById(entity.Id);
         }
+
+        // Stara metoda za kompatibilnost
+        public OrganizerDto Update(int id, OrganizerUpdateRequest request)
+            => Update(id, request, 0, true);
 
         public void Delete(int id)
         {

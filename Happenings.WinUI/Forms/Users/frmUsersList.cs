@@ -75,10 +75,12 @@ namespace Happenings.WinUI.Forms.Users
             dgvUsers.RowTemplate.Height = 35;
             dgvUsers.DefaultCellStyle.Padding = new Padding(10, 5, 10, 5);
 
-            dgvUsers.Columns.Add(new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "ID", DataPropertyName = "Id", Width = 60 });
+            // ID je sakriven — koristi se interno
+            dgvUsers.Columns.Add(new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "ID", DataPropertyName = "Id", Visible = false });
             dgvUsers.Columns.Add(new DataGridViewTextBoxColumn { Name = "Username", HeaderText = "Username", DataPropertyName = "Username" });
             dgvUsers.Columns.Add(new DataGridViewTextBoxColumn { Name = "Email", HeaderText = "Email", DataPropertyName = "Email" });
-            dgvUsers.Columns.Add(new DataGridViewTextBoxColumn { Name = "CreatedAt", HeaderText = "Registered", DataPropertyName = "FormattedDate", Width = 150 });
+            dgvUsers.Columns.Add(new DataGridViewTextBoxColumn { Name = "IsOrganizer", HeaderText = "Organizer", DataPropertyName = "IsOrganizerDisplay", Width = 100 });
+            dgvUsers.Columns.Add(new DataGridViewTextBoxColumn { Name = "CreatedAt", HeaderText = "Registered", DataPropertyName = "FormattedDate", Width = 130 });
 
             this.Controls.Add(dgvUsers);
             this.Controls.Add(panelTop);
@@ -134,6 +136,8 @@ namespace Happenings.WinUI.Forms.Users
         public int Id { get; set; }
         public string Username { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
+        public bool IsOrganizer { get; set; }
+        public string IsOrganizerDisplay => IsOrganizer ? "Yes" : "No";
         public DateTime CreatedAt { get; set; }
         public string FormattedDate => CreatedAt.ToString("dd.MM.yyyy");
     }

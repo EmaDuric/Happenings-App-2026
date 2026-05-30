@@ -15,64 +15,75 @@ namespace Happenings.Services.Services
         private readonly HappeningsContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ReservationService(
-            HappeningsContext context,
-            IHttpContextAccessor httpContextAccessor)
+        public ReservationService(HappeningsContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
         }
 
+        private int GetCurrentUserId()
+        {
+            var claim = _httpContextAccessor.HttpContext?.User
+                .FindFirst(ClaimTypes.NameIdentifier);
+            if (claim == null) throw new Exception("User not authenticated");
+            return int.Parse(claim.Value);
+        }
+
         public List<ReservationDto> Get()
         {
             return _context.Reservations
+                .Include(r => r.Event)
+                .Include(r => r.EventTicketType)
                 .Select(r => new ReservationDto
                 {
                     Id = r.Id,
                     ReservedAt = r.ReservedAt,
                     UserId = r.UserId,
                     EventId = r.EventId,
+                    EventName = r.Event.Name,
+                    EventDate = r.Event.EventDate,
                     EventTicketTypeId = r.EventTicketTypeId,
+                    TicketTypeName = r.EventTicketType.Name,
                     Quantity = r.Quantity,
                     Status = r.Status.ToString()
                 })
                 .ToList();
         }
 
+        public ReservationDto? GetById(int id, int userId, bool isAdmin)
+        {
+            var entity = _context.Reservations
+                .Include(r => r.Event)
+                .Include(r => r.EventTicketType)
+                .FirstOrDefault(x => x.Id == id);
+
+            if (entity == null) return null;
+            if (!isAdmin && entity.UserId != userId) return null;
+
+            return MapToDto(entity);
+        }
+
         public ReservationDto GetById(int id)
         {
             var entity = _context.Reservations
+                .Include(r => r.Event)
+                .Include(r => r.EventTicketType)
                 .FirstOrDefault(x => x.Id == id)
                 ?? throw new Exception("Reservation not found");
 
-            return new ReservationDto
-            {
-                Id = entity.Id,
-                ReservedAt = entity.ReservedAt,
-                UserId = entity.UserId,
-                EventId = entity.EventId,
-                EventTicketTypeId = entity.EventTicketTypeId,
-                Quantity = entity.Quantity,
-                Status = entity.Status.ToString()
-            };
+            return MapToDto(entity);
         }
 
         public ReservationDto Insert(ReservationInsertRequest request)
         {
-            var userIdClaim = _httpContextAccessor.HttpContext?.User
-                .FindFirst(ClaimTypes.NameIdentifier);
+            var userId = GetCurrentUserId();
 
-            if (userIdClaim == null)
-                throw new Exception("User not authenticated");
-
-            if (!int.TryParse(userIdClaim.Value, out int userId))
-                throw new Exception("Invalid user id in token");
+            if (request.Quantity <= 0)
+                throw new Exception("Quantity must be greater than zero");
 
             var ticketType = _context.EventTicketTypes
-                .FirstOrDefault(x => x.Id == request.EventTicketTypeId);
-
-            if (ticketType == null)
-                throw new Exception("Ticket type not found");
+                .FirstOrDefault(x => x.Id == request.EventTicketTypeId)
+                ?? throw new Exception("Ticket type not found");
 
             if (ticketType.EventId != request.EventId)
                 throw new Exception("Selected ticket type does not belong to this event");
@@ -96,37 +107,57 @@ namespace Happenings.Services.Services
             return GetById(entity.Id);
         }
 
-        public ReservationDto Update(int id, ReservationUpdateRequest request)
+        public ReservationDto? Update(int id, ReservationUpdateRequest request, int userId, bool isAdmin)
         {
-            var entity = _context.Reservations
-                .FirstOrDefault(x => x.Id == id)
-                ?? throw new Exception("Reservation not found");
+            var entity = _context.Reservations.FirstOrDefault(x => x.Id == id);
+            if (entity == null) return null;
+            if (!isAdmin && entity.UserId != userId) return null;
+
+            if (request.Quantity <= 0)
+                throw new Exception("Quantity must be greater than zero");
 
             entity.Quantity = request.Quantity;
-
             _context.SaveChanges();
 
             return GetById(id);
         }
 
-        public void Delete(int id)
+        public ReservationDto Update(int id, ReservationUpdateRequest request)
         {
-            var entity = _context.Reservations
-                .FirstOrDefault(x => x.Id == id)
+            var entity = _context.Reservations.FirstOrDefault(x => x.Id == id)
                 ?? throw new Exception("Reservation not found");
 
-            _context.Reservations.Remove(entity);
+            entity.Quantity = request.Quantity;
             _context.SaveChanges();
+            return GetById(id);
+        }
+
+        public bool Cancel(int id, int userId, bool isAdmin)
+        {
+            var entity = _context.Reservations.FirstOrDefault(x => x.Id == id);
+            if (entity == null) return false;
+            if (!isAdmin && entity.UserId != userId) return false;
+
+            if (entity.Status == ReservationStatus.Cancelled)
+                throw new Exception("Reservation already cancelled");
+
+            entity.Status = ReservationStatus.Cancelled;
+            entity.CancelledAt = DateTime.UtcNow;
+            entity.CancelledByUserId = userId;
+            entity.CancellationReason = "Cancelled by user";
+
+            _context.SaveChanges();
+            return true;
         }
 
         public void Approve(int id)
         {
+            var adminId = GetCurrentUserId();
+
             var reservation = _context.Reservations
                 .Include(x => x.EventTicketType)
-                .FirstOrDefault(x => x.Id == id);
-
-            if (reservation == null)
-                throw new Exception("Reservation not found");
+                .FirstOrDefault(x => x.Id == id)
+                ?? throw new Exception("Reservation not found");
 
             if (reservation.Status != ReservationStatus.Pending)
                 throw new Exception("Reservation already processed");
@@ -136,19 +167,27 @@ namespace Happenings.Services.Services
 
             reservation.EventTicketType.AvailableQuantity -= reservation.Quantity;
             reservation.Status = ReservationStatus.Approved;
+            reservation.ApprovedAt = DateTime.UtcNow;
+            reservation.ApprovedByUserId = adminId;
 
             _context.SaveChanges();
         }
 
         public void Reject(int id)
         {
-            var reservation = _context.Reservations
-                .FirstOrDefault(x => x.Id == id);
+            var adminId = GetCurrentUserId();
 
-            if (reservation == null)
-                throw new Exception("Reservation not found");
+            var reservation = _context.Reservations
+                .FirstOrDefault(x => x.Id == id)
+                ?? throw new Exception("Reservation not found");
+
+            if (reservation.Status != ReservationStatus.Pending)
+                throw new Exception("Reservation already processed");
 
             reservation.Status = ReservationStatus.Rejected;
+            reservation.RejectedAt = DateTime.UtcNow;
+            reservation.RejectedByUserId = adminId;
+            reservation.RejectedReason = "Rejected by admin";
 
             _context.SaveChanges();
         }
@@ -174,5 +213,19 @@ namespace Happenings.Services.Services
                 })
                 .ToList();
         }
+
+        private ReservationDto MapToDto(Reservation r) => new ReservationDto
+        {
+            Id = r.Id,
+            ReservedAt = r.ReservedAt,
+            UserId = r.UserId,
+            EventId = r.EventId,
+            EventName = r.Event?.Name,
+            EventDate = r.Event?.EventDate ?? DateTime.MinValue,
+            EventTicketTypeId = r.EventTicketTypeId,
+            TicketTypeName = r.EventTicketType?.Name,
+            Quantity = r.Quantity,
+            Status = r.Status.ToString()
+        };
     }
 }

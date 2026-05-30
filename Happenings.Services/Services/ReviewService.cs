@@ -33,8 +33,7 @@ namespace Happenings.Services.Services
         public ReviewDto? GetById(int id)
         {
             var entity = _context.Reviews.Find(id);
-            if (entity == null)
-                return null;
+            if (entity == null) return null;
 
             return new ReviewDto
             {
@@ -48,6 +47,29 @@ namespace Happenings.Services.Services
 
         public ReviewDto Insert(ReviewInsertRequest request)
         {
+            // Validacija ratinga 1-5
+            if (request.Rating < 1 || request.Rating > 5)
+                throw new Exception("Rating must be between 1 and 5");
+
+            // Provjeri da korisnik ima ticket za taj event
+            var hasTicket = _context.Tickets
+                .Any(t => t.UserId == request.UserId && t.EventId == request.EventId);
+
+            if (!hasTicket)
+                throw new Exception("You can only review events you have attended");
+
+            // Provjeri da event je prošao
+            var ev = _context.Events.Find(request.EventId);
+            if (ev != null && ev.EventDate > DateTime.UtcNow)
+                throw new Exception("You can only review past events");
+
+            // Provjeri duplikat — samo jedna recenzija po korisniku po eventu
+            var existing = _context.Reviews
+                .FirstOrDefault(r => r.UserId == request.UserId && r.EventId == request.EventId);
+
+            if (existing != null)
+                throw new Exception("You have already reviewed this event");
+
             var entity = new Review
             {
                 Rating = request.Rating,
@@ -62,6 +84,24 @@ namespace Happenings.Services.Services
             return GetById(entity.Id)!;
         }
 
+        // Ownership provjera za Update
+        public ReviewDto? Update(int id, ReviewUpdateRequest request, int userId, bool isAdmin)
+        {
+            var entity = _context.Reviews.Find(id);
+            if (entity == null) return null;
+            if (!isAdmin && entity.UserId != userId) return null; // Forbidden
+
+            if (request.Rating < 1 || request.Rating > 5)
+                throw new Exception("Rating must be between 1 and 5");
+
+            entity.Rating = request.Rating;
+            entity.Comment = request.Comment;
+            _context.SaveChanges();
+
+            return GetById(id);
+        }
+
+        // Stara metoda za kompatibilnost
         public ReviewDto Update(int id, ReviewUpdateRequest request)
         {
             var entity = _context.Reviews.Find(id)
@@ -69,12 +109,24 @@ namespace Happenings.Services.Services
 
             entity.Rating = request.Rating;
             entity.Comment = request.Comment;
-
             _context.SaveChanges();
 
             return GetById(id)!;
         }
 
+        // Ownership provjera za Delete
+        public bool Delete(int id, int userId, bool isAdmin)
+        {
+            var entity = _context.Reviews.Find(id);
+            if (entity == null) return false;
+            if (!isAdmin && entity.UserId != userId) return false; // Forbidden
+
+            _context.Reviews.Remove(entity);
+            _context.SaveChanges();
+            return true;
+        }
+
+        // Stara metoda za kompatibilnost
         public void Delete(int id)
         {
             var entity = _context.Reviews.Find(id)
@@ -86,11 +138,9 @@ namespace Happenings.Services.Services
 
         public List<EligibleEventDto> GetEligibleEvents(int userId)
         {
-            // Eventi za koje user ima ticket (prošli eventi)
             var ticketEventIds = _context.Tickets
-                .Include(t => t.Reservation)
-                .Where(t => t.Reservation.UserId == userId)
-                .Select(t => t.Reservation.EventId)
+                .Where(t => t.UserId == userId)
+                .Select(t => t.EventId)
                 .Distinct()
                 .ToList();
 
