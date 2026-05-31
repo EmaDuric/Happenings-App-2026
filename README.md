@@ -7,71 +7,121 @@ Event management application built with ASP.NET Core, Flutter, and WinForms.
 - **Happenings.WebAPI** - REST API (ASP.NET Core 8)
 - **Happenings.Subscriber** - RabbitMQ worker service
 - **Happenings.WinUI** - Desktop admin panel (WinForms)
-- **UI** - Mobile Flutter application
+- **UI** - Mobile/Web Flutter application
+
+---
 
 ## Prerequisites
 
 - Docker & Docker Compose
 - .NET 8 SDK
 - Flutter SDK
-- SQL Server (for local development)
+- Android Studio (AVD emulator) — za mobilnu verziju
+- SQL Server — za lokalni razvoj
 
-## Running with Docker
+---
 
-1. Clone the repository
-2. Create `.env` file from `.env-tajne.zip` (password: fit)
-3. Run:
+## Running with Docker (preporučeno)
+
+1. Kloniraj repozitorij
+2. Raspakiraj `.env-tajne.zip` (šifra: **fit**) i postavi `.env` u root folder
+3. Pokreni:
 
 ```bash
 docker-compose up --build
 ```
 
-API will be available at: `http://localhost:5000`
+API dostupan na: `http://localhost:5000`  
+Swagger: `http://localhost:5000/swagger`
+
+---
 
 ## Running Locally
 
 ### API
-```bash
+
+```powershell
 cd Happenings.WebAPI
-dotnet run
+$env:Jwt__Key = "THIS_IS_A_SUPER_SECRET_KEY_FOR_HAPPENINGS_APP_2026"
+$env:PayPal__ClientId = "AYbumv9nnCRvQ3_87Xm6pdqwltowHXs1E7x79aD5vSAJDiN0lDMAtf9CJVQ_e_mD1dy0st1jTWwGjeck"
+$env:PayPal__Secret = "EGCdU7uC_Jdb4HZv_sVSi-wKtPEeQt4S9Jg8BWgliCTyejsRLDLvwJxo5grBIchVuKKn9I_rU1Qww1-j"
+$env:Stripe__PublishableKey = "pk_test_51TcCPjFwoo1tTNvXZCUyj9A66vrw39BRN20QWPBbMNgZfCb0Eo8IxN3A17U6ZgzSumncEntPHzCAC14KXGKoDppP00POlCbVnQ"
+$env:Stripe__SecretKey = "sk_test_51TcCPjFwoo1tTNvXItK2Mvt7U9tUcQfztI8XuQWBc0nEBhyoCuyWTirIGHHcMKFWx6DJV4hiEV0bbcf4ytZaZco800T2Vb7j6N"
+dotnet run --urls "http://localhost:5000"
+```
+
+### RabbitMQ (Docker)
+
+```powershell
+docker start rabbitmq
+# ili
+docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.12-management
 ```
 
 ### Subscriber
-```bash
+
+```powershell
 cd Happenings.Subscriber
 dotnet run
 ```
 
 ### Desktop (WinUI)
-Open `Happenings.sln` in Visual Studio and run `Happenings.WinUI`.
 
-### Mobile (Flutter)
-```bash
-cd UI
-flutter run --dart-define=API_BASE_URL=http://10.0.2.2:5000
+```powershell
+cd Happenings.WinUI
+dotnet run
 ```
+
+ili otvori `Happenings.sln` u Visual Studiju i pokreni `Happenings.WinUI`.
+
+### Mobile (Flutter) — Android Emulator
+
+Pokreni Android emulator u Android Studio, pa:
+
+```powershell
+cd UI
+flutter run -d emulator-5554 --dart-define=API_BASE_URL=http://10.0.2.2:5000/api
+```
+
+### Mobile (Flutter) — Web
+
+```powershell
+cd UI
+flutter run -d chrome --web-port=64020 --dart-define=API_BASE_URL=http://localhost:5000/api
+```
+
+---
 
 ## Login Credentials
 
-| Context | Username | Password |
-|---------|----------|----------|
+| Kontekst | Email | Lozinka |
+|----------|-------|---------|
 | Desktop (Admin) | admin@mail.com | admin2026 |
-| Mobile-User | mobile@mail.com | mobile2026 |
-| Mobile-Organiser| organiser@mail.com | organiser2026 |
+| Mobile User | mobile@mail.com | mobile2026 |
+| Mobile Organiser | organiser@mail.com | organiser2026 |
 
-## API Documentation
+---
 
-Swagger available at: `http://localhost:5000/swagger`
+## Test Payment Credentials
 
-password za .env-tajne je "fit".
-
-## Test kredencijali za plaćanje
-
-### PayPal Sandbox
-- **Buyer account**: sb-qzd1n51409087@personal.example.com
+### PayPal Sandbox (Buyer account)
+- **Email**: sb-qzd1n51409087@personal.example.com
 - **Password**: SDT6i2$R
 
 ### Stripe test kartica
 - **Card number**: 4242 4242 4242 4242
-- **Expiry**: bilo koji datum u budućnosti (npr. 12/28)
-- **CVV**: bilo koja 3 broja (npr. 123)
+- **Expiry**: 12/28
+- **CVV**: 123
+
+---
+
+## API Documentation
+
+Swagger: `http://localhost:5000/swagger`
+
+---
+
+## Environment
+
+Konfiguracijski podaci (JWT key, PayPal, Stripe, RabbitMQ) nalaze se u `.env-tajne.zip`.  
+Šifra za raspakiranje: **fit**

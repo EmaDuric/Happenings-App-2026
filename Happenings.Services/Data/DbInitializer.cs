@@ -127,7 +127,6 @@ namespace Happenings.Services.Data
             // ORGANIZERS
             if (!context.Organizers.Any())
             {
-                // Kreiraj organizer za organiser@mail.com usera
                 var organiserUser = context.Users.FirstOrDefault(u => u.Email == "organiser@mail.com");
 
                 var organizers = new List<Organizer>
@@ -209,11 +208,11 @@ namespace Happenings.Services.Data
             {
                 var imageUrls = new List<string>
                 {
-                    "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4",
-                    "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
-                    "https://images.unsplash.com/photo-1492684223066-81342ee5ff30",
-                    "https://images.unsplash.com/photo-1506157786151-b8491531f063",
-                    "https://images.unsplash.com/photo-1518770660439-4636190af475"
+                    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800",
+                    "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800",
+                    "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800",
+                    "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800",
+                    "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800"
                 };
 
                 var images = new List<EventImage>();
@@ -279,38 +278,48 @@ namespace Happenings.Services.Data
 
             var reservationsList = context.Reservations.ToList();
 
-            // PAYMENTS
+            // PAYMENTS — ažuriraj i status rezervacije na Approved
             if (!context.Payments.Any())
             {
                 var payments = new List<Payment>();
                 foreach (var r in reservationsList.Take(50))
                 {
+                    // Ažuriraj rezervaciju na Approved
+                    r.Status = Happenings.Model.Enums.ReservationStatus.Approved;
+                    r.ApprovedAt = DateTime.UtcNow;
+
                     payments.Add(new Payment
                     {
                         ReservationId = r.Id,
                         Amount = random.Next(20, 120),
                         PaymentMethod = "Card",
-                        Status = "Completed"
+                        Status = "Completed",
+                        TransactionId = Guid.NewGuid().ToString(),
+                        PaymentDate = DateTime.UtcNow
                     });
                 }
                 context.Payments.AddRange(payments);
                 context.SaveChanges();
             }
 
-            // TICKETS
+            // TICKETS — konzistentan QR format TICKET-{Guid}
             if (!context.Tickets.Any())
             {
                 var tickets = new List<Ticket>();
                 foreach (var r in reservationsList.Take(50))
                 {
-                    tickets.Add(new Ticket
+                    for (int i = 0; i < r.Quantity; i++)
                     {
-                        ReservationId = r.Id,
-                        EventId = r.EventId,
-                        UserId = r.UserId,
-                        QRCode = Guid.NewGuid().ToString(),
-                        IsUsed = false
-                    });
+                        tickets.Add(new Ticket
+                        {
+                            ReservationId = r.Id,
+                            EventId = r.EventId,
+                            UserId = r.UserId,
+                            QRCode = $"TICKET-{Guid.NewGuid()}",
+                            GeneratedAt = DateTime.UtcNow,
+                            IsUsed = false
+                        });
+                    }
                 }
                 context.Tickets.AddRange(tickets);
                 context.SaveChanges();
@@ -415,7 +424,8 @@ namespace Happenings.Services.Data
                     {
                         UserId = u.Id,
                         Title = "Welcome to Happenings!",
-                        Message = "Your account has been created successfully."
+                        Message = "Your account has been created successfully.",
+                        CreatedAt = DateTime.UtcNow
                     });
                 }
                 context.Notifications.AddRange(notifications);

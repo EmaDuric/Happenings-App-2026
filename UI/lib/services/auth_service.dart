@@ -3,7 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthService {
-  static const _storage = FlutterSecureStorage();
+  static const _storage = FlutterSecureStorage(
+    aOptions: AndroidOptions(
+      encryptedSharedPreferences: true,
+    ),
+  );
   static const _tokenKey = 'jwt_token';
 
   static Future<int?> getUserId() async {
@@ -32,8 +36,12 @@ class AuthService {
   }
 
   static Future<bool> isLoggedIn() async {
-    final token = await getToken();
-    return token != null && token.isNotEmpty;
+    try {
+      final token = await getToken();
+      return token != null && token.isNotEmpty;
+    } catch (e) {
+      return false;
+    }
   }
 
   static Map<String, dynamic>? _parseToken(String token) {
