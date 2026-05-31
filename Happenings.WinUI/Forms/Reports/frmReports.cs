@@ -130,7 +130,8 @@ namespace Happenings.WinUI.Forms.Reports
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 RowHeadersVisible = false,
                 Font = new System.Drawing.Font("Segoe UI", 10),
-                ColumnHeadersHeight = 40
+                ColumnHeadersHeight = 40,
+                AutoGenerateColumns = false
             };
             dgvReport.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(52, 73, 94);
             dgvReport.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;

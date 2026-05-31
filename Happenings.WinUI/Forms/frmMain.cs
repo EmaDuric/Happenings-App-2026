@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Windows.Forms;
 
@@ -16,6 +17,7 @@ namespace Happenings.WinUI.Forms
         private Button? btnUsers;
         private Button? btnReservations;
         private Button? btnReports;
+        private Button? btnOrgRequests;
         private Button? btnCategories;
         private Button? btnVenues;
         private Panel? panelTopBar;
@@ -46,8 +48,10 @@ namespace Happenings.WinUI.Forms
                 Text = "HAPPENINGS",
                 Font = new Font(new FontFamily("Segoe UI"), 20, FontStyle.Bold),
                 ForeColor = Color.FromArgb(243, 156, 18),
-                AutoSize = false, Size = new Size(250, 40),
-                Location = new Point(20, 15), TextAlign = ContentAlignment.MiddleLeft
+                AutoSize = false,
+                Size = new Size(250, 40),
+                Location = new Point(20, 15),
+                TextAlign = ContentAlignment.MiddleLeft
             };
             panelHeader.Controls.Add(lblAppTitle);
             panelHeader.Controls.Add(new Label
@@ -55,8 +59,10 @@ namespace Happenings.WinUI.Forms
                 Text = "Admin Panel",
                 Font = new Font(new FontFamily("Segoe UI"), 11, FontStyle.Regular),
                 ForeColor = Color.FromArgb(236, 240, 241),
-                AutoSize = false, Size = new Size(250, 20),
-                Location = new Point(20, 50), TextAlign = ContentAlignment.MiddleLeft
+                AutoSize = false,
+                Size = new Size(250, 20),
+                Location = new Point(20, 50),
+                TextAlign = ContentAlignment.MiddleLeft
             });
             panelSidebar.Controls.Add(panelHeader);
 
@@ -66,6 +72,7 @@ namespace Happenings.WinUI.Forms
             btnUsers = CreateMenuButton("👥 Users", y); btnUsers.Click += (s, e) => ShowUsers(); y += 50;
             btnReservations = CreateMenuButton("🎫 Reservations", y); btnReservations.Click += (s, e) => ShowReservations(); y += 50;
             btnReports = CreateMenuButton("📊 Reports", y); btnReports.Click += (s, e) => ShowReports(); y += 50;
+            btnOrgRequests = CreateMenuButton("⭐ Organizer Requests", y); btnOrgRequests.Click += (s, e) => ShowOrganizerRequests(); y += 50;
 
             panelSidebar.Controls.Add(new Panel { Height = 2, Width = 230, Location = new Point(10, y + 10), BackColor = Color.FromArgb(52, 73, 94) });
             y += 40;
@@ -74,8 +81,10 @@ namespace Happenings.WinUI.Forms
                 Text = "REFERENCE DATA",
                 Font = new Font(new FontFamily("Segoe UI"), 9, FontStyle.Bold),
                 ForeColor = Color.FromArgb(149, 165, 166),
-                AutoSize = false, Size = new Size(250, 20),
-                Location = new Point(20, y), TextAlign = ContentAlignment.MiddleLeft
+                AutoSize = false,
+                Size = new Size(250, 20),
+                Location = new Point(20, y),
+                TextAlign = ContentAlignment.MiddleLeft
             });
             y += 30;
             btnCategories = CreateMenuButton("🏷️ Categories", y); btnCategories.Click += (s, e) => ShowCategories(); y += 50;
@@ -87,7 +96,8 @@ namespace Happenings.WinUI.Forms
                 Text = "Dashboard",
                 Font = new Font(new FontFamily("Segoe UI"), 18, FontStyle.Bold),
                 ForeColor = Color.FromArgb(44, 62, 80),
-                Location = new Point(20, 15), AutoSize = true
+                Location = new Point(20, 15),
+                AutoSize = true
             };
             panelTopBar.Controls.Add(lblPageTitle);
 
@@ -96,7 +106,8 @@ namespace Happenings.WinUI.Forms
                 Text = "Admin User",
                 Font = new Font(new FontFamily("Segoe UI"), 11, FontStyle.Regular),
                 ForeColor = Color.FromArgb(127, 140, 141),
-                AutoSize = true, Location = new Point(1100, 20)
+                AutoSize = true,
+                Location = new Point(1100, 20)
             };
             panelTopBar.Controls.Add(lblUserInfo);
 
@@ -104,9 +115,12 @@ namespace Happenings.WinUI.Forms
             {
                 Text = "Logout",
                 Font = new Font(new FontFamily("Segoe UI"), 10, FontStyle.Bold),
-                Size = new Size(100, 35), Location = new Point(1240, 12),
-                BackColor = Color.FromArgb(231, 76, 60), ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat, Cursor = Cursors.Hand
+                Size = new Size(100, 35),
+                Location = new Point(1240, 12),
+                BackColor = Color.FromArgb(231, 76, 60),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand
             };
             btnLogout.FlatAppearance.BorderSize = 0;
             btnLogout.Click += btnLogout_Click;
@@ -124,16 +138,30 @@ namespace Happenings.WinUI.Forms
             var btn = new Button
             {
                 Text = text,
-                Font = new Font(new FontFamily("Segoe UI"), 12, FontStyle.Regular),
-                Size = new Size(250, 45), Location = new Point(0, yPosition),
-                BackColor = Color.Transparent, ForeColor = Color.FromArgb(236, 240, 241),
-                FlatStyle = FlatStyle.Flat, TextAlign = ContentAlignment.MiddleLeft,
-                Padding = new Padding(20, 0, 0, 0), Cursor = Cursors.Hand
+                Font = new Font(new FontFamily("Segoe UI"), 11, FontStyle.Regular),
+                Size = new Size(250, 45),
+                Location = new Point(0, yPosition),
+                BackColor = Color.Transparent,
+                ForeColor = Color.FromArgb(236, 240, 241),
+                FlatStyle = FlatStyle.Flat,
+                TextAlign = ContentAlignment.MiddleLeft,
+                Padding = new Padding(20, 0, 0, 0),
+                Cursor = Cursors.Hand
             };
             btn.FlatAppearance.BorderSize = 0;
             btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(52, 73, 94);
             panelSidebar?.Controls.Add(btn);
             return btn;
+        }
+
+        private HttpClient CreateAuthorizedClient()
+        {
+            var httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri("http://localhost:5000/api/");
+            if (!string.IsNullOrEmpty(TokenStore.Token))
+                httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", TokenStore.Token);
+            return httpClient;
         }
 
         private async void ShowDashboard()
@@ -142,103 +170,77 @@ namespace Happenings.WinUI.Forms
             panelContent?.Controls.Clear();
 
             var panel = new Panel { Dock = DockStyle.Fill, AutoScroll = true };
-
-            // Summary cards
-            int totalEvents = 0, totalUsers = 0, totalReservations = 0;
+            int totalEvents = 0, totalUsers = 0, totalReservations = 0, pendingRequests = 0;
 
             try
             {
-                var httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri("http://localhost:5000/api/");
                 var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                var httpClient = CreateAuthorizedClient();
 
                 var eventsResp = await httpClient.GetAsync("Events");
                 if (eventsResp.IsSuccessStatusCode)
                 {
                     var json = await eventsResp.Content.ReadAsStringAsync();
-                    var paged = JsonSerializer.Deserialize<PagedResult>(json, options);
-                    totalEvents = paged?.TotalCount ?? 0;
+                    totalEvents = JsonSerializer.Deserialize<PagedResult>(json, options)?.TotalCount ?? 0;
                 }
 
                 var usersResp = await httpClient.GetAsync("Users");
                 if (usersResp.IsSuccessStatusCode)
                 {
                     var json = await usersResp.Content.ReadAsStringAsync();
-                    var users = JsonSerializer.Deserialize<System.Collections.Generic.List<object>>(json, options);
-                    totalUsers = users?.Count ?? 0;
+                    totalUsers = JsonSerializer.Deserialize<System.Collections.Generic.List<object>>(json, options)?.Count ?? 0;
                 }
 
                 var resResp = await httpClient.GetAsync("Reservations");
                 if (resResp.IsSuccessStatusCode)
                 {
                     var json = await resResp.Content.ReadAsStringAsync();
-                    var reservations = JsonSerializer.Deserialize<System.Collections.Generic.List<object>>(json, options);
-                    totalReservations = reservations?.Count ?? 0;
+                    totalReservations = JsonSerializer.Deserialize<System.Collections.Generic.List<object>>(json, options)?.Count ?? 0;
+                }
+
+                var orgReqResp = await httpClient.GetAsync("OrganizerRequests");
+                if (orgReqResp.IsSuccessStatusCode)
+                {
+                    var json = await orgReqResp.Content.ReadAsStringAsync();
+                    var requests = JsonSerializer.Deserialize<System.Collections.Generic.List<OrganizerRequestItem>>(json, options) ?? new();
+                    pendingRequests = requests.Count(r => r.Status == "Pending");
                 }
             }
             catch { }
 
-            // Cards
             int cardY = 20;
             AddDashboardCard(panel, "📅 Total Events", totalEvents.ToString(), Color.FromArgb(52, 152, 219), 20, cardY);
             AddDashboardCard(panel, "👥 Total Users", totalUsers.ToString(), Color.FromArgb(46, 204, 113), 270, cardY);
             AddDashboardCard(panel, "🎫 Reservations", totalReservations.ToString(), Color.FromArgb(155, 89, 182), 520, cardY);
+            AddDashboardCard(panel, "⭐ Pending Requests", pendingRequests.ToString(),
+                pendingRequests > 0 ? Color.FromArgb(243, 156, 18) : Color.FromArgb(127, 140, 141), 770, cardY);
 
-            // Welcome text
-            var lblWelcome = new Label
+            panel.Controls.Add(new Label
             {
                 Text = "Welcome to Happenings Admin Panel!",
                 Font = new Font(new FontFamily("Segoe UI"), 16, FontStyle.Bold),
                 ForeColor = Color.FromArgb(44, 62, 80),
                 AutoSize = true,
                 Location = new Point(20, cardY + 160)
-            };
-            panel.Controls.Add(lblWelcome);
+            });
 
-            var lblInfo = new Label
+            panel.Controls.Add(new Label
             {
                 Text = "Use the sidebar to navigate between sections.",
                 Font = new Font(new FontFamily("Segoe UI"), 12, FontStyle.Regular),
                 ForeColor = Color.FromArgb(127, 140, 141),
                 AutoSize = true,
                 Location = new Point(20, cardY + 200)
-            };
-            panel.Controls.Add(lblInfo);
+            });
 
             panelContent?.Controls.Add(panel);
         }
 
         private void AddDashboardCard(Panel parent, string title, string value, Color color, int x, int y)
         {
-            var card = new Panel
-            {
-                Location = new Point(x, y),
-                Size = new Size(230, 130),
-                BackColor = color
-            };
-
-            card.Controls.Add(new Label
-            {
-                Text = title,
-                Font = new Font(new FontFamily("Segoe UI"), 11, FontStyle.Regular),
-                ForeColor = Color.White,
-                AutoSize = false,
-                Size = new Size(230, 30),
-                Location = new Point(15, 15),
-                TextAlign = ContentAlignment.MiddleLeft
-            });
-
-            card.Controls.Add(new Label
-            {
-                Text = value,
-                Font = new Font(new FontFamily("Segoe UI"), 36, FontStyle.Bold),
-                ForeColor = Color.White,
-                AutoSize = false,
-                Size = new Size(230, 70),
-                Location = new Point(15, 45),
-                TextAlign = ContentAlignment.MiddleLeft
-            });
-
+            var card = new Panel { Location = new Point(x, y), Size = new Size(230, 130), BackColor = color };
+            card.Controls.Add(new Label { Text = title, Font = new Font(new FontFamily("Segoe UI"), 11, FontStyle.Regular), ForeColor = Color.White, AutoSize = false, Size = new Size(230, 30), Location = new Point(15, 15), TextAlign = ContentAlignment.MiddleLeft });
+            card.Controls.Add(new Label { Text = value, Font = new Font(new FontFamily("Segoe UI"), 36, FontStyle.Bold), ForeColor = Color.White, AutoSize = false, Size = new Size(230, 70), Location = new Point(15, 45), TextAlign = ContentAlignment.MiddleLeft });
             parent.Controls.Add(card);
         }
 
@@ -270,6 +272,13 @@ namespace Happenings.WinUI.Forms
             panelContent?.Controls.Add(new Reports.frmReports { Dock = DockStyle.Fill });
         }
 
+        private void ShowOrganizerRequests()
+        {
+            if (lblPageTitle != null) lblPageTitle.Text = "Organizer Requests";
+            panelContent?.Controls.Clear();
+            panelContent?.Controls.Add(new OrganizerRequests.frmOrganizerRequests { Dock = DockStyle.Fill });
+        }
+
         private void ShowCategories()
         {
             if (lblPageTitle != null) lblPageTitle.Text = "Event Categories";
@@ -286,19 +295,15 @@ namespace Happenings.WinUI.Forms
 
         private void btnLogout_Click(object? sender, EventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to logout?",
-                "Confirm Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var result = MessageBox.Show("Are you sure you want to logout?", "Confirm Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                var frmLogin = new frmLogin();
-                frmLogin.Show();
+                new frmLogin().Show();
                 this.Close();
             }
         }
 
-        private class PagedResult
-        {
-            public int TotalCount { get; set; }
-        }
+        private class PagedResult { public int TotalCount { get; set; } }
+        private class OrganizerRequestItem { public string Status { get; set; } = ""; }
     }
 }

@@ -26,6 +26,7 @@ namespace Happenings.Services.Database
         public DbSet<EventTicketType> EventTicketTypes => Set<EventTicketType>();
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
+        public DbSet<OrganizerRequest> OrganizerRequests => Set<OrganizerRequest>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

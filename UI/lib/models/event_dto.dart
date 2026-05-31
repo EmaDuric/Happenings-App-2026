@@ -6,8 +6,10 @@ class EventDto {
   final String? locationName;
   final String? categoryName;
   final String? imageUrl;
-  final int? locationId; // ← DODAJ
-  final int? eventCategoryId; // ← DODAJ
+  final int? locationId;
+  final int? eventCategoryId;
+  final int? organizerId;
+  final int? organizerUserId; // ← userId vlasnika eventa
 
   EventDto({
     required this.id,
@@ -19,6 +21,8 @@ class EventDto {
     this.imageUrl,
     this.locationId,
     this.eventCategoryId,
+    this.organizerId,
+    this.organizerUserId,
   });
 
   factory EventDto.fromJson(Map<String, dynamic> json) {
@@ -32,6 +36,8 @@ class EventDto {
       imageUrl: json['imageUrl'],
       locationId: json['locationId'],
       eventCategoryId: json['eventCategoryId'],
+      organizerId: json['organizerId'],
+      organizerUserId: json['organizerUserId'],
     );
   }
 }

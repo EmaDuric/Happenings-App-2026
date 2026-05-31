@@ -33,6 +33,7 @@ builder.Services.AddScoped<QrCodeService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IInvitationService, InvitationService>();
 builder.Services.AddScoped<IAnnouncementService, AnnouncementService>();
+builder.Services.AddScoped<IOrganizerRequestService, OrganizerRequestService>();
 
 // DATABASE
 builder.Services.AddDbContext<HappeningsContext>(options =>

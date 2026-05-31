@@ -32,14 +32,18 @@ public class ReportService : IReportService
 
     public List<EventRevenueReportDto> GetRevenuePerEvent()
     {
-        return _context.Reservations
-            .Where(r => r.Status == ReservationStatus.Approved)
-            .GroupBy(r => new { r.EventId, r.Event.Name })
+        return _context.Payments
+            .Where(p => p.Status == "Completed")
+            .Join(_context.Reservations,
+                p => p.ReservationId,
+                r => r.Id,
+                (p, r) => new { p.Amount, r.EventId, r.Event.Name })
+            .GroupBy(x => new { x.EventId, x.Name })
             .Select(g => new EventRevenueReportDto
             {
                 EventId = g.Key.EventId,
                 EventName = g.Key.Name,
-                Revenue = g.Sum(x => x.Quantity * x.EventTicketType.Price)
+                Revenue = g.Sum(x => x.Amount)
             })
             .OrderByDescending(x => x.Revenue)
             .ToList();

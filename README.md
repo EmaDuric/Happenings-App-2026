@@ -64,3 +64,14 @@ flutter run --dart-define=API_BASE_URL=http://10.0.2.2:5000
 Swagger available at: `http://localhost:5000/swagger`
 
 password za .env-tajne je "fit".
+
+## Test kredencijali za plaćanje
+
+### PayPal Sandbox
+- **Buyer account**: sb-qzd1n51409087@personal.example.com
+- **Password**: SDT6i2$R
+
+### Stripe test kartica
+- **Card number**: 4242 4242 4242 4242
+- **Expiry**: bilo koji datum u budućnosti (npr. 12/28)
+- **CVV**: bilo koja 3 broja (npr. 123)

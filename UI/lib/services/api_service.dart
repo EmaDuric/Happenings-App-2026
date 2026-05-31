@@ -631,4 +631,27 @@ class ApiService {
     if (response.statusCode != 200)
       throw Exception("Confirm failed: ${response.body}");
   }
+
+  static Future<List<dynamic>> getUsersForInvitation(
+      {required String token}) async {
+    final response = await http.get(
+      Uri.parse("$baseUrl/Users/for-invitation"),
+      headers: {"Authorization": "Bearer $token"},
+    );
+    if (response.statusCode == 200) return jsonDecode(response.body);
+    return [];
+  }
+
+  static Future<void> sendOrganizerRequest({required String token}) async {
+    final response = await http.post(
+      Uri.parse("$baseUrl/OrganizerRequests"),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+    );
+
+    if (response.statusCode < 200 || response.statusCode >= 300)
+      throw Exception("Failed: ${response.statusCode} - ${response.body}");
+  }
 }

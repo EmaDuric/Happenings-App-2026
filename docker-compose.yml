@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -42,6 +41,13 @@ services:
       RabbitMQ__Host: rabbitmq
       RabbitMQ__User: ${RABBITMQ_USER}
       RabbitMQ__Pass: ${RABBITMQ_PASS}
+      PayPal__ClientId: ${PAYPAL_CLIENT_ID}
+      PayPal__Secret: ${PAYPAL_SECRET}
+      PayPal__BaseUrl: ${PAYPAL_BASE_URL}
+      PayPal__ReturnUrl: http://localhost:64020/#/payment-success
+      PayPal__CancelUrl: http://localhost:64020/#/payment-cancel
+      Stripe__PublishableKey: ${STRIPE_PUBLISHABLE_KEY}
+      Stripe__SecretKey: ${STRIPE_SECRET_KEY}
     depends_on:
       - db
       - rabbitmq

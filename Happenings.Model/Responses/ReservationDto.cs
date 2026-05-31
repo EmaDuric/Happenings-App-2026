@@ -10,4 +10,5 @@ public class ReservationDto
     public string TicketTypeName { get; set; } = string.Empty;
     public int Quantity { get; set; }
     public string Status { get; set; } = null!;
+    public string? UserName { get; set; }
 }

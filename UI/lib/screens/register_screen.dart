@@ -14,6 +14,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _passwordController = TextEditingController();
 
   bool isLoading = false;
+  bool requestOrganizer = false; // ← checkbox stanje
 
   Future<void> register() async {
     final username = _usernameController.text.trim();
@@ -27,7 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
 
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email)) {
+    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+$').hasMatch(email)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Please enter a valid email address.")),
       );
@@ -45,26 +46,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() => isLoading = true);
 
     try {
-      await ApiService.registerUser(
+      // 1. Registruj korisnika
+      final result = await ApiService.registerUser(
         username: username,
         email: email,
         password: password,
-        // isOrganizer se ne šalje — backend ga ne prima od klijenta
       );
+
+      // 2. Ako je korisnik čekirao organizer request, logiraj se i pošalji zahtjev
+      if (requestOrganizer) {
+        try {
+          final loginResult = await ApiService.login(email, password);
+          final token = loginResult["token"] as String?;
+
+          if (token != null && token.isNotEmpty) {
+            await ApiService.sendOrganizerRequest(token: token);
+          }
+        } catch (e) {
+          // Prikaži grešku korisniku umjesto da je sakriješ
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Organizer request failed: $e")),
+            );
+          }
+        }
+      }
 
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Account created successfully")),
+        SnackBar(
+            content: Text(requestOrganizer
+                ? "Account created! Organizer request sent to admin."
+                : "Account created successfully")),
       );
 
       Navigator.pop(context);
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("$e")),
       );
     } finally {
-      setState(() => isLoading = false);
+      if (mounted) setState(() => isLoading = false);
     }
   }
 
@@ -110,6 +134,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     filled: true,
                     fillColor: Colors.white),
               ),
+              const SizedBox(height: 14),
+
+              // Organizer request checkbox
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.orange.shade200),
+                ),
+                child: CheckboxListTile(
+                  value: requestOrganizer,
+                  onChanged: (val) =>
+                      setState(() => requestOrganizer = val ?? false),
+                  title: const Text("Request organizer role",
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                  subtitle: const Text("Admin will review your request",
+                      style: TextStyle(fontSize: 11, color: Colors.black54)),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  activeColor: Colors.orange,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+                  dense: true,
+                ),
+              ),
+
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,

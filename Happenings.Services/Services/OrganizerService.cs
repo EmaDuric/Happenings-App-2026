@@ -1,4 +1,4 @@
-using Happenings.Services.Database;
+﻿using Happenings.Services.Database;
 using Happenings.Services.Interfaces;
 using Happenings.Model.DTOs;
 using Happenings.Model.Entities;
@@ -43,12 +43,27 @@ namespace Happenings.Services.Services
 
         public OrganizerDto Insert(OrganizerInsertRequest request)
         {
+            // UserId je obavezan
+            if (request.UserId <= 0)
+                throw new Exception("UserId is required");
+
+            // Provjeri da li korisnik postoji
+            var user = _context.Users.Find(request.UserId)
+                ?? throw new Exception("User not found");
+
+            // Provjeri da li korisnik već ima organizer profil
+            if (_context.Organizers.Any(o => o.UserId == request.UserId))
+                throw new Exception("User already has an organizer profile");
+
+            // Postavi IsOrganizer flag na useru
+            user.IsOrganizer = true;
+
             var entity = new Organizer
             {
                 Name = request.Name,
                 ContactEmail = request.ContactEmail,
-                PhoneNumber = request.PhoneNumber
-                // UserId se mora postaviti � admin mora navesti userId
+                PhoneNumber = request.PhoneNumber,
+                UserId = request.UserId
             };
 
             _context.Organizers.Add(entity);
@@ -63,7 +78,6 @@ namespace Happenings.Services.Services
             var entity = _context.Organizers.Find(id)
                 ?? throw new Exception("Organizer not found");
 
-            // Samo vlasnik ili admin mogu mijenjati
             if (!isAdmin && entity.UserId != userId)
                 throw new UnauthorizedAccessException("You can only update your own organizer profile");
 
@@ -75,7 +89,6 @@ namespace Happenings.Services.Services
             return GetById(entity.Id);
         }
 
-        // Stara metoda za kompatibilnost
         public OrganizerDto Update(int id, OrganizerUpdateRequest request)
             => Update(id, request, 0, true);
 
@@ -83,6 +96,11 @@ namespace Happenings.Services.Services
         {
             var entity = _context.Organizers.Find(id)
                 ?? throw new Exception("Organizer not found");
+
+            // Ukloni IsOrganizer flag sa usera
+            var user = _context.Users.Find(entity.UserId);
+            if (user != null)
+                user.IsOrganizer = false;
 
             _context.Organizers.Remove(entity);
             _context.SaveChanges();

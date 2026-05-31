@@ -1,4 +1,4 @@
-namespace Happenings.Model.Responses;
+﻿namespace Happenings.Model.Responses;
 
 public class EventDto
 {
@@ -8,6 +8,7 @@ public class EventDto
     public DateTime EventDate { get; set; }
     public int EventCategoryId { get; set; }
     public int OrganizerId { get; set; }
+    public int OrganizerUserId { get; set; }  // ← DODAJ
     public int LocationId { get; set; }
     public string? LocationName { get; set; }
     public string? ImageUrl { get; set; }

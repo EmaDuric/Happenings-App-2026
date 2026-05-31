@@ -60,7 +60,11 @@ public class EventService
             EventCategoryId = entity.EventCategoryId,
             LocationName = entity.Location?.Name,
             CategoryName = entity.EventCategory?.Name,
-            ImageUrl = entity.Images.FirstOrDefault()?.ImageUrl
+            ImageUrl = entity.Images.FirstOrDefault()?.ImageUrl,
+            OrganizerUserId = _context.Organizers
+    .Where(o => o.Id == entity.OrganizerId)
+    .Select(o => o.UserId)
+    .FirstOrDefault()
         };
 
     protected override Event MapInsertToEntity(EventInsertRequest request)

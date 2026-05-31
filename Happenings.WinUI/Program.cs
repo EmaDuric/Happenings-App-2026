@@ -11,24 +11,44 @@ namespace Happenings.WinUI
         public static ServiceProvider ServiceProvider { get; private set; } = null!;
 
         [STAThread]
+        //static void Main()
+        //{
+        //    ApplicationConfiguration.Initialize();
+
+        //    // Uèitaj konfiguraciju iz appsettings.json
+        //    var configuration = new ConfigurationBuilder()
+        //        .SetBasePath(Directory.GetCurrentDirectory())
+        //        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+        //        .Build();
+
+        //    var services = new ServiceCollection();
+        //    services.AddSingleton<IConfiguration>(configuration);
+        //    ConfigureServices(services);
+        //    ServiceProvider = services.BuildServiceProvider();
+
+        //    Application.Run(new Forms.frmLogin());
+        //}
         static void Main()
         {
             ApplicationConfiguration.Initialize();
+            try
+            {
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .Build();
 
-            // Uèitaj konfiguraciju iz appsettings.json
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .Build();
-
-            var services = new ServiceCollection();
-            services.AddSingleton<IConfiguration>(configuration);
-            ConfigureServices(services);
-            ServiceProvider = services.BuildServiceProvider();
-
-            Application.Run(new Forms.frmLogin());
+                var services = new ServiceCollection();
+                services.AddSingleton<IConfiguration>(configuration);
+                ConfigureServices(services);
+                ServiceProvider = services.BuildServiceProvider();
+                Application.Run(new Forms.frmLogin());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Startup error: {ex.Message}\n\n{ex.StackTrace}", "Error");
+            }
         }
-
         private static void ConfigureServices(ServiceCollection services)
         {
             services.AddSingleton<APIService>();

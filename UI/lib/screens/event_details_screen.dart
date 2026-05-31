@@ -17,20 +17,28 @@ class EventDetailsScreen extends StatefulWidget {
 }
 
 class _EventDetailsScreenState extends State<EventDetailsScreen> {
-  bool isOrganizer = false;
+  bool isOwner = false; // true samo ako je ovaj organizer vlasnik eventa
   List<dynamic> announcements = [];
 
   @override
   void initState() {
     super.initState();
-    checkRole();
+    checkOwnership();
     loadAnnouncements();
     _recordView();
   }
 
-  Future<void> checkRole() async {
-    final org = await AuthService.isOrganizer();
-    setState(() => isOrganizer = org);
+  Future<void> checkOwnership() async {
+    final isOrg = await AuthService.isOrganizer();
+    if (!isOrg) return;
+
+    final myUserId = await AuthService.getUserId();
+    // Provjeri da li je trenutni korisnik vlasnik eventa
+    final owned = widget.event.organizerUserId != null &&
+        myUserId != null &&
+        widget.event.organizerUserId == myUserId;
+
+    setState(() => isOwner = owned);
   }
 
   Future<void> loadAnnouncements() async {
@@ -73,7 +81,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
             backgroundColor: const Color(0xFFF4D35E),
             foregroundColor: Colors.black,
             actions: [
-              // Share dugme — vidljivo na tamnoj i svijetloj slici
+              // Share dugme
               Padding(
                 padding: const EdgeInsets.only(right: 4),
                 child: Container(
@@ -90,7 +98,8 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                   ),
                 ),
               ),
-              if (isOrganizer)
+              // Edit dugme — SAMO za vlasnika eventa
+              if (isOwner)
                 Padding(
                   padding: const EdgeInsets.only(right: 8),
                   child: Container(
@@ -102,6 +111,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                     child: IconButton(
                       icon:
                           const Icon(Icons.edit, color: Colors.white, size: 20),
+                      tooltip: "Edit event",
                       onPressed: () async {
                         final updated = await Navigator.push(
                           context,

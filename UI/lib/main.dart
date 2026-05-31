@@ -8,12 +8,13 @@ import 'services/auth_service.dart';
 import 'screens/my_reservations_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/payment_success_screen.dart';
+import 'screens/my_events_screen.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey =
-      'pk_test_51TcCPjFwoo1tTNvXZCUyj9A66vrw39BRN20QWPBbMNgZfCb0Eo8IxN3A17U6ZgzSumncEntPHzCAC14KXGKoDppP00POlCbVnQ'; // tvoj publishable key
+      'pk_test_51TcCPjFwoo1tTNvXZCUyj9A66vrw39BRN20QWPBbMNgZfCb0Eo8IxN3A17U6ZgzSumncEntPHzCAC14KXGKoDppP00POlCbVnQ';
   runApp(const MyApp());
 }
 
@@ -28,7 +29,6 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) {
         final uri = Uri.parse(settings.name ?? "/");
 
-        // /payment-success?token=XXX&reservationId=YYY
         if (uri.path == "/payment-success") {
           return MaterialPageRoute(
             builder: (_) => const PaymentSuccessScreen(),
@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
           );
         }
 
-        // /payment-cancel
         if (uri.path == "/payment-cancel") {
           return MaterialPageRoute(
             builder: (_) => const PaymentCancelScreen(),
@@ -44,7 +43,6 @@ class MyApp extends StatelessWidget {
           );
         }
 
-        // Ostale rute
         switch (uri.path) {
           case "/home":
             return MaterialPageRoute(builder: (_) => const HomeScreen());
@@ -60,6 +58,8 @@ class MyApp extends StatelessWidget {
                 builder: (_) => const MyReservationsScreen());
           case "/profile":
             return MaterialPageRoute(builder: (_) => const ProfileScreen());
+          case "/my-events":
+            return MaterialPageRoute(builder: (_) => const MyEventsScreen());
           default:
             return MaterialPageRoute(builder: (_) => const RootScreen());
         }

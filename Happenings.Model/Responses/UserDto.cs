@@ -6,5 +6,6 @@ namespace Happenings.Model.Responses
         public string Username { get; set; } = null!;
         public string Email { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
+        public bool IsOrganizer { get; set; }
     }
 }

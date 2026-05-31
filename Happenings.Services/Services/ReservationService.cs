@@ -39,6 +39,10 @@ namespace Happenings.Services.Services
                     Id = r.Id,
                     ReservedAt = r.ReservedAt,
                     UserId = r.UserId,
+                    UserName = _context.Users
+                        .Where(u => u.Id == r.UserId)
+                        .Select(u => u.Username)
+                        .FirstOrDefault(),
                     EventId = r.EventId,
                     EventName = r.Event.Name,
                     EventDate = r.Event.EventDate,

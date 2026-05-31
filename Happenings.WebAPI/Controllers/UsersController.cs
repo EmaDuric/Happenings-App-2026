@@ -42,6 +42,12 @@ namespace Happenings.WebAPI.Controllers
             return Ok(user);
         }
 
+        // ORGANIZER — lista korisnika za slanje pozivnica
+        [HttpGet("for-invitation")]
+        [Authorize(Roles = "Admin,Organizer")]
+        public IActionResult GetForInvitation()
+            => Ok(_service.Get());
+
         // MY PROFILE UPDATE — korisnik mijenja samo svoje podatke
         [HttpPut("my")]
         public IActionResult UpdateMyProfile([FromBody] UserUpdateRequest request)

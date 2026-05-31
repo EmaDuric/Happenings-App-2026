@@ -1,4 +1,4 @@
-using Happenings.Model.Entities;
+﻿using Happenings.Model.Entities;
 using Happenings.Model.Requests;
 using Happenings.Model.Responses;
 using Happenings.Services.Database;
@@ -23,7 +23,8 @@ namespace Happenings.Services.Services
                     Id = u.Id,
                     Username = u.Username,
                     Email = u.Email,
-                    CreatedAt = u.CreatedAt
+                    CreatedAt = u.CreatedAt,
+                    IsOrganizer = u.IsOrganizer  // ← DODAJ
                 })
                 .ToList();
         }
@@ -39,7 +40,8 @@ namespace Happenings.Services.Services
                 Id = user.Id,
                 Username = user.Username,
                 Email = user.Email,
-                CreatedAt = user.CreatedAt
+                CreatedAt = user.CreatedAt,
+                IsOrganizer = user.IsOrganizer  // ← DODAJ
             };
         }
 

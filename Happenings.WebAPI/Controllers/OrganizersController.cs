@@ -10,22 +10,30 @@ namespace Happenings.WebAPI.Controllers;
 public class OrganizersController : ControllerBase
 {
     private readonly IOrganizerService _service;
+
     public OrganizersController(IOrganizerService service) => _service = service;
 
     [HttpGet]
+    [Authorize]
     public IActionResult Get() => Ok(_service.GetAll());
 
     [HttpGet("{id}")]
+    [Authorize]
     public IActionResult GetById(int id) => Ok(_service.GetById(id));
 
+    // Samo Admin može kreirati organizatora
     [HttpPost]
-    [Authorize]
-    public IActionResult Insert([FromBody] OrganizerInsertRequest request) => Ok(_service.Insert(request));
+    [Authorize(Roles = "Admin")]
+    public IActionResult Insert([FromBody] OrganizerInsertRequest request)
+        => Ok(_service.Insert(request));
 
+    // Samo Admin može mijenjati
     [HttpPut("{id}")]
-    [Authorize]
-    public IActionResult Update(int id, [FromBody] OrganizerUpdateRequest request) => Ok(_service.Update(id, request));
+    [Authorize(Roles = "Admin")]
+    public IActionResult Update(int id, [FromBody] OrganizerUpdateRequest request)
+        => Ok(_service.Update(id, request));
 
+    // Samo Admin može brisati
     [HttpDelete("{id}")]
     [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
