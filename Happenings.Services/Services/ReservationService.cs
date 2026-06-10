@@ -67,13 +67,15 @@ namespace Happenings.Services.Services
             return MapToDto(entity);
         }
 
-        public ReservationDto GetById(int id)
+        // Interno dohvatanje za mapiranje u DTO nakon vec autorizovane akcije
+        // (Insert/Update). Bez ownership provjere jer pozivalac vec radi kontekst.
+        private ReservationDto GetByIdInternal(int id)
         {
             var entity = _context.Reservations
                 .Include(r => r.Event)
                 .Include(r => r.EventTicketType)
                 .FirstOrDefault(x => x.Id == id)
-                ?? throw new Exception("Reservation not found");
+                ?? throw new KeyNotFoundException("Reservation not found");
 
             return MapToDto(entity);
         }
@@ -108,7 +110,7 @@ namespace Happenings.Services.Services
             _context.Reservations.Add(entity);
             _context.SaveChanges();
 
-            return GetById(entity.Id);
+            return GetByIdInternal(entity.Id);
         }
 
         public ReservationDto? Update(int id, ReservationUpdateRequest request, int userId, bool isAdmin)
@@ -123,17 +125,7 @@ namespace Happenings.Services.Services
             entity.Quantity = request.Quantity;
             _context.SaveChanges();
 
-            return GetById(id);
-        }
-
-        public ReservationDto Update(int id, ReservationUpdateRequest request)
-        {
-            var entity = _context.Reservations.FirstOrDefault(x => x.Id == id)
-                ?? throw new Exception("Reservation not found");
-
-            entity.Quantity = request.Quantity;
-            _context.SaveChanges();
-            return GetById(id);
+            return GetByIdInternal(id);
         }
 
         public bool Cancel(int id, int userId, bool isAdmin)
