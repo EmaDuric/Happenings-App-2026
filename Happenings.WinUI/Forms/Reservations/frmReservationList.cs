@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 using System.Windows.Forms;
 
@@ -170,9 +171,16 @@ namespace Happenings.WinUI.Forms.Reservations
         {
             if (dgvReservations?.CurrentRow == null) return;
             var id = (int)dgvReservations.CurrentRow.Cells["Id"].Value;
+
+            var reason = Microsoft.VisualBasic.Interaction.InputBox(
+                "Reason for rejecting this reservation (optional):",
+                "Reject Reservation", "");
+
             try
             {
-                var response = await CreateAuthorizedClient().PostAsync($"Reservations/{id}/reject", null);
+                var body = JsonSerializer.Serialize(new { reason });
+                var response = await CreateAuthorizedClient().PostAsync($"Reservations/{id}/reject",
+                    new StringContent(body, Encoding.UTF8, "application/json"));
                 response.EnsureSuccessStatusCode();
                 MessageBox.Show("Reservation rejected!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadReservationsAsync();

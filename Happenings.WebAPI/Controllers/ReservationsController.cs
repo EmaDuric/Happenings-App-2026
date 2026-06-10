@@ -14,7 +14,7 @@ public class ReservationsController : ControllerBase
     private readonly IReservationService _service;
     public ReservationsController(IReservationService service) => _service = service;
 
-    // ADMIN — lista svih rezervacija
+    // ADMIN ï¿½ lista svih rezervacija
     [HttpGet]
     [Authorize(Roles = "Admin")]
     public IActionResult Get() => Ok(_service.Get());
@@ -42,7 +42,7 @@ public class ReservationsController : ControllerBase
     public IActionResult Insert([FromBody] ReservationInsertRequest request)
         => Ok(_service.Insert(request));
 
-    // Korisnik može mijenjati samo svoju rezervaciju
+    // Korisnik moï¿½e mijenjati samo svoju rezervaciju
     [HttpPut("{id}")]
     public IActionResult Update(int id, [FromBody] ReservationUpdateRequest request)
     {
@@ -53,13 +53,13 @@ public class ReservationsController : ControllerBase
         return Ok(result);
     }
 
-    // Soft delete — postavlja status na Cancelled
+    // Soft delete ï¿½ postavlja status na Cancelled (uz opcionalni stvarni razlog)
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int id, [FromBody] ReservationStatusChangeRequest? request = null)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var isAdmin = User.IsInRole("Admin");
-        var result = _service.Cancel(id, userId, isAdmin);
+        var result = _service.Cancel(id, userId, isAdmin, request?.Reason);
         if (!result) return Forbid();
         return NoContent();
     }
@@ -74,9 +74,18 @@ public class ReservationsController : ControllerBase
 
     [HttpPost("{id}/reject")]
     [Authorize(Roles = "Admin")]
-    public IActionResult Reject(int id)
+    public IActionResult Reject(int id, [FromBody] ReservationStatusChangeRequest? request = null)
     {
-        _service.Reject(id);
+        _service.Reject(id, request?.Reason);
+        return Ok();
+    }
+
+    // Admin oznacava odobrenu rezervaciju kao zavrsenu (npr. nakon odrzanog eventa)
+    [HttpPost("{id}/complete")]
+    [Authorize(Roles = "Admin")]
+    public IActionResult Complete(int id)
+    {
+        _service.Complete(id);
         return Ok();
     }
 }

@@ -128,7 +128,7 @@ namespace Happenings.Services.Services
             return GetByIdInternal(id);
         }
 
-        public bool Cancel(int id, int userId, bool isAdmin)
+        public bool Cancel(int id, int userId, bool isAdmin, string? reason)
         {
             var entity = _context.Reservations.FirstOrDefault(x => x.Id == id);
             if (entity == null) return false;
@@ -137,10 +137,7 @@ namespace Happenings.Services.Services
             if (entity.Status == ReservationStatus.Cancelled)
                 throw new Exception("Reservation already cancelled");
 
-            entity.Status = ReservationStatus.Cancelled;
-            entity.CancelledAt = DateTime.UtcNow;
-            entity.CancelledByUserId = userId;
-            entity.CancellationReason = "Cancelled by user";
+            ChangeStatus(entity, ReservationStatus.Cancelled, userId, reason);
 
             _context.SaveChanges();
             return true;
@@ -153,7 +150,7 @@ namespace Happenings.Services.Services
             var reservation = _context.Reservations
                 .Include(x => x.EventTicketType)
                 .FirstOrDefault(x => x.Id == id)
-                ?? throw new Exception("Reservation not found");
+                ?? throw new KeyNotFoundException("Reservation not found");
 
             if (reservation.Status != ReservationStatus.Pending)
                 throw new Exception("Reservation already processed");
@@ -162,30 +159,72 @@ namespace Happenings.Services.Services
                 throw new Exception("Not enough tickets left");
 
             reservation.EventTicketType.AvailableQuantity -= reservation.Quantity;
-            reservation.Status = ReservationStatus.Approved;
-            reservation.ApprovedAt = DateTime.UtcNow;
-            reservation.ApprovedByUserId = adminId;
+            ChangeStatus(reservation, ReservationStatus.Approved, adminId, null);
 
             _context.SaveChanges();
         }
 
-        public void Reject(int id)
+        public void Reject(int id, string? reason)
         {
             var adminId = GetCurrentUserId();
 
             var reservation = _context.Reservations
                 .FirstOrDefault(x => x.Id == id)
-                ?? throw new Exception("Reservation not found");
+                ?? throw new KeyNotFoundException("Reservation not found");
 
             if (reservation.Status != ReservationStatus.Pending)
                 throw new Exception("Reservation already processed");
 
-            reservation.Status = ReservationStatus.Rejected;
-            reservation.RejectedAt = DateTime.UtcNow;
-            reservation.RejectedByUserId = adminId;
-            reservation.RejectedReason = "Rejected by admin";
+            ChangeStatus(reservation, ReservationStatus.Rejected, adminId, reason);
 
             _context.SaveChanges();
+        }
+
+        public void Complete(int id)
+        {
+            var adminId = GetCurrentUserId();
+
+            var reservation = _context.Reservations
+                .FirstOrDefault(x => x.Id == id)
+                ?? throw new KeyNotFoundException("Reservation not found");
+
+            // Zavrsiti se moze samo odobrena rezervacija (npr. nakon odrzanog eventa).
+            if (reservation.Status != ReservationStatus.Approved)
+                throw new Exception("Only approved reservations can be completed");
+
+            ChangeStatus(reservation, ReservationStatus.Completed, adminId, null);
+
+            _context.SaveChanges();
+        }
+
+        // Centralizovana promjena statusa + upis audit traga (vrijeme, ko je radio
+        // akciju i stvarni razlog kod reject/cancel). Jedno mjesto za sve tranzicije.
+        private static void ChangeStatus(Reservation r, ReservationStatus status, int byUserId, string? reason)
+        {
+            var now = DateTime.UtcNow;
+            r.Status = status;
+
+            switch (status)
+            {
+                case ReservationStatus.Approved:
+                    r.ApprovedAt = now;
+                    r.ApprovedByUserId = byUserId;
+                    break;
+                case ReservationStatus.Rejected:
+                    r.RejectedAt = now;
+                    r.RejectedByUserId = byUserId;
+                    r.RejectedReason = string.IsNullOrWhiteSpace(reason) ? "Rejected by admin" : reason.Trim();
+                    break;
+                case ReservationStatus.Cancelled:
+                    r.CancelledAt = now;
+                    r.CancelledByUserId = byUserId;
+                    r.CancellationReason = string.IsNullOrWhiteSpace(reason) ? "Cancelled by user" : reason.Trim();
+                    break;
+                case ReservationStatus.Completed:
+                    r.CompletedAt = now;
+                    r.CompletedByUserId = byUserId;
+                    break;
+            }
         }
 
         public List<ReservationDto> GetByUserId(int userId)

@@ -21,17 +21,21 @@ public class Reservation
 
     public ReservationStatus Status { get; set; } = ReservationStatus.Pending;
 
-    // AUDIT TRAG — Approve
+    // AUDIT TRAG ï¿½ Approve
     public DateTime? ApprovedAt { get; set; }
     public int? ApprovedByUserId { get; set; }
 
-    // AUDIT TRAG — Reject
+    // AUDIT TRAG ï¿½ Reject
     public DateTime? RejectedAt { get; set; }
     public int? RejectedByUserId { get; set; }
     public string? RejectedReason { get; set; }
 
-    // AUDIT TRAG — Cancel
+    // AUDIT TRAG ï¿½ Cancel
     public DateTime? CancelledAt { get; set; }
     public int? CancelledByUserId { get; set; }
     public string? CancellationReason { get; set; }
+
+    // AUDIT TRAG ï¿½ Complete
+    public DateTime? CompletedAt { get; set; }
+    public int? CompletedByUserId { get; set; }
 }
