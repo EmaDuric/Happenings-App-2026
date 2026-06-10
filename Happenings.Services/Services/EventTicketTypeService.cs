@@ -19,33 +19,23 @@ public class EventTicketTypeService : IEventTicketTypeService
     {
         return _context.EventTicketTypes
             .Where(t => t.EventId == eventId)
-            .Select(t => new EventTicketTypeDto
-            {
-                Id = t.Id,
-                EventId = t.EventId,
-                Name = t.Name,
-                Price = t.Price,
-                AvailableQuantity = t.AvailableQuantity
-            })
+            .AsEnumerable()
+            .Select(MapToDto)
             .ToList();
     }
 
     public EventTicketTypeDto? GetById(int id)
     {
         var t = _context.EventTicketTypes.Find(id);
-        if (t == null) return null;
-        return new EventTicketTypeDto
-        {
-            Id = t.Id,
-            EventId = t.EventId,
-            Name = t.Name,
-            Price = t.Price,
-            AvailableQuantity = t.AvailableQuantity
-        };
+        return t == null ? null : MapToDto(t);
     }
 
-    public EventTicketTypeDto Insert(EventTicketTypeInsertRequest request)
+    public EventTicketTypeDto? Insert(EventTicketTypeInsertRequest request, int userId, bool isAdmin)
     {
+        // Ne dozvoljavamo dodavanje tipa ulaznice na tudi event.
+        if (!CanManageEvent(request.EventId, userId, isAdmin))
+            return null;
+
         var entity = new EventTicketType
         {
             EventId = request.EventId,
@@ -57,34 +47,56 @@ public class EventTicketTypeService : IEventTicketTypeService
         _context.EventTicketTypes.Add(entity);
         _context.SaveChanges();
 
-        return new EventTicketTypeDto
-        {
-            Id = entity.Id,
-            EventId = entity.EventId,
-            Name = entity.Name,
-            Price = entity.Price,
-            AvailableQuantity = entity.AvailableQuantity
-        };
+        return MapToDto(entity);
     }
-    public object Update(int id, EventTicketTypeInsertRequest request)
+
+    public EventTicketTypeDto? Update(int id, EventTicketTypeInsertRequest request, int userId, bool isAdmin)
     {
         var entity = _context.EventTicketTypes.Find(id)
-            ?? throw new Exception("Ticket type not found");
+            ?? throw new KeyNotFoundException("Ticket type not found");
+
+        if (!CanManageEvent(entity.EventId, userId, isAdmin))
+            return null;
 
         entity.Name = request.Name;
         entity.Price = request.Price;
         entity.AvailableQuantity = request.AvailableQuantity;
 
         _context.SaveChanges();
-        return entity;
+        return MapToDto(entity);
     }
 
-    public void Delete(int id)
+    public bool Delete(int id, int userId, bool isAdmin)
     {
         var entity = _context.EventTicketTypes.Find(id)
-            ?? throw new Exception("Ticket type not found");
+            ?? throw new KeyNotFoundException("Ticket type not found");
+
+        if (!CanManageEvent(entity.EventId, userId, isAdmin))
+            return false;
 
         _context.EventTicketTypes.Remove(entity);
         _context.SaveChanges();
+        return true;
     }
+
+    // Admin moze sve; organizator samo tipove ulaznica vlastitih eventa.
+    private bool CanManageEvent(int eventId, int userId, bool isAdmin)
+    {
+        var ev = _context.Events.Find(eventId)
+            ?? throw new KeyNotFoundException("Event not found");
+
+        if (isAdmin) return true;
+
+        var organizer = _context.Organizers.FirstOrDefault(o => o.UserId == userId);
+        return organizer != null && ev.OrganizerId == organizer.Id;
+    }
+
+    private static EventTicketTypeDto MapToDto(EventTicketType t) => new()
+    {
+        Id = t.Id,
+        EventId = t.EventId,
+        Name = t.Name,
+        Price = t.Price,
+        AvailableQuantity = t.AvailableQuantity
+    };
 }

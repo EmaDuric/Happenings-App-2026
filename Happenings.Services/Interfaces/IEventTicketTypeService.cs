@@ -7,7 +7,10 @@ public interface IEventTicketTypeService
 {
     List<EventTicketTypeDto> GetByEvent(int eventId);
     EventTicketTypeDto? GetById(int id);
-    EventTicketTypeDto Insert(EventTicketTypeInsertRequest request);
-    object Update(int id, EventTicketTypeInsertRequest request);
-    void Delete(int id);
+
+    // Ownership-aware operacije: vracaju null (Insert/Update) ili false (Delete)
+    // kada korisnik nije admin niti organizator eventa kojem tip ulaznice pripada.
+    EventTicketTypeDto? Insert(EventTicketTypeInsertRequest request, int userId, bool isAdmin);
+    EventTicketTypeDto? Update(int id, EventTicketTypeInsertRequest request, int userId, bool isAdmin);
+    bool Delete(int id, int userId, bool isAdmin);
 }

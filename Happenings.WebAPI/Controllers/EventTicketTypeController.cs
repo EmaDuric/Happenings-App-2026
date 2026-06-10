@@ -11,12 +11,10 @@ namespace Happenings.WebAPI.Controllers;
 public class EventTicketTypeController : ControllerBase
 {
     private readonly IEventTicketTypeService _service;
-    private readonly IEventService _eventService;
 
-    public EventTicketTypeController(IEventTicketTypeService service, IEventService eventService)
+    public EventTicketTypeController(IEventTicketTypeService service)
     {
         _service = service;
-        _eventService = eventService;
     }
 
     [HttpGet]
@@ -25,37 +23,32 @@ public class EventTicketTypeController : ControllerBase
     [HttpPost]
     [Authorize(Roles = "Organizer,Admin")]
     public IActionResult Insert([FromBody] EventTicketTypeInsertRequest request)
-        => Ok(_service.Insert(request));
-
-    [HttpPut("{id}")]
-    [Authorize(Roles = "Organizer,Admin")]
-    public async Task<IActionResult> Update(int id, [FromBody] EventTicketTypeInsertRequest request)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var isAdmin = User.IsInRole("Admin");
 
-        // Provjeri ownership — ticketType pripada eventu, event pripada organizatoru
-        var ticketType = _service.GetById(id);
-        if (ticketType == null) return NotFound();
+        var result = _service.Insert(request, userId, isAdmin);
+        return result == null ? Forbid() : Ok(result);
+    }
 
-        if (!isAdmin)
-        {
-            var ev = await _eventService.GetByIdAsync(ticketType.EventId);
-            if (ev == null) return NotFound();
+    [HttpPut("{id}")]
+    [Authorize(Roles = "Organizer,Admin")]
+    public IActionResult Update(int id, [FromBody] EventTicketTypeInsertRequest request)
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var isAdmin = User.IsInRole("Admin");
 
-            // Provjeri da li je trenutni korisnik organizator tog eventa
-            var result = await _eventService.UpdateAsync(ev.Id, null!, userId, false);
-            if (result == null) return Forbid();
-        }
-
-        return Ok(_service.Update(id, request));
+        var result = _service.Update(id, request, userId, isAdmin);
+        return result == null ? Forbid() : Ok(result);
     }
 
     [HttpDelete("{id}")]
     [Authorize(Roles = "Organizer,Admin")]
     public IActionResult Delete(int id)
     {
-        _service.Delete(id);
-        return NoContent();
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var isAdmin = User.IsInRole("Admin");
+
+        return _service.Delete(id, userId, isAdmin) ? NoContent() : Forbid();
     }
 }
