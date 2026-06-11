@@ -145,6 +145,10 @@ public class PaymentService : IPaymentService
         using var transaction = _context.Database.BeginTransaction();
         try
         {
+            // Neposredno prije finalnog odobrenja jos jednom provjeri status i
+            // dostupnost (osvjezeno iz baze) da se zatvori race create -> confirm.
+            EnsureStillPayable(reservation);
+
             if (existing != null)
             {
                 existing.Status = "Completed";
@@ -164,7 +168,7 @@ public class PaymentService : IPaymentService
                 _context.Payments.Add(existing);
             }
 
-            reservation.EventTicketType.AvailableQuantity -= reservation.Quantity;
+            reservation.EventTicketType!.AvailableQuantity -= reservation.Quantity;
             reservation.Status = ReservationStatus.Approved;
             _context.SaveChanges();
             PublishPaymentEvent(existing, reservation.UserId);
@@ -309,6 +313,10 @@ public class PaymentService : IPaymentService
         using var transaction = _context.Database.BeginTransaction();
         try
         {
+            // Neposredno prije finalnog odobrenja jos jednom provjeri status i
+            // dostupnost (osvjezeno iz baze) da se zatvori race create -> capture.
+            EnsureStillPayable(reservation);
+
             if (existing != null)
             {
                 existing.Status = "Completed";
@@ -342,6 +350,26 @@ public class PaymentService : IPaymentService
         }
 
         return MapToDto(existing);
+    }
+
+    // Ponovo (iz baze) provjeri da je rezervacija jos uvijek placljiva neposredno
+    // prije finalnog odobrenja. Zatvara race izmedju kreiranja intenta/ordera i
+    // capture/confirm koraka (npr. otkazana rezervacija ili u meduvremenu
+    // potrosena dostupna kolicina). Baca => transakcija se rollbackuje.
+    private void EnsureStillPayable(Reservation reservation)
+    {
+        _context.Entry(reservation).Reload();
+        if (reservation.EventTicketType != null)
+            _context.Entry(reservation.EventTicketType).Reload();
+
+        if (reservation.Status != ReservationStatus.Pending)
+            throw new Exception($"Reservation is no longer payable. Current status: {reservation.Status}");
+
+        if (reservation.EventTicketType == null)
+            throw new Exception("Ticket type not found");
+
+        if (reservation.EventTicketType.AvailableQuantity < reservation.Quantity)
+            throw new Exception("Not enough tickets available");
     }
 
     private async Task<string> GetPayPalAccessTokenAsync()
