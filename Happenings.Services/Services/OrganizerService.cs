@@ -1,3 +1,4 @@
+using Happenings.Model.Exceptions;
 ﻿using Happenings.Services.Database;
 using Happenings.Services.Interfaces;
 using Happenings.Model.DTOs;
@@ -30,7 +31,7 @@ namespace Happenings.Services.Services
         public OrganizerDto GetById(int id)
         {
             var entity = _context.Organizers.Find(id)
-                ?? throw new Exception("Organizer not found");
+                ?? throw new NotFoundException("Organizer not found");
 
             return new OrganizerDto
             {
@@ -45,15 +46,15 @@ namespace Happenings.Services.Services
         {
             // UserId je obavezan
             if (request.UserId <= 0)
-                throw new Exception("UserId is required");
+                throw new BusinessRuleException("UserId is required");
 
             // Provjeri da li korisnik postoji
             var user = _context.Users.Find(request.UserId)
-                ?? throw new Exception("User not found");
+                ?? throw new NotFoundException("User not found");
 
             // Provjeri da li korisnik već ima organizer profil
             if (_context.Organizers.Any(o => o.UserId == request.UserId))
-                throw new Exception("User already has an organizer profile");
+                throw new ConflictException("User already has an organizer profile");
 
             // Postavi IsOrganizer flag na useru
             user.IsOrganizer = true;
@@ -76,10 +77,10 @@ namespace Happenings.Services.Services
         public OrganizerDto Update(int id, OrganizerUpdateRequest request, int userId, bool isAdmin)
         {
             var entity = _context.Organizers.Find(id)
-                ?? throw new Exception("Organizer not found");
+                ?? throw new NotFoundException("Organizer not found");
 
             if (!isAdmin && entity.UserId != userId)
-                throw new UnauthorizedAccessException("You can only update your own organizer profile");
+                throw new ForbiddenException("You can only update your own organizer profile");
 
             entity.ContactEmail = request.ContactEmail;
             entity.PhoneNumber = request.PhoneNumber;
@@ -95,7 +96,7 @@ namespace Happenings.Services.Services
         public void Delete(int id)
         {
             var entity = _context.Organizers.Find(id)
-                ?? throw new Exception("Organizer not found");
+                ?? throw new NotFoundException("Organizer not found");
 
             // Ukloni IsOrganizer flag sa usera
             var user = _context.Users.Find(entity.UserId);

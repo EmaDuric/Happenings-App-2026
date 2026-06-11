@@ -1,3 +1,4 @@
+using Happenings.Model.Exceptions;
 ﻿using Happenings.Model.Entities;
 using Happenings.Model.Requests;
 using Happenings.Model.Responses;
@@ -33,7 +34,7 @@ namespace Happenings.Services.Services
         {
             var user = _context.Users.Find(id);
             if (user == null)
-                throw new Exception("User not found");
+                throw new NotFoundException("User not found");
 
             return new UserDto
             {
@@ -64,7 +65,7 @@ namespace Happenings.Services.Services
         {
             var entity = _context.Users.Find(id);
             if (entity == null)
-                throw new Exception("User not found");
+                throw new NotFoundException("User not found");
 
             entity.Username = request.Username;
             entity.Email = request.Email;
@@ -77,7 +78,7 @@ namespace Happenings.Services.Services
         {
             var entity = _context.Users.Find(id);
             if (entity == null)
-                throw new Exception("User not found");
+                throw new NotFoundException("User not found");
 
             _context.Users.Remove(entity);
             _context.SaveChanges();

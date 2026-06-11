@@ -32,17 +32,11 @@ public class ReviewsController : ControllerBase
         var userId = int.Parse(userIdClaim.Value);
         request.UserId = userId;
 
-        try
-        {
-            return Ok(_service.Insert(request));
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { error = ex.Message });
-        }
+        // Greske (BusinessRule/Conflict/...) hvata ExceptionMiddleware po tipu
+        return Ok(_service.Insert(request));
     }
 
-    // Korisnik može mijenjati samo svoju recenziju
+    // Korisnik moï¿½e mijenjati samo svoju recenziju
     [HttpPut("{id}")]
     [Authorize]
     public IActionResult Update(int id, [FromBody] ReviewUpdateRequest request)
@@ -50,19 +44,12 @@ public class ReviewsController : ControllerBase
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var isAdmin = User.IsInRole("Admin");
 
-        try
-        {
-            var result = _service.Update(id, request, userId, isAdmin);
-            if (result == null) return Forbid();
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { error = ex.Message });
-        }
+        var result = _service.Update(id, request, userId, isAdmin);
+        if (result == null) return Forbid();
+        return Ok(result);
     }
 
-    // Korisnik može brisati samo svoju recenziju
+    // Korisnik moï¿½e brisati samo svoju recenziju
     [HttpDelete("{id}")]
     [Authorize]
     public IActionResult Delete(int id)

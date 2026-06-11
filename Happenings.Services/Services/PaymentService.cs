@@ -1,3 +1,4 @@
+using Happenings.Model.Exceptions;
 ﻿using Happenings.Model.DTOs;
 using Happenings.Model.Entities;
 using Happenings.Model.Enums;
@@ -50,23 +51,23 @@ public class PaymentService : IPaymentService
         var reservation = _context.Reservations
             .Include(r => r.EventTicketType)
             .FirstOrDefault(r => r.Id == reservationId)
-            ?? throw new Exception("Reservation not found");
+            ?? throw new NotFoundException("Reservation not found");
 
         if (reservation.UserId != userId)
-            throw new UnauthorizedAccessException("You can only pay for your own reservation");
+            throw new ForbiddenException("You can only pay for your own reservation");
 
         if (reservation.Status != ReservationStatus.Pending)
-            throw new Exception($"Reservation cannot be paid. Current status: {reservation.Status}");
+            throw new BusinessRuleException($"Reservation cannot be paid. Current status: {reservation.Status}");
 
         if (reservation.EventTicketType == null)
-            throw new Exception("Ticket type not found");
+            throw new NotFoundException("Ticket type not found");
 
         if (reservation.EventTicketType.AvailableQuantity < reservation.Quantity)
-            throw new Exception("Not enough tickets available");
+            throw new BusinessRuleException("Not enough tickets available");
 
         var existing = _context.Payments.FirstOrDefault(p => p.ReservationId == reservationId);
         if (existing != null && existing.Status == "Completed")
-            throw new Exception("Already paid");
+            throw new ConflictException("Already paid");
 
         // Obrisi stari pending ako postoji
         if (existing != null && existing.Status == "Pending")
@@ -120,10 +121,10 @@ public class PaymentService : IPaymentService
         var reservation = _context.Reservations
             .Include(r => r.EventTicketType)
             .FirstOrDefault(r => r.Id == reservationId)
-            ?? throw new Exception("Reservation not found");
+            ?? throw new NotFoundException("Reservation not found");
 
         if (reservation.UserId != userId)
-            throw new UnauthorizedAccessException("Unauthorized");
+            throw new ForbiddenException("Unauthorized");
 
         // Idempotentnost
         var existing = _context.Payments.FirstOrDefault(p => p.ReservationId == reservationId);
@@ -135,14 +136,14 @@ public class PaymentService : IPaymentService
         var paymentIntent = await service.GetAsync(paymentIntentId);
 
         if (paymentIntent.Status != "succeeded")
-            throw new Exception($"Payment not confirmed. Stripe status: {paymentIntent.Status}");
+            throw new BusinessRuleException($"Payment not confirmed. Stripe status: {paymentIntent.Status}");
 
         // Verifikuj da iznos odgovara — klijent nije mogao manipulirati cijenom
         var expectedAmount = reservation.EventTicketType!.Price * reservation.Quantity;
         var stripeAmount = paymentIntent.Amount / 100m;
 
         if (Math.Abs(stripeAmount - expectedAmount) > 0.01m)
-            throw new Exception("Payment amount mismatch");
+            throw new BusinessRuleException("Payment amount mismatch");
 
         using var transaction = _context.Database.BeginTransaction();
         try
@@ -189,23 +190,23 @@ public class PaymentService : IPaymentService
         var reservation = _context.Reservations
             .Include(r => r.EventTicketType)
             .FirstOrDefault(r => r.Id == reservationId)
-            ?? throw new Exception("Reservation not found");
+            ?? throw new NotFoundException("Reservation not found");
 
         if (reservation.UserId != userId)
-            throw new UnauthorizedAccessException("You can only pay for your own reservation");
+            throw new ForbiddenException("You can only pay for your own reservation");
 
         if (reservation.Status != ReservationStatus.Pending)
-            throw new Exception($"Reservation cannot be paid. Current status: {reservation.Status}");
+            throw new BusinessRuleException($"Reservation cannot be paid. Current status: {reservation.Status}");
 
         if (reservation.EventTicketType == null)
-            throw new Exception("Ticket type not found");
+            throw new NotFoundException("Ticket type not found");
 
         if (reservation.EventTicketType.AvailableQuantity < reservation.Quantity)
-            throw new Exception("Not enough tickets available");
+            throw new BusinessRuleException("Not enough tickets available");
 
         var existing = _context.Payments.FirstOrDefault(p => p.ReservationId == reservationId);
         if (existing != null && existing.Status == "Completed")
-            throw new Exception("Already paid");
+            throw new ConflictException("Already paid");
 
         if (existing != null && existing.Status == "Pending")
         {
@@ -283,10 +284,10 @@ public class PaymentService : IPaymentService
         var reservation = _context.Reservations
             .Include(r => r.EventTicketType)
             .FirstOrDefault(r => r.Id == reservationId)
-            ?? throw new Exception("Reservation not found");
+            ?? throw new NotFoundException("Reservation not found");
 
         if (reservation.UserId != userId)
-            throw new UnauthorizedAccessException("Unauthorized");
+            throw new ForbiddenException("Unauthorized");
 
         var existing = _context.Payments.FirstOrDefault(p => p.ReservationId == reservationId);
         if (existing != null && existing.Status == "Completed")
@@ -309,7 +310,7 @@ public class PaymentService : IPaymentService
         var status = captureData.GetProperty("status").GetString();
 
         if (status != "COMPLETED")
-            throw new Exception($"PayPal payment not completed. Status: {status}");
+            throw new BusinessRuleException($"PayPal payment not completed. Status: {status}");
 
         using var transaction = _context.Database.BeginTransaction();
         try

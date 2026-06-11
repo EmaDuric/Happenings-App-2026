@@ -1,3 +1,4 @@
+using Happenings.Model.Exceptions;
 ﻿using Happenings.Model.Entities;
 using Happenings.Model.Requests;
 using Happenings.Model.Responses;
@@ -26,20 +27,20 @@ namespace Happenings.Services.Services
         public AuthResponse Login(LoginRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.Email))
-                throw new Exception("Email is required");
+                throw new BusinessRuleException("Email is required");
 
             if (string.IsNullOrWhiteSpace(request.Password))
-                throw new Exception("Password is required");
+                throw new BusinessRuleException("Password is required");
 
             var email = request.Email.Trim().ToLowerInvariant();
 
             var user = _context.Users.FirstOrDefault(x => x.Email == email);
 
             if (user == null)
-                throw new Exception("Invalid credentials");
+                throw new UnauthorizedException("Invalid credentials");
 
             if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-                throw new Exception("Invalid credentials");
+                throw new UnauthorizedException("Invalid credentials");
 
             var token = GenerateToken(user);
 
@@ -49,10 +50,10 @@ namespace Happenings.Services.Services
         public void ChangePassword(int userId, ChangePasswordRequest request)
         {
             var user = _context.Users.Find(userId)
-                ?? throw new Exception("User not found");
+                ?? throw new NotFoundException("User not found");
 
             if (!BCrypt.Net.BCrypt.Verify(request.CurrentPassword, user.PasswordHash))
-                throw new Exception("Current password is incorrect");
+                throw new BusinessRuleException("Current password is incorrect");
 
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
             _context.SaveChanges();
@@ -61,7 +62,7 @@ namespace Happenings.Services.Services
         public string? ForgotPassword(ForgotPasswordRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.Email))
-                throw new Exception("Email is required");
+                throw new BusinessRuleException("Email is required");
 
             var email = request.Email.Trim().ToLowerInvariant();
             var user = _context.Users.FirstOrDefault(x => x.Email == email);
@@ -83,11 +84,11 @@ namespace Happenings.Services.Services
         public void ResetPassword(ResetPasswordRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.Email))
-                throw new Exception("Email is required");
+                throw new BusinessRuleException("Email is required");
             if (string.IsNullOrWhiteSpace(request.Token))
-                throw new Exception("Reset token is required");
+                throw new BusinessRuleException("Reset token is required");
             if (string.IsNullOrWhiteSpace(request.NewPassword))
-                throw new Exception("New password is required");
+                throw new BusinessRuleException("New password is required");
 
             var email = request.Email.Trim().ToLowerInvariant();
             var user = _context.Users.FirstOrDefault(x => x.Email == email);
@@ -99,7 +100,7 @@ namespace Happenings.Services.Services
                 || user.PasswordResetTokenExpiry < DateTime.UtcNow
                 || !BCrypt.Net.BCrypt.Verify(request.Token, user.PasswordResetTokenHash))
             {
-                throw new Exception("Invalid or expired reset token");
+                throw new BusinessRuleException("Invalid or expired reset token");
             }
 
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
@@ -112,19 +113,19 @@ namespace Happenings.Services.Services
         public UserDto Register(UserInsertRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.Email))
-                throw new Exception("Email is required");
+                throw new BusinessRuleException("Email is required");
 
             if (string.IsNullOrWhiteSpace(request.Password))
-                throw new Exception("Password is required");
+                throw new BusinessRuleException("Password is required");
 
             if (string.IsNullOrWhiteSpace(request.Username))
-                throw new Exception("Username is required");
+                throw new BusinessRuleException("Username is required");
 
             // Normalizuj email
             var email = request.Email.Trim().ToLowerInvariant();
 
             if (_context.Users.Any(x => x.Email == email))
-                throw new Exception("User already exists");
+                throw new ConflictException("User already exists");
 
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
 

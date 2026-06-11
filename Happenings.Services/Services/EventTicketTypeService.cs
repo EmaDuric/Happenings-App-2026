@@ -1,3 +1,4 @@
+using Happenings.Model.Exceptions;
 ﻿using Happenings.Model.Requests;
 using Happenings.Model.Responses;
 using Happenings.Model.Entities;
@@ -53,7 +54,7 @@ public class EventTicketTypeService : IEventTicketTypeService
     public EventTicketTypeDto? Update(int id, EventTicketTypeInsertRequest request, int userId, bool isAdmin)
     {
         var entity = _context.EventTicketTypes.Find(id)
-            ?? throw new KeyNotFoundException("Ticket type not found");
+            ?? throw new NotFoundException("Ticket type not found");
 
         if (!CanManageEvent(entity.EventId, userId, isAdmin))
             return null;
@@ -69,7 +70,7 @@ public class EventTicketTypeService : IEventTicketTypeService
     public bool Delete(int id, int userId, bool isAdmin)
     {
         var entity = _context.EventTicketTypes.Find(id)
-            ?? throw new KeyNotFoundException("Ticket type not found");
+            ?? throw new NotFoundException("Ticket type not found");
 
         if (!CanManageEvent(entity.EventId, userId, isAdmin))
             return false;
@@ -83,7 +84,7 @@ public class EventTicketTypeService : IEventTicketTypeService
     private bool CanManageEvent(int eventId, int userId, bool isAdmin)
     {
         var ev = _context.Events.Find(eventId)
-            ?? throw new KeyNotFoundException("Event not found");
+            ?? throw new NotFoundException("Event not found");
 
         if (isAdmin) return true;
 

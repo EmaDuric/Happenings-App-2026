@@ -1,3 +1,4 @@
+using Happenings.Model.Exceptions;
 ﻿using Happenings.Model.Requests;
 using Happenings.Model.Responses;
 using Happenings.Model.Search;
@@ -75,7 +76,7 @@ public class EventService
         var organizer = _context.Organizers.FirstOrDefault(x => x.UserId == userId);
 
         if (organizer == null)
-            throw new Exception("User is not an organizer");
+            throw new ForbiddenException("User is not an organizer");
 
         return new Event
         {

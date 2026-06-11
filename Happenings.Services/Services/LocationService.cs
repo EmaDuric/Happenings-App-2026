@@ -1,3 +1,4 @@
+using Happenings.Model.Exceptions;
 using Happenings.Model.Entities;
 using Happenings.Model.Requests;
 using Happenings.Model.Responses;
@@ -31,7 +32,7 @@ public class LocationService : ILocationService
     public LocationDto GetById(int id)
     {
         var entity = _context.Locations.Find(id)
-            ?? throw new Exception("Location not found");
+            ?? throw new NotFoundException("Location not found");
 
         return new LocationDto
         {
@@ -60,7 +61,7 @@ public class LocationService : ILocationService
     public LocationDto Update(int id, LocationUpdateRequest request)
     {
         var entity = _context.Locations.Find(id)
-            ?? throw new Exception("Location not found");
+            ?? throw new NotFoundException("Location not found");
 
         entity.Name = request.Name;
         entity.Address = request.Address;
@@ -74,7 +75,7 @@ public class LocationService : ILocationService
     public void Delete(int id)
     {
         var entity = _context.Locations.Find(id)
-            ?? throw new Exception("Location not found");
+            ?? throw new NotFoundException("Location not found");
 
         _context.Locations.Remove(entity);
         _context.SaveChanges();

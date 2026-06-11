@@ -1,3 +1,4 @@
+using Happenings.Model.Exceptions;
 ﻿using Happenings.Services.Database;
 using Happenings.Services.Interfaces;
 using Happenings.Model.Entities;
@@ -74,7 +75,7 @@ public class InvitationService : IInvitationService
     public async Task<InvitationResponse> InsertAsync(InvitationInsertRequest request)
     {
         var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (userIdClaim == null) throw new Exception("User not authenticated");
+        if (userIdClaim == null) throw new UnauthorizedException("User not authenticated");
         var senderId = int.Parse(userIdClaim);
 
         var entity = new Invitation

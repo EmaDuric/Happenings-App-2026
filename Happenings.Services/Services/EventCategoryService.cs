@@ -1,3 +1,4 @@
+using Happenings.Model.Exceptions;
 using Happenings.Model.DTOs;
 using Happenings.Model.Entities;
 using Happenings.Model.Requests;
@@ -62,7 +63,7 @@ public class EventCategoryService : IEventCategoryService
     {
         var entity = _context.EventCategories.Find(id);
         if (entity == null)
-            throw new Exception("EventCategory not found");
+            throw new NotFoundException("EventCategory not found");
 
         entity.Name = request.Name;
         entity.Description = request.Description;
@@ -87,7 +88,7 @@ public class EventCategoryService : IEventCategoryService
         var hasEvents = _context.Events.Any(e => e.EventCategoryId == id);
 
         if (hasEvents)
-            throw new Exception("Category cannot be deleted because events exist.");
+            throw new ConflictException("Category cannot be deleted because events exist.");
 
         _context.EventCategories.Remove(entity);
         _context.SaveChanges();

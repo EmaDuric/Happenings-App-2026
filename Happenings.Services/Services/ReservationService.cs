@@ -1,3 +1,4 @@
+using Happenings.Model.Exceptions;
 using Happenings.Model.Entities;
 using Happenings.Model.Enums;
 using Happenings.Model.Requests;
@@ -25,7 +26,7 @@ namespace Happenings.Services.Services
         {
             var claim = _httpContextAccessor.HttpContext?.User
                 .FindFirst(ClaimTypes.NameIdentifier);
-            if (claim == null) throw new Exception("User not authenticated");
+            if (claim == null) throw new UnauthorizedException("User not authenticated");
             return int.Parse(claim.Value);
         }
 
@@ -75,7 +76,7 @@ namespace Happenings.Services.Services
                 .Include(r => r.Event)
                 .Include(r => r.EventTicketType)
                 .FirstOrDefault(x => x.Id == id)
-                ?? throw new KeyNotFoundException("Reservation not found");
+                ?? throw new NotFoundException("Reservation not found");
 
             return MapToDto(entity);
         }
@@ -85,17 +86,17 @@ namespace Happenings.Services.Services
             var userId = GetCurrentUserId();
 
             if (request.Quantity <= 0)
-                throw new Exception("Quantity must be greater than zero");
+                throw new BusinessRuleException("Quantity must be greater than zero");
 
             var ticketType = _context.EventTicketTypes
                 .FirstOrDefault(x => x.Id == request.EventTicketTypeId)
-                ?? throw new Exception("Ticket type not found");
+                ?? throw new NotFoundException("Ticket type not found");
 
             if (ticketType.EventId != request.EventId)
-                throw new Exception("Selected ticket type does not belong to this event");
+                throw new BusinessRuleException("Selected ticket type does not belong to this event");
 
             if (ticketType.AvailableQuantity < request.Quantity)
-                throw new Exception("Not enough tickets available");
+                throw new BusinessRuleException("Not enough tickets available");
 
             var entity = new Reservation
             {
@@ -123,7 +124,7 @@ namespace Happenings.Services.Services
             if (!isAdmin && entity.UserId != userId) return null;
 
             if (request.Quantity <= 0)
-                throw new Exception("Quantity must be greater than zero");
+                throw new BusinessRuleException("Quantity must be greater than zero");
 
             entity.Quantity = request.Quantity;
             _context.SaveChanges();
@@ -138,7 +139,7 @@ namespace Happenings.Services.Services
             if (!isAdmin && entity.UserId != userId) return false;
 
             if (entity.Status == ReservationStatus.Cancelled)
-                throw new Exception("Reservation already cancelled");
+                throw new ConflictException("Reservation already cancelled");
 
             ChangeStatus(entity, ReservationStatus.Cancelled, userId, reason);
 
@@ -172,7 +173,7 @@ namespace Happenings.Services.Services
             var reservation = _context.Reservations
                 .Include(x => x.EventTicketType)
                 .FirstOrDefault(x => x.Id == reservationId)
-                ?? throw new KeyNotFoundException("Reservation not found");
+                ?? throw new NotFoundException("Reservation not found");
 
             // Osvjezi iz baze � bitno kad se zove iz payment toka nakon provider
             // poziva (zatvara race izmedju kreiranja intenta/ordera i capture/confirm).
@@ -181,13 +182,13 @@ namespace Happenings.Services.Services
                 _context.Entry(reservation.EventTicketType).Reload();
 
             if (reservation.Status != ReservationStatus.Pending)
-                throw new Exception($"Reservation cannot be approved. Current status: {reservation.Status}");
+                throw new ConflictException($"Reservation cannot be approved. Current status: {reservation.Status}");
 
             if (reservation.EventTicketType == null)
-                throw new Exception("Ticket type not found");
+                throw new NotFoundException("Ticket type not found");
 
             if (reservation.EventTicketType.AvailableQuantity < reservation.Quantity)
-                throw new Exception("Not enough tickets left");
+                throw new BusinessRuleException("Not enough tickets left");
 
             reservation.EventTicketType.AvailableQuantity -= reservation.Quantity;
             ChangeStatus(reservation, ReservationStatus.Approved, approvedByUserId, null);
@@ -201,10 +202,10 @@ namespace Happenings.Services.Services
 
             var reservation = _context.Reservations
                 .FirstOrDefault(x => x.Id == id)
-                ?? throw new KeyNotFoundException("Reservation not found");
+                ?? throw new NotFoundException("Reservation not found");
 
             if (reservation.Status != ReservationStatus.Pending)
-                throw new Exception("Reservation already processed");
+                throw new ConflictException("Reservation already processed");
 
             ChangeStatus(reservation, ReservationStatus.Rejected, adminId, reason);
 
@@ -236,11 +237,11 @@ namespace Happenings.Services.Services
 
             var reservation = _context.Reservations
                 .FirstOrDefault(x => x.Id == id)
-                ?? throw new KeyNotFoundException("Reservation not found");
+                ?? throw new NotFoundException("Reservation not found");
 
             // Zavrsiti se moze samo odobrena rezervacija (npr. nakon odrzanog eventa).
             if (reservation.Status != ReservationStatus.Approved)
-                throw new Exception("Only approved reservations can be completed");
+                throw new ConflictException("Only approved reservations can be completed");
 
             ChangeStatus(reservation, ReservationStatus.Completed, adminId, null);
 

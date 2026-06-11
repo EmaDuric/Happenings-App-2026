@@ -16,71 +16,45 @@ public class PaymentsController : ControllerBase
     [Authorize(Roles = "Admin")]
     public IActionResult Get() => Ok(_service.Get());
 
+    // Greske iz servisa (NotFound/BusinessRule/Forbidden/Conflict) mapira
+    // ExceptionMiddleware po tipu � kontroleri vise ne hvataju sve i ne vracaju
+    // BadRequest direktno.
+
     // Kreira PayPal order i vraća approval URL za Flutter WebView
     [HttpPost("paypal/create-order")]
     public async Task<IActionResult> CreatePayPalOrder([FromBody] CreatePayPalOrderRequest request)
     {
-        try
-        {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-            var approvalUrl = await _service.CreatePayPalOrderAsync(request.ReservationId, userId);
-            return Ok(new { approvalUrl });
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { error = ex.Message });
-        }
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var approvalUrl = await _service.CreatePayPalOrderAsync(request.ReservationId, userId);
+        return Ok(new { approvalUrl });
     }
 
     // Server-side capture — verifikacija i finalizacija PayPal plaćanja
     [HttpPost("paypal/capture")]
     public async Task<IActionResult> CapturePayPalOrder([FromBody] CapturePayPalOrderRequest request)
     {
-        try
-        {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-            var result = await _service.CapturePayPalOrderAsync(request.OrderId, request.ReservationId, userId);
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { error = ex.Message });
-        }
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var result = await _service.CapturePayPalOrderAsync(request.OrderId, request.ReservationId, userId);
+        return Ok(result);
     }
-
-    // Dodaj ove endpointe u PaymentsController.cs
 
     // Stripe — kreira PaymentIntent i vraća clientSecret
     [HttpPost("stripe/create-intent")]
     public async Task<IActionResult> CreateStripeIntent([FromBody] CreatePayPalOrderRequest request)
     {
-        try
-        {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-            var clientSecret = await _service.CreateStripePaymentIntentAsync(request.ReservationId, userId);
-            var publishableKey = HttpContext.RequestServices
-                .GetRequiredService<IConfiguration>()["Stripe:PublishableKey"];
-            return Ok(new { clientSecret, publishableKey });
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { error = ex.Message });
-        }
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var clientSecret = await _service.CreateStripePaymentIntentAsync(request.ReservationId, userId);
+        var publishableKey = HttpContext.RequestServices
+            .GetRequiredService<IConfiguration>()["Stripe:PublishableKey"];
+        return Ok(new { clientSecret, publishableKey });
     }
 
     // Stripe — server-side verifikacija nakon plaćanja
     [HttpPost("stripe/confirm")]
     public async Task<IActionResult> ConfirmStripePayment([FromBody] ConfirmStripePaymentRequest request)
     {
-        try
-        {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-            var result = await _service.ConfirmStripePaymentAsync(request.PaymentIntentId, request.ReservationId, userId);
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { error = ex.Message });
-        }
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var result = await _service.ConfirmStripePaymentAsync(request.PaymentIntentId, request.ReservationId, userId);
+        return Ok(result);
     }
 }

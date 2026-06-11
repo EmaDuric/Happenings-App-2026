@@ -1,3 +1,4 @@
+using Happenings.Model.Exceptions;
 ﻿using Happenings.Model.Requests;
 using Happenings.Model.Responses;
 using Happenings.Model.Entities;
@@ -23,7 +24,7 @@ public class AnnouncementService : IAnnouncementService
     public async Task<AnnouncementResponse> InsertAsync(AnnouncementInsertRequest request)
     {
         var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (userIdClaim == null) throw new Exception("User not authenticated");
+        if (userIdClaim == null) throw new UnauthorizedException("User not authenticated");
         var createdById = int.Parse(userIdClaim);
 
         var entity = new Announcement

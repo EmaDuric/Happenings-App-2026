@@ -1,3 +1,4 @@
+using Happenings.Model.Exceptions;
 using Happenings.Model.Entities;
 using Happenings.Model.Responses;
 using Happenings.Services.Database;
@@ -19,17 +20,17 @@ public class OrganizerRequestService : IOrganizerRequestService
 	{
 		// Provjeri da korisnik veæ nije organizator
 		var user = await _context.Users.FindAsync(userId)
-			?? throw new Exception("User not found");
+			?? throw new NotFoundException("User not found");
 
 		if (user.IsOrganizer)
-			throw new Exception("You are already an organizer");
+			throw new ConflictException("You are already an organizer");
 
 		// Provjeri da veæ nema pending zahtjev
 		var existing = await _context.OrganizerRequests
 			.FirstOrDefaultAsync(r => r.UserId == userId && r.Status == "Pending");
 
 		if (existing != null)
-			throw new Exception("You already have a pending organizer request");
+			throw new ConflictException("You already have a pending organizer request");
 
 		var entity = new OrganizerRequest
 		{
@@ -68,10 +69,10 @@ public class OrganizerRequestService : IOrganizerRequestService
 		var request = await _context.OrganizerRequests
 			.Include(r => r.User)
 			.FirstOrDefaultAsync(r => r.Id == id)
-			?? throw new Exception("Request not found");
+			?? throw new NotFoundException("Request not found");
 
 		if (request.Status != "Pending")
-			throw new Exception("Request already processed");
+			throw new ConflictException("Request already processed");
 
 		// Ažuriraj request
 		request.Status = "Approved";
@@ -100,10 +101,10 @@ public class OrganizerRequestService : IOrganizerRequestService
 	{
 		var request = await _context.OrganizerRequests
 			.FirstOrDefaultAsync(r => r.Id == id)
-			?? throw new Exception("Request not found");
+			?? throw new NotFoundException("Request not found");
 
 		if (request.Status != "Pending")
-			throw new Exception("Request already processed");
+			throw new ConflictException("Request already processed");
 
 		request.Status = "Rejected";
 		request.ReviewedAt = DateTime.UtcNow;

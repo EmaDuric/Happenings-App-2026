@@ -1,3 +1,4 @@
+using Happenings.Model.Exceptions;
 using Happenings.Model.Requests;
 using Happenings.Model.Responses;
 using Happenings.Model.Entities;
@@ -73,7 +74,7 @@ public class EventImageService : IEventImageService
     {
         var entity = _context.EventImages.Find(id);
         if (entity == null)
-            throw new Exception("EventImage not found");
+            throw new NotFoundException("EventImage not found");
 
         entity.ImageUrl = request.ImageUrl;
 

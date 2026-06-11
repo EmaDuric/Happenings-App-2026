@@ -1,4 +1,5 @@
 using System.Net;
+using Happenings.Model.Exceptions;
 
 namespace Happenings.WebAPI.Middleware;
 
@@ -19,74 +20,44 @@ public class ExceptionMiddleware
         {
             await _next(context);
         }
+        // Mapiranje po TIPU exceptiona (ne po tekstu poruke).
+        catch (NotFoundException ex)
+        {
+            await WriteError(context, HttpStatusCode.NotFound, ex.Message, ex, "Resource not found");
+        }
+        catch (ForbiddenException ex)
+        {
+            await WriteError(context, HttpStatusCode.Forbidden, ex.Message, ex, "Forbidden action");
+        }
+        catch (ConflictException ex)
+        {
+            await WriteError(context, HttpStatusCode.Conflict, ex.Message, ex, "Conflict");
+        }
+        catch (BusinessRuleException ex)
+        {
+            await WriteError(context, HttpStatusCode.BadRequest, ex.Message, ex, "Business rule violation");
+        }
+        catch (UnauthorizedException ex)
+        {
+            await WriteError(context, HttpStatusCode.Unauthorized, ex.Message, ex, "Authentication failed");
+        }
+        // Framework tipovi ï¿½ zadrzani radi sigurnosti (mogu doci iz biblioteka/EF).
         catch (UnauthorizedAccessException ex)
         {
-            _logger.LogWarning(ex, "Forbidden access attempt");
-            context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-            await context.Response.WriteAsJsonAsync(new
-            {
-                status = 403,
-                message = "You do not have permission to perform this action"
-            });
+            await WriteError(context, HttpStatusCode.Forbidden,
+                "You do not have permission to perform this action", ex, "Forbidden access attempt");
         }
         catch (KeyNotFoundException ex)
         {
-            _logger.LogWarning(ex, "Resource not found");
-            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-            await context.Response.WriteAsJsonAsync(new
-            {
-                status = 404,
-                message = ex.Message
-            });
+            await WriteError(context, HttpStatusCode.NotFound, ex.Message, ex, "Resource not found");
         }
         catch (ArgumentException ex)
         {
-            _logger.LogWarning(ex, "Invalid argument");
-            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            await context.Response.WriteAsJsonAsync(new
-            {
-                status = 400,
-                message = ex.Message
-            });
-        }
-        catch (InvalidOperationException ex)
-        {
-            _logger.LogWarning(ex, "Invalid operation");
-            context.Response.StatusCode = (int)HttpStatusCode.Conflict;
-            await context.Response.WriteAsJsonAsync(new
-            {
-                status = 409,
-                message = ex.Message
-            });
-        }
-        catch (Exception ex) when (ex.Message.Contains("not found", StringComparison.OrdinalIgnoreCase))
-        {
-            _logger.LogWarning(ex, "Resource not found");
-            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-            await context.Response.WriteAsJsonAsync(new
-            {
-                status = 404,
-                message = ex.Message
-            });
-        }
-        catch (Exception ex) when (
-            ex.Message.Contains("not enough", StringComparison.OrdinalIgnoreCase) ||
-            ex.Message.Contains("already", StringComparison.OrdinalIgnoreCase) ||
-            ex.Message.Contains("invalid", StringComparison.OrdinalIgnoreCase) ||
-            ex.Message.Contains("required", StringComparison.OrdinalIgnoreCase) ||
-            ex.Message.Contains("must be", StringComparison.OrdinalIgnoreCase))
-        {
-            _logger.LogWarning(ex, "Business rule violation");
-            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            await context.Response.WriteAsJsonAsync(new
-            {
-                status = 400,
-                message = ex.Message
-            });
+            await WriteError(context, HttpStatusCode.BadRequest, ex.Message, ex, "Invalid argument");
         }
         catch (Exception ex)
         {
-            // Generièka greška — ne otkriva interne detalje
+            // Genericka greska ï¿½ ne otkriva interne detalje
             _logger.LogError(ex, "Unhandled exception");
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             await context.Response.WriteAsJsonAsync(new
@@ -95,5 +66,17 @@ public class ExceptionMiddleware
                 message = "An unexpected error occurred. Please try again later."
             });
         }
+    }
+
+    private async Task WriteError(HttpContext context, HttpStatusCode status, string message,
+        Exception ex, string logMessage)
+    {
+        _logger.LogWarning(ex, logMessage);
+        context.Response.StatusCode = (int)status;
+        await context.Response.WriteAsJsonAsync(new
+        {
+            status = (int)status,
+            message
+        });
     }
 }

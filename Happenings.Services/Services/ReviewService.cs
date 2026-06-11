@@ -1,3 +1,4 @@
+using Happenings.Model.Exceptions;
 using Happenings.Model.Entities;
 using Happenings.Model.Requests;
 using Happenings.Model.Responses;
@@ -49,26 +50,26 @@ namespace Happenings.Services.Services
         {
             // Validacija ratinga 1-5
             if (request.Rating < 1 || request.Rating > 5)
-                throw new Exception("Rating must be between 1 and 5");
+                throw new BusinessRuleException("Rating must be between 1 and 5");
 
             // Provjeri da korisnik ima ticket za taj event
             var hasTicket = _context.Tickets
                 .Any(t => t.UserId == request.UserId && t.EventId == request.EventId);
 
             if (!hasTicket)
-                throw new Exception("You can only review events you have attended");
+                throw new BusinessRuleException("You can only review events you have attended");
 
             // Provjeri da event je prošao
             var ev = _context.Events.Find(request.EventId);
             if (ev != null && ev.EventDate > DateTime.UtcNow)
-                throw new Exception("You can only review past events");
+                throw new BusinessRuleException("You can only review past events");
 
             // Provjeri duplikat — samo jedna recenzija po korisniku po eventu
             var existing = _context.Reviews
                 .FirstOrDefault(r => r.UserId == request.UserId && r.EventId == request.EventId);
 
             if (existing != null)
-                throw new Exception("You have already reviewed this event");
+                throw new ConflictException("You have already reviewed this event");
 
             var entity = new Review
             {
@@ -92,7 +93,7 @@ namespace Happenings.Services.Services
             if (!isAdmin && entity.UserId != userId) return null; // Forbidden
 
             if (request.Rating < 1 || request.Rating > 5)
-                throw new Exception("Rating must be between 1 and 5");
+                throw new BusinessRuleException("Rating must be between 1 and 5");
 
             entity.Rating = request.Rating;
             entity.Comment = request.Comment;
@@ -105,7 +106,7 @@ namespace Happenings.Services.Services
         public ReviewDto Update(int id, ReviewUpdateRequest request)
         {
             var entity = _context.Reviews.Find(id)
-                ?? throw new Exception("Review not found");
+                ?? throw new NotFoundException("Review not found");
 
             entity.Rating = request.Rating;
             entity.Comment = request.Comment;
@@ -130,7 +131,7 @@ namespace Happenings.Services.Services
         public void Delete(int id)
         {
             var entity = _context.Reviews.Find(id)
-                ?? throw new Exception("Review not found");
+                ?? throw new NotFoundException("Review not found");
 
             _context.Reviews.Remove(entity);
             _context.SaveChanges();
