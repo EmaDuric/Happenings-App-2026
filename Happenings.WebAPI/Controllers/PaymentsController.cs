@@ -16,22 +16,6 @@ public class PaymentsController : ControllerBase
     [Authorize(Roles = "Admin")]
     public IActionResult Get() => Ok(_service.Get());
 
-    // Card plaćanje
-    [HttpPost("confirm")]
-    public IActionResult Confirm(PaymentRequest request)
-    {
-        try
-        {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-            var result = _service.ConfirmPayment(request.ReservationId, request.PaymentMethod, userId);
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { error = ex.Message });
-        }
-    }
-
     // Kreira PayPal order i vraća approval URL za Flutter WebView
     [HttpPost("paypal/create-order")]
     public async Task<IActionResult> CreatePayPalOrder([FromBody] CreatePayPalOrderRequest request)

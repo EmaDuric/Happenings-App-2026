@@ -158,25 +158,9 @@ class ApiService {
     return [];
   }
 
-  // PAYMENTS
-  static Future<Map<String, dynamic>> confirmPayment({
-    required int reservationId,
-    required String method,
-    required String token,
-  }) async {
-    final response = await http.post(
-      Uri.parse("$baseUrl/payments/confirm"),
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $token"
-      },
-      body:
-          jsonEncode({"reservationId": reservationId, "paymentMethod": method}),
-    );
-    if (response.statusCode < 200 || response.statusCode >= 300)
-      throw Exception("Payment failed: ${response.body}");
-    return jsonDecode(response.body);
-  }
+  // PAYMENTS — placanje ide iskljucivo kroz Stripe (stripe/create-intent +
+  // stripe/confirm) ili PayPal (paypal/create-order + paypal/capture) tokove
+  // sa server-side verifikacijom. Stari payments/confirm bypass je uklonjen.
 
   // TICKETS — korisnik koristi /my, ne admin listu
   static Future<List<dynamic>> getMyTickets(String token) async {

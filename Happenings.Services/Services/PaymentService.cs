@@ -344,65 +344,6 @@ public class PaymentService : IPaymentService
         return MapToDto(existing);
     }
 
-    public PaymentDto ConfirmPayment(int reservationId, string method, int userId)
-    {
-        if (method != "Card" && method != "PayPal")
-            throw new Exception("Invalid payment method. Use 'Card' or 'PayPal'");
-
-        var reservation = _context.Reservations
-            .Include(r => r.EventTicketType)
-            .FirstOrDefault(r => r.Id == reservationId)
-            ?? throw new Exception("Reservation not found");
-
-        if (reservation.UserId != userId)
-            throw new UnauthorizedAccessException("You can only pay for your own reservation");
-
-        if (reservation.Status != ReservationStatus.Pending)
-            throw new Exception($"Reservation cannot be paid. Current status: {reservation.Status}");
-
-        if (reservation.EventTicketType == null)
-            throw new Exception("Ticket type not found");
-
-        if (reservation.EventTicketType.AvailableQuantity < reservation.Quantity)
-            throw new Exception("Not enough tickets available");
-
-        var existing = _context.Payments.FirstOrDefault(p => p.ReservationId == reservationId);
-        if (existing != null && existing.Status == "Completed")
-            return MapToDto(existing);
-        if (existing != null && existing.Status == "Pending")
-            throw new Exception("Payment already in progress");
-
-        var amount = reservation.EventTicketType.Price * reservation.Quantity;
-
-        var entity = new Payment
-        {
-            ReservationId = reservationId,
-            Amount = amount,
-            PaymentMethod = method,
-            Status = "Completed",
-            PaymentDate = DateTime.UtcNow,
-            TransactionId = Guid.NewGuid().ToString()
-        };
-
-        using var transaction = _context.Database.BeginTransaction();
-        try
-        {
-            reservation.EventTicketType.AvailableQuantity -= reservation.Quantity;
-            reservation.Status = ReservationStatus.Approved;
-            _context.Payments.Add(entity);
-            _context.SaveChanges();
-            PublishPaymentEvent(entity, reservation.UserId);
-            transaction.Commit();
-        }
-        catch
-        {
-            transaction.Rollback();
-            throw;
-        }
-
-        return MapToDto(entity);
-    }
-
     private async Task<string> GetPayPalAccessTokenAsync()
     {
         var clientId = _configuration["PayPal:ClientId"];
