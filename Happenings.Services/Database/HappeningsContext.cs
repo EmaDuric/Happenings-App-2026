@@ -176,6 +176,19 @@ namespace Happenings.Services.Database
                 .IsUnique();
 
 
+            // EVENT VIEW ↔ USER / EVENT (navigacije + FK, ranije samo int polja)
+            modelBuilder.Entity<EventView>()
+                .HasOne(v => v.User)
+                .WithMany()
+                .HasForeignKey(v => v.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<EventView>()
+                .HasOne(v => v.Event)
+                .WithMany()
+                .HasForeignKey(v => v.EventId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // INVITATION
             modelBuilder.Entity<Invitation>()
                 .HasOne(i => i.Event)
