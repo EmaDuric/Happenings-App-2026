@@ -98,6 +98,15 @@ public class EventService
         entity.EventCategoryId = request.EventCategoryId;
     }
 
+    // Detaljni GetByIdAsync mora ucitati navigacije (Location, Category, Images)
+    // jer ih MapToDto koristi; bazni FindAsync ih ne ukljucuje.
+    protected override async Task<Event?> FindByIdAsync(int id)
+        => await _set
+            .Include(e => e.Location)
+            .Include(e => e.EventCategory)
+            .Include(e => e.Images)
+            .FirstOrDefaultAsync(e => e.Id == id);
+
     // Ownership provjera za Update
     public async Task<EventDto?> UpdateAsync(int id, EventUpdateRequest request, int userId, bool isAdmin)
     {
