@@ -110,7 +110,10 @@ namespace Happenings.Services.Services
             _context.Reservations.Add(entity);
             _context.SaveChanges();
 
-            return GetByIdInternal(entity.Id);
+            var dto = GetByIdInternal(entity.Id);
+            AddNotification(entity.UserId, "Reservation created",
+                $"Your reservation for \"{dto.EventName}\" is pending approval.");
+            return dto;
         }
 
         public ReservationDto? Update(int id, ReservationUpdateRequest request, int userId, bool isAdmin)
@@ -140,6 +143,10 @@ namespace Happenings.Services.Services
             ChangeStatus(entity, ReservationStatus.Cancelled, userId, reason);
 
             _context.SaveChanges();
+
+            var dto = GetByIdInternal(id);
+            AddNotification(dto.UserId, "Reservation cancelled",
+                $"Your reservation for \"{dto.EventName}\" was cancelled. Reason: {entity.CancellationReason}");
             return true;
         }
 
@@ -148,6 +155,12 @@ namespace Happenings.Services.Services
         {
             var adminId = GetCurrentUserId();
             ApproveReservation(id, adminId);
+
+            // Notifikacija za admin-approve. Payment-driven approve NE notificira ovdje
+            // jer Worker vec salje payment-success notifikaciju (izbjegava duple).
+            var dto = GetByIdInternal(id);
+            AddNotification(dto.UserId, "Reservation approved",
+                $"Your reservation for \"{dto.EventName}\" has been approved.");
         }
 
         // Jedinstveno mjesto za odobrenje rezervacije: provjeri da je jos Pending i
@@ -196,6 +209,25 @@ namespace Happenings.Services.Services
             ChangeStatus(reservation, ReservationStatus.Rejected, adminId, reason);
 
             _context.SaveChanges();
+
+            var dto = GetByIdInternal(id);
+            AddNotification(dto.UserId, "Reservation rejected",
+                $"Your reservation for \"{dto.EventName}\" was rejected. Reason: {reservation.RejectedReason}");
+        }
+
+        // Sistemska notifikacija za bitne promjene rezervacije (create/approve/
+        // reject/cancel). Payment-success notifikaciju i dalje salje Worker.
+        private void AddNotification(int userId, string title, string message)
+        {
+            _context.Notifications.Add(new Notification
+            {
+                UserId = userId,
+                Title = title,
+                Message = message,
+                CreatedAt = DateTime.UtcNow,
+                IsRead = false
+            });
+            _context.SaveChanges();
         }
 
         public void Complete(int id)
@@ -213,6 +245,10 @@ namespace Happenings.Services.Services
             ChangeStatus(reservation, ReservationStatus.Completed, adminId, null);
 
             _context.SaveChanges();
+
+            var dto = GetByIdInternal(id);
+            AddNotification(dto.UserId, "Reservation completed",
+                $"Your reservation for \"{dto.EventName}\" is marked as completed.");
         }
 
         // Centralizovana promjena statusa + upis audit traga (vrijeme, ko je radio
