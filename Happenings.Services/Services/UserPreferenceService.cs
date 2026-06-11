@@ -18,34 +18,34 @@ public class UserPreferenceService : IUserPreferenceService
     public List<UserPreferenceDto> Get()
     {
         return _context.UserPreferences
-            .Select(x => new UserPreferenceDto
-            {
-                Id = x.Id,
-                UserId = x.UserId,
-                PreferenceType = x.PreferenceType,
-                PreferenceValue = x.PreferenceValue
-            }).ToList();
+            .AsEnumerable()
+            .Select(MapToDto)
+            .ToList();
     }
 
-    public UserPreferenceDto? GetById(int id)
+    public List<UserPreferenceDto> GetByUser(int userId)
+    {
+        return _context.UserPreferences
+            .Where(x => x.UserId == userId)
+            .AsEnumerable()
+            .Select(MapToDto)
+            .ToList();
+    }
+
+    public UserPreferenceDto? GetById(int id, int userId, bool isAdmin)
     {
         var entity = _context.UserPreferences.Find(id);
         if (entity == null) return null;
+        if (!isAdmin && entity.UserId != userId) return null;
 
-        return new UserPreferenceDto
-        {
-            Id = entity.Id,
-            UserId = entity.UserId,
-            PreferenceType = entity.PreferenceType,
-            PreferenceValue = entity.PreferenceValue
-        };
+        return MapToDto(entity);
     }
 
-    public UserPreferenceDto Insert(UserPreferenceInsertRequest request)
+    public UserPreferenceDto Insert(UserPreferenceInsertRequest request, int userId)
     {
         var entity = new UserPreference
         {
-            UserId = request.UserId,
+            UserId = userId, // iz JWT-a, ne iz requesta
             PreferenceType = request.PreferenceType,
             PreferenceValue = request.PreferenceValue
         };
@@ -53,42 +53,40 @@ public class UserPreferenceService : IUserPreferenceService
         _context.UserPreferences.Add(entity);
         _context.SaveChanges();
 
-        return new UserPreferenceDto
-        {
-            Id = entity.Id,
-            UserId = entity.UserId,
-            PreferenceType = entity.PreferenceType,
-            PreferenceValue = entity.PreferenceValue
-        };
+        return MapToDto(entity);
     }
 
-    public UserPreferenceDto? Update(int id, UserPreferenceUpdateRequest request)
+    public UserPreferenceDto? Update(int id, UserPreferenceUpdateRequest request, int userId, bool isAdmin)
     {
         var entity = _context.UserPreferences.Find(id);
         if (entity == null) return null;
+        if (!isAdmin && entity.UserId != userId) return null;
 
         entity.PreferenceType = request.PreferenceType;
         entity.PreferenceValue = request.PreferenceValue;
 
         _context.SaveChanges();
 
-        return new UserPreferenceDto
-        {
-            Id = entity.Id,
-            UserId = entity.UserId,
-            PreferenceType = entity.PreferenceType,
-            PreferenceValue = entity.PreferenceValue
-        };
+        return MapToDto(entity);
     }
 
-    public bool Delete(int id)
+    public bool Delete(int id, int userId, bool isAdmin)
     {
         var entity = _context.UserPreferences.Find(id);
         if (entity == null) return false;
+        if (!isAdmin && entity.UserId != userId) return false;
 
         _context.UserPreferences.Remove(entity);
         _context.SaveChanges();
 
         return true;
     }
+
+    private static UserPreferenceDto MapToDto(UserPreference x) => new()
+    {
+        Id = x.Id,
+        UserId = x.UserId,
+        PreferenceType = x.PreferenceType,
+        PreferenceValue = x.PreferenceValue
+    };
 }
