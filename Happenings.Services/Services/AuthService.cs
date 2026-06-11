@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Happenings.Services.Services
@@ -54,6 +55,57 @@ namespace Happenings.Services.Services
                 throw new Exception("Current password is incorrect");
 
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
+            _context.SaveChanges();
+        }
+
+        public string? ForgotPassword(ForgotPasswordRequest request)
+        {
+            if (string.IsNullOrWhiteSpace(request.Email))
+                throw new Exception("Email is required");
+
+            var email = request.Email.Trim().ToLowerInvariant();
+            var user = _context.Users.FirstOrDefault(x => x.Email == email);
+
+            // Ne otkrivamo da li email postoji � samo ako postoji generisemo token.
+            if (user == null)
+                return null;
+
+            // Kriptografski slucajan jednokratni token; u bazu ide samo njegov hash.
+            var token = Convert.ToHexString(RandomNumberGenerator.GetBytes(16));
+            user.PasswordResetTokenHash = BCrypt.Net.BCrypt.HashPassword(token);
+            user.PasswordResetTokenExpiry = DateTime.UtcNow.AddMinutes(15);
+            _context.SaveChanges();
+
+            // U realnoj aplikaciji token bi se slao mailom; ovdje ga vracamo za demo.
+            return token;
+        }
+
+        public void ResetPassword(ResetPasswordRequest request)
+        {
+            if (string.IsNullOrWhiteSpace(request.Email))
+                throw new Exception("Email is required");
+            if (string.IsNullOrWhiteSpace(request.Token))
+                throw new Exception("Reset token is required");
+            if (string.IsNullOrWhiteSpace(request.NewPassword))
+                throw new Exception("New password is required");
+
+            var email = request.Email.Trim().ToLowerInvariant();
+            var user = _context.Users.FirstOrDefault(x => x.Email == email);
+
+            // Jednaka greska bez obzira na razlog � ne otkrivamo detalje.
+            if (user == null
+                || string.IsNullOrEmpty(user.PasswordResetTokenHash)
+                || user.PasswordResetTokenExpiry == null
+                || user.PasswordResetTokenExpiry < DateTime.UtcNow
+                || !BCrypt.Net.BCrypt.Verify(request.Token, user.PasswordResetTokenHash))
+            {
+                throw new Exception("Invalid or expired reset token");
+            }
+
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
+            // Jednokratno � ponisti token nakon upotrebe.
+            user.PasswordResetTokenHash = null;
+            user.PasswordResetTokenExpiry = null;
             _context.SaveChanges();
         }
 

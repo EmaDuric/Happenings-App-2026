@@ -18,6 +18,10 @@
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+        // Reset lozinke � cuva se hash jednokratnog tokena i njegov istek
+        public string? PasswordResetTokenHash { get; set; }
+        public DateTime? PasswordResetTokenExpiry { get; set; }
+
         // Navigation
         public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 

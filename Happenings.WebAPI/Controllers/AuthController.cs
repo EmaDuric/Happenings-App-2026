@@ -49,6 +49,42 @@ namespace Happenings.WebAPI.Controllers
             }
         }
 
+        // POST: api/Auth/forgot-password � generise jednokratni reset token
+        [HttpPost("forgot-password")]
+        public IActionResult ForgotPassword([FromBody] ForgotPasswordRequest request)
+        {
+            try
+            {
+                var token = _service.ForgotPassword(request);
+                // Uvijek isti generic odgovor (ne otkrivamo da li email postoji).
+                // Token se za seminar-demo vraca u odgovoru (inace bi isao mailom).
+                return Ok(new
+                {
+                    message = "If the email exists, a password reset token has been generated.",
+                    token
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
+        // POST: api/Auth/reset-password � postavlja novu lozinku uz vazeci token
+        [HttpPost("reset-password")]
+        public IActionResult ResetPassword([FromBody] ResetPasswordRequest request)
+        {
+            try
+            {
+                _service.ResetPassword(request);
+                return Ok(new { message = "Password has been reset successfully" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
         [HttpPost("change-password")]
         [Authorize]
         public IActionResult ChangePassword([FromBody] ChangePasswordRequest request)

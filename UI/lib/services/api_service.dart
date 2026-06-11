@@ -42,6 +42,37 @@ class ApiService {
     return jsonDecode(response.body);
   }
 
+  // FORGOT PASSWORD — backend generiše jednokratni token (vraćen u odgovoru za demo)
+  static Future<Map<String, dynamic>> forgotPassword(String email) async {
+    final response = await http.post(
+      Uri.parse("$baseUrl/auth/forgot-password"),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"email": email}),
+    );
+    if (response.statusCode < 200 || response.statusCode >= 300)
+      throw Exception("Forgot password failed: ${response.body}");
+    return jsonDecode(response.body);
+  }
+
+  // RESET PASSWORD — postavlja novu lozinku uz važeći token
+  static Future<void> resetPassword({
+    required String email,
+    required String token,
+    required String newPassword,
+  }) async {
+    final response = await http.post(
+      Uri.parse("$baseUrl/auth/reset-password"),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "email": email,
+        "token": token,
+        "newPassword": newPassword,
+      }),
+    );
+    if (response.statusCode < 200 || response.statusCode >= 300)
+      throw Exception("Reset password failed: ${response.body}");
+  }
+
   // EVENTS
   static Future<List<EventDto>> getEvents(String token, {String? name}) async {
     final uri = Uri.parse("$baseUrl/events").replace(

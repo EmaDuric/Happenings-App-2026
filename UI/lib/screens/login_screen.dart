@@ -3,6 +3,7 @@ import '../services/api_service.dart';
 import '../services/auth_service.dart';
 import 'home_screen.dart';
 import 'register_screen.dart';
+import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -151,6 +152,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: const Text("CREATE AN ACCOUNT"),
                 ),
+              ),
+
+              const SizedBox(height: 4),
+
+              // FORGOT PASSWORD
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ForgotPasswordScreen(),
+                    ),
+                  );
+                },
+                style: TextButton.styleFrom(foregroundColor: Colors.black),
+                child: const Text("Forgot password?"),
               ),
 
               const SizedBox(height: 10),
