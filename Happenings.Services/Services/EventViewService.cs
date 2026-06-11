@@ -77,8 +77,4 @@ public class EventViewService : IEventViewService
             EventId = entity.EventId
         };
     }
-
-    // Stara metoda za kompatibilnost
-    public EventViewDto Insert(EventViewInsertRequest request)
-        => Insert(request, request.UserId);
 }

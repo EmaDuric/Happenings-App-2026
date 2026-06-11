@@ -59,12 +59,12 @@ namespace Happenings.Services.Services
             if (!hasTicket)
                 throw new BusinessRuleException("You can only review events you have attended");
 
-            // Provjeri da event je prošao
+            // Provjeri da event je proï¿½ao
             var ev = _context.Events.Find(request.EventId);
             if (ev != null && ev.EventDate > DateTime.UtcNow)
                 throw new BusinessRuleException("You can only review past events");
 
-            // Provjeri duplikat — samo jedna recenzija po korisniku po eventu
+            // Provjeri duplikat ï¿½ samo jedna recenzija po korisniku po eventu
             var existing = _context.Reviews
                 .FirstOrDefault(r => r.UserId == request.UserId && r.EventId == request.EventId);
 
@@ -102,19 +102,6 @@ namespace Happenings.Services.Services
             return GetById(id);
         }
 
-        // Stara metoda za kompatibilnost
-        public ReviewDto Update(int id, ReviewUpdateRequest request)
-        {
-            var entity = _context.Reviews.Find(id)
-                ?? throw new NotFoundException("Review not found");
-
-            entity.Rating = request.Rating;
-            entity.Comment = request.Comment;
-            _context.SaveChanges();
-
-            return GetById(id)!;
-        }
-
         // Ownership provjera za Delete
         public bool Delete(int id, int userId, bool isAdmin)
         {
@@ -125,16 +112,6 @@ namespace Happenings.Services.Services
             _context.Reviews.Remove(entity);
             _context.SaveChanges();
             return true;
-        }
-
-        // Stara metoda za kompatibilnost
-        public void Delete(int id)
-        {
-            var entity = _context.Reviews.Find(id)
-                ?? throw new NotFoundException("Review not found");
-
-            _context.Reviews.Remove(entity);
-            _context.SaveChanges();
         }
 
         public List<EligibleEventDto> GetEligibleEvents(int userId)

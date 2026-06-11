@@ -2,6 +2,6 @@ namespace Happenings.Model.Requests;
 
 public class EventViewInsertRequest
 {
-    public int UserId { get; set; }
+    // UserId se uzima iz JWT tokena, ne iz requesta
     public int EventId { get; set; }
 }
