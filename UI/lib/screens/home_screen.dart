@@ -854,6 +854,25 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Colors.white70, fontSize: 9),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis),
+                    if (rec["reason"] != null &&
+                        (rec["reason"] as String).trim().isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 3),
+                        child: Row(children: [
+                          const Icon(Icons.auto_awesome,
+                              color: Colors.amberAccent, size: 10),
+                          const SizedBox(width: 3),
+                          Expanded(
+                            child: Text(rec["reason"],
+                                style: const TextStyle(
+                                    color: Colors.amberAccent,
+                                    fontSize: 8,
+                                    fontStyle: FontStyle.italic),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                        ]),
+                      ),
                   ])),
         ]),
       ),
