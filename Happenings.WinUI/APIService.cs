@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Happenings.WinUI
 {
@@ -17,13 +18,28 @@ namespace Happenings.WinUI
 
         public APIService(IConfiguration configuration)
         {
-            // URL se čita iz appsettings.json, ne hardkodiran
-            var baseUrl = configuration["ApiBaseUrl"] ?? "http://localhost:5000/api/";
-
             _httpClient = new HttpClient
             {
-                BaseAddress = new Uri(baseUrl)
+                BaseAddress = new Uri(ResolveBaseUrl())
             };
+        }
+
+        // Centralno citanje base URL-a iz konfiguracije (ApiBaseUrl). Forme vise ne
+        // hardkodiraju http://localhost:5000/api/, nego idu kroz ovaj izvor.
+        public static string ResolveBaseUrl()
+        {
+            var configuration = Program.ServiceProvider?.GetService<IConfiguration>();
+            return configuration?["ApiBaseUrl"] ?? "http://localhost:5000/api/";
+        }
+
+        // Centralni autorizovani HttpClient koji koriste sve WinUI forme.
+        public static HttpClient CreateAuthorizedClient()
+        {
+            var client = new HttpClient { BaseAddress = new Uri(ResolveBaseUrl()) };
+            if (!string.IsNullOrEmpty(TokenStore.Token))
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", TokenStore.Token);
+            return client;
         }
 
         private void SetAuthToken(string token)

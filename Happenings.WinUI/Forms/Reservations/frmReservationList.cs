@@ -99,14 +99,8 @@ namespace Happenings.WinUI.Forms.Reservations
         }
 
         private HttpClient CreateAuthorizedClient()
-        {
-            var httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("http://localhost:5000/api/");
-            if (!string.IsNullOrEmpty(TokenStore.Token))
-                httpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", TokenStore.Token);
-            return httpClient;
-        }
+            // Centralni klijent (base URL iz konfiguracije + token), bez hardkodiranja
+            => APIService.CreateAuthorizedClient();
 
         private async void LoadReservationsAsync()
         {

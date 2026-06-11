@@ -34,11 +34,7 @@ namespace Happenings.WinUI.Forms.Events
             {
                 Cursor = Cursors.WaitCursor;
 
-                var httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri("http://localhost:5000/api/");
-                if (!string.IsNullOrEmpty(TokenStore.Token))
-                    httpClient.DefaultRequestHeaders.Authorization =
-                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", TokenStore.Token);
+                var httpClient = APIService.CreateAuthorizedClient();
 
                 var response = await httpClient.GetAsync("Events");
                 if (!response.IsSuccessStatusCode)

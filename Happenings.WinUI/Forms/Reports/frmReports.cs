@@ -151,11 +151,7 @@ namespace Happenings.WinUI.Forms.Reports
                 currentReport = "sales";
                 lblReportTitle!.Text = "Sales Report — Tickets sold per event (Approved reservations)";
 
-                var httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri("http://localhost:5000/api/");
-                if (!string.IsNullOrEmpty(TokenStore.Token))
-                    httpClient.DefaultRequestHeaders.Authorization =
-                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", TokenStore.Token);
+                var httpClient = APIService.CreateAuthorizedClient();
 
                 var response = await httpClient.GetAsync("Reports/event-sales");
                 response.EnsureSuccessStatusCode();
@@ -183,11 +179,7 @@ namespace Happenings.WinUI.Forms.Reports
                 currentReport = "revenue";
                 lblReportTitle!.Text = "Revenue Report — Revenue from completed payments per event";
 
-                var httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri("http://localhost:5000/api/");
-                if (!string.IsNullOrEmpty(TokenStore.Token))
-                    httpClient.DefaultRequestHeaders.Authorization =
-                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", TokenStore.Token);
+                var httpClient = APIService.CreateAuthorizedClient();
 
                 var response = await httpClient.GetAsync("Reports/revenue");
                 response.EnsureSuccessStatusCode();
