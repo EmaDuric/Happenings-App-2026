@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using Happenings.Model.Messaging;
 using Happenings.Services.Database;
+using Happenings.Services.Services;
 using Happenings.Model.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -100,6 +101,7 @@ public class Worker : BackgroundService
 
                 using var scope = _scopeFactory.CreateScope();
                 var context = scope.ServiceProvider.GetRequiredService<HappeningsContext>();
+                var qrService = scope.ServiceProvider.GetRequiredService<QrCodeService>();
 
                 // Dohvati rezervaciju
                 var reservation = context.Reservations
@@ -123,23 +125,31 @@ public class Worker : BackgroundService
                 });
 
                 // Kreiraj onoliko ticketa koliko je korisnik kupio (Quantity)
+                var tickets = new List<Ticket>();
                 for (int i = 0; i < reservation.Quantity; i++)
                 {
-                    context.Tickets.Add(new Ticket
+                    tickets.Add(new Ticket
                     {
                         ReservationId = reservation.Id,
                         EventId = reservation.EventId,
                         UserId = reservation.UserId,
                         GeneratedAt = DateTime.UtcNow,
-                        QRCode = $"TICKET-{Guid.NewGuid()}", // jedinstveni QR za svaki ticket
+                        QRCode = string.Empty, // popunjava se nakon dodjele Id-a
                         IsUsed = false
                     });
                 }
 
-                _logger.LogInformation("✅ Created {Count} ticket(s) for reservation {Id}",
-                    reservation.Quantity, reservation.Id);
+                context.Tickets.AddRange(tickets);
+                context.SaveChanges(); // dodjeljuje Id-eve ticketima
+
+                // Isti QR servis i format (TICKET-{id} -> base64 PNG) kao TicketService.Insert
+                foreach (var ticket in tickets)
+                    ticket.QRCode = qrService.GenerateQRCode($"TICKET-{ticket.Id}");
 
                 context.SaveChanges();
+
+                _logger.LogInformation("✅ Created {Count} ticket(s) for reservation {Id}",
+                    reservation.Quantity, reservation.Id);
 
                 _channel!.BasicAck(deliveryTag, multiple: false);
             }
