@@ -222,7 +222,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                           const Text("No ticket types available")
                         else
                           DropdownButtonFormField<int>(
-                            value: selectedTicketTypeId,
+                            initialValue: selectedTicketTypeId,
                             decoration: const InputDecoration(
                                 labelText: "Ticket type",
                                 border: OutlineInputBorder()),

@@ -84,8 +84,12 @@ class _EditEventScreenState extends State<EditEventScreen> {
   void dispose() {
     _nameController.dispose();
     _descriptionController.dispose();
-    for (final t in existingTicketTypes) t.dispose();
-    for (final t in newTicketTypes) t.dispose();
+    for (final t in existingTicketTypes) {
+      t.dispose();
+    }
+    for (final t in newTicketTypes) {
+      t.dispose();
+    }
     super.dispose();
   }
 
@@ -570,7 +574,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
 
                 const SizedBox(height: 15),
                 DropdownButtonFormField<int>(
-                  value: selectedCategoryId,
+                  initialValue: selectedCategoryId,
                   decoration: const InputDecoration(
                       labelText: "Category",
                       border: OutlineInputBorder(),
@@ -587,7 +591,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                 const SizedBox(height: 15),
 
                 DropdownButtonFormField<int>(
-                  value: selectedLocationId,
+                  initialValue: selectedLocationId,
                   decoration: const InputDecoration(
                       labelText: "Location",
                       border: OutlineInputBorder(),

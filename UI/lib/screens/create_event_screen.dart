@@ -318,7 +318,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 ),
                 const SizedBox(height: 15),
                 DropdownButtonFormField<int>(
-                  value: selectedCategoryId,
+                  initialValue: selectedCategoryId,
                   decoration: const InputDecoration(
                     labelText: "Category",
                     border: OutlineInputBorder(),
@@ -336,7 +336,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 ),
                 const SizedBox(height: 15),
                 DropdownButtonFormField<int>(
-                  value: selectedLocationId,
+                  initialValue: selectedLocationId,
                   decoration: const InputDecoration(
                     labelText: "Location",
                     border: OutlineInputBorder(),
@@ -478,9 +478,9 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 1,
         onTap: (index) {
-          if (index == 0)
+          if (index == 0) {
             Navigator.pushReplacementNamed(context, "/home");
-          else if (index == 1)
+          } else if (index == 1)
             Navigator.pushReplacementNamed(context, "/events");
           else if (index == 2)
             Navigator.pushReplacementNamed(context, "/tickets");
