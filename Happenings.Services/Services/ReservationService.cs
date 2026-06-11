@@ -143,23 +143,41 @@ namespace Happenings.Services.Services
             return true;
         }
 
+        // Admin approve � delegira na centralizovani tok
         public void Approve(int id)
         {
             var adminId = GetCurrentUserId();
+            ApproveReservation(id, adminId);
+        }
 
+        // Jedinstveno mjesto za odobrenje rezervacije: provjeri da je jos Pending i
+        // da ima dovoljno dostupne kolicine (osvjezeno iz baze), dekrementiraj stok,
+        // postavi Approved + audit. Koriste ga i admin approve i payment tokovi, pa
+        // dekrement/odobrenje vise nije dupliran u dvije odvojene implementacije.
+        public void ApproveReservation(int reservationId, int approvedByUserId)
+        {
             var reservation = _context.Reservations
                 .Include(x => x.EventTicketType)
-                .FirstOrDefault(x => x.Id == id)
+                .FirstOrDefault(x => x.Id == reservationId)
                 ?? throw new KeyNotFoundException("Reservation not found");
 
+            // Osvjezi iz baze � bitno kad se zove iz payment toka nakon provider
+            // poziva (zatvara race izmedju kreiranja intenta/ordera i capture/confirm).
+            _context.Entry(reservation).Reload();
+            if (reservation.EventTicketType != null)
+                _context.Entry(reservation.EventTicketType).Reload();
+
             if (reservation.Status != ReservationStatus.Pending)
-                throw new Exception("Reservation already processed");
+                throw new Exception($"Reservation cannot be approved. Current status: {reservation.Status}");
+
+            if (reservation.EventTicketType == null)
+                throw new Exception("Ticket type not found");
 
             if (reservation.EventTicketType.AvailableQuantity < reservation.Quantity)
                 throw new Exception("Not enough tickets left");
 
             reservation.EventTicketType.AvailableQuantity -= reservation.Quantity;
-            ChangeStatus(reservation, ReservationStatus.Approved, adminId, null);
+            ChangeStatus(reservation, ReservationStatus.Approved, approvedByUserId, null);
 
             _context.SaveChanges();
         }

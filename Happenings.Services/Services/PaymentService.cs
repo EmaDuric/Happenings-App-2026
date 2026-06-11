@@ -17,11 +17,13 @@ public class PaymentService : IPaymentService
 {
     private readonly HappeningsContext _context;
     private readonly IConfiguration _configuration;
+    private readonly IReservationService _reservationService;
 
-    public PaymentService(HappeningsContext context, IConfiguration configuration)
+    public PaymentService(HappeningsContext context, IConfiguration configuration, IReservationService reservationService)
     {
         _context = context;
         _configuration = configuration;
+        _reservationService = reservationService;
 
         // Inicijaliziraj Stripe sa secret key
         StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
@@ -145,9 +147,10 @@ public class PaymentService : IPaymentService
         using var transaction = _context.Database.BeginTransaction();
         try
         {
-            // Neposredno prije finalnog odobrenja jos jednom provjeri status i
-            // dostupnost (osvjezeno iz baze) da se zatvori race create -> confirm.
-            EnsureStillPayable(reservation);
+            // Centralizovano odobrenje: provjera (status + dostupnost, osvjezeno iz
+            // baze) + dekrement stoka + Approved + audit. Time se ujedno zatvara i
+            // race create -> confirm (provjera neposredno prije odobrenja).
+            _reservationService.ApproveReservation(reservationId, reservation.UserId);
 
             if (existing != null)
             {
@@ -168,8 +171,6 @@ public class PaymentService : IPaymentService
                 _context.Payments.Add(existing);
             }
 
-            reservation.EventTicketType!.AvailableQuantity -= reservation.Quantity;
-            reservation.Status = ReservationStatus.Approved;
             _context.SaveChanges();
             PublishPaymentEvent(existing, reservation.UserId);
             transaction.Commit();
@@ -313,9 +314,10 @@ public class PaymentService : IPaymentService
         using var transaction = _context.Database.BeginTransaction();
         try
         {
-            // Neposredno prije finalnog odobrenja jos jednom provjeri status i
-            // dostupnost (osvjezeno iz baze) da se zatvori race create -> capture.
-            EnsureStillPayable(reservation);
+            // Centralizovano odobrenje: provjera (status + dostupnost, osvjezeno iz
+            // baze) + dekrement stoka + Approved + audit. Time se ujedno zatvara i
+            // race create -> capture (provjera neposredno prije odobrenja).
+            _reservationService.ApproveReservation(reservationId, reservation.UserId);
 
             if (existing != null)
             {
@@ -337,8 +339,6 @@ public class PaymentService : IPaymentService
                 _context.Payments.Add(existing);
             }
 
-            reservation.EventTicketType!.AvailableQuantity -= reservation.Quantity;
-            reservation.Status = ReservationStatus.Approved;
             _context.SaveChanges();
             PublishPaymentEvent(existing, reservation.UserId);
             transaction.Commit();
@@ -350,26 +350,6 @@ public class PaymentService : IPaymentService
         }
 
         return MapToDto(existing);
-    }
-
-    // Ponovo (iz baze) provjeri da je rezervacija jos uvijek placljiva neposredno
-    // prije finalnog odobrenja. Zatvara race izmedju kreiranja intenta/ordera i
-    // capture/confirm koraka (npr. otkazana rezervacija ili u meduvremenu
-    // potrosena dostupna kolicina). Baca => transakcija se rollbackuje.
-    private void EnsureStillPayable(Reservation reservation)
-    {
-        _context.Entry(reservation).Reload();
-        if (reservation.EventTicketType != null)
-            _context.Entry(reservation.EventTicketType).Reload();
-
-        if (reservation.Status != ReservationStatus.Pending)
-            throw new Exception($"Reservation is no longer payable. Current status: {reservation.Status}");
-
-        if (reservation.EventTicketType == null)
-            throw new Exception("Ticket type not found");
-
-        if (reservation.EventTicketType.AvailableQuantity < reservation.Quantity)
-            throw new Exception("Not enough tickets available");
     }
 
     private async Task<string> GetPayPalAccessTokenAsync()
