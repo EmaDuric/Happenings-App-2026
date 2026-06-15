@@ -15,6 +15,4 @@ public class Announcement
     public string Content { get; set; }
 
     public DateTime CreatedAt { get; set; }
-
-    public ICollection<Announcement> Announcements { get; set; }
 }
