@@ -31,6 +31,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddScoped<QrCodeService>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient(); // IHttpClientFactory za PaymentService (PayPal pozivi)
 builder.Services.AddScoped<IInvitationService, InvitationService>();
 builder.Services.AddScoped<IAnnouncementService, AnnouncementService>();
 builder.Services.AddScoped<IOrganizerRequestService, OrganizerRequestService>();
@@ -124,7 +125,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// CORS — mora biti prije Auth
+// CORS ï¿½ mora biti prije Auth
 app.UseCors("AllowFlutter");
 
 // AUTH

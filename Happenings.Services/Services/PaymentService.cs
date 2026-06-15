@@ -19,12 +19,15 @@ public class PaymentService : IPaymentService
     private readonly HappeningsContext _context;
     private readonly IConfiguration _configuration;
     private readonly IReservationService _reservationService;
+    private readonly IHttpClientFactory _httpClientFactory;
 
-    public PaymentService(HappeningsContext context, IConfiguration configuration, IReservationService reservationService)
+    public PaymentService(HappeningsContext context, IConfiguration configuration,
+        IReservationService reservationService, IHttpClientFactory httpClientFactory)
     {
         _context = context;
         _configuration = configuration;
         _reservationService = reservationService;
+        _httpClientFactory = httpClientFactory;
 
         // Inicijaliziraj Stripe sa secret key
         StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
@@ -245,7 +248,7 @@ public class PaymentService : IPaymentService
             }
         };
 
-        using var client = new HttpClient();
+        var client = _httpClientFactory.CreateClient();
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         var content = new StringContent(JsonSerializer.Serialize(orderRequest), Encoding.UTF8, "application/json");
         var response = await client.PostAsync($"{paypalBaseUrl}/v2/checkout/orders", content);
@@ -296,7 +299,7 @@ public class PaymentService : IPaymentService
         var accessToken = await GetPayPalAccessTokenAsync();
         var paypalBaseUrl = _configuration["PayPal:BaseUrl"] ?? "https://api-m.sandbox.paypal.com";
 
-        using var client = new HttpClient();
+        var client = _httpClientFactory.CreateClient();
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         var response = await client.PostAsync(
             $"{paypalBaseUrl}/v2/checkout/orders/{orderId}/capture",
@@ -362,7 +365,7 @@ public class PaymentService : IPaymentService
         if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(secret))
             throw new Exception("PayPal credentials not configured");
 
-        using var authClient = new HttpClient();
+        var authClient = _httpClientFactory.CreateClient();
         var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{clientId}:{secret}"));
         authClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", credentials);
         authClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
