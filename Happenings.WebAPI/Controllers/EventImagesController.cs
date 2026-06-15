@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Happenings.Model;
 using Happenings.Services.Interfaces;
 using Happenings.Model.Requests;
 using Happenings.Model.Responses;
+using System.Security.Claims;
 
 namespace Happenings.WebAPI.Controllers;
 
@@ -12,6 +14,8 @@ public class EventImagesController : ControllerBase
 {
     private readonly IEventImageService _service;
     public EventImagesController(IEventImageService service) => _service = service;
+
+    private int CurrentUserId() => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
     [HttpGet]
     public ActionResult<List<EventImageDto>> GetAll() => Ok(_service.GetAll());
@@ -28,23 +32,25 @@ public class EventImagesController : ControllerBase
         => Ok(_service.GetByEvent(eventId));
 
     [HttpPost]
-    [Authorize]
+    [Authorize(Roles = Roles.OrganizerOrAdmin)]
     public ActionResult<EventImageDto> Insert(EventImageInsertRequest request)
-        => Ok(_service.Insert(request));
+    {
+        var result = _service.Insert(request, CurrentUserId(), User.IsInRole(Roles.Admin));
+        return result == null ? Forbid() : Ok(result);
+    }
 
     [HttpPut("{id}")]
-    [Authorize]
+    [Authorize(Roles = Roles.OrganizerOrAdmin)]
     public ActionResult<EventImageDto> Update(int id, EventImageUpdateRequest request)
     {
-        var result = _service.Update(id, request);
-        return result == null ? NotFound() : Ok(result);
+        var result = _service.Update(id, request, CurrentUserId(), User.IsInRole(Roles.Admin));
+        return result == null ? Forbid() : Ok(result);
     }
 
     [HttpDelete("{id}")]
-    [Authorize]
+    [Authorize(Roles = Roles.OrganizerOrAdmin)]
     public IActionResult Delete(int id)
     {
-        if (!_service.Delete(id)) return NotFound();
-        return NoContent();
+        return _service.Delete(id, CurrentUserId(), User.IsInRole(Roles.Admin)) ? NoContent() : Forbid();
     }
 }
