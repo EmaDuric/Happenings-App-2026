@@ -1,3 +1,4 @@
+using Happenings.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Happenings.Services.Interfaces;
@@ -16,11 +17,11 @@ public class EventViewsController : ControllerBase
     public EventViewsController(IEventViewService service) => _service = service;
 
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public ActionResult<List<EventViewDto>> GetAll() => Ok(_service.GetAll());
 
     [HttpGet("by-event/{eventId}")]
-    [Authorize(Roles = "Organizer,Admin")]
+    [Authorize(Roles = Roles.OrganizerOrAdmin)]
     public ActionResult<List<EventViewDto>> GetByEvent(int eventId)
         => Ok(_service.GetByEvent(eventId));
 
@@ -34,7 +35,7 @@ public class EventViewsController : ControllerBase
 
     // Admin može dohvatiti preglede za bilo kojeg korisnika
     [HttpGet("by-user/{userId}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public ActionResult<List<EventViewDto>> GetByUser(int userId)
         => Ok(_service.GetByUser(userId));
 

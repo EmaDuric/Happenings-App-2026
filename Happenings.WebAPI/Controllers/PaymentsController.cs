@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Happenings.Model;
 using Microsoft.AspNetCore.Authorization;
 using Happenings.Services.Interfaces;
 using Happenings.Model.Requests;
@@ -13,7 +14,7 @@ public class PaymentsController : ControllerBase
     public PaymentsController(IPaymentService service) => _service = service;
 
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult Get() => Ok(_service.Get());
 
     // Greske iz servisa (NotFound/BusinessRule/Forbidden/Conflict) mapira

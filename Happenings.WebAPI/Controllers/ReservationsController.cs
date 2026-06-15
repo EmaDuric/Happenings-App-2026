@@ -1,3 +1,4 @@
+using Happenings.Model;
 using Happenings.Model.Requests;
 using Happenings.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -16,7 +17,7 @@ public class ReservationsController : ControllerBase
 
     // ADMIN � lista svih rezervacija
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult Get() => Ok(_service.Get());
 
     // Korisnik vidi samo svoju rezervaciju
@@ -24,7 +25,7 @@ public class ReservationsController : ControllerBase
     public IActionResult GetById(int id)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-        var isAdmin = User.IsInRole("Admin");
+        var isAdmin = User.IsInRole(Roles.Admin);
         var result = _service.GetById(id, userId, isAdmin);
         if (result == null) return Forbid();
         return Ok(result);
@@ -47,7 +48,7 @@ public class ReservationsController : ControllerBase
     public IActionResult Update(int id, [FromBody] ReservationUpdateRequest request)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-        var isAdmin = User.IsInRole("Admin");
+        var isAdmin = User.IsInRole(Roles.Admin);
         var result = _service.Update(id, request, userId, isAdmin);
         if (result == null) return Forbid();
         return Ok(result);
@@ -58,14 +59,14 @@ public class ReservationsController : ControllerBase
     public IActionResult Delete(int id, [FromBody] ReservationStatusChangeRequest? request = null)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-        var isAdmin = User.IsInRole("Admin");
+        var isAdmin = User.IsInRole(Roles.Admin);
         var result = _service.Cancel(id, userId, isAdmin, request?.Reason);
         if (!result) return Forbid();
         return NoContent();
     }
 
     [HttpPost("{id}/approve")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult Approve(int id)
     {
         _service.Approve(id);
@@ -73,7 +74,7 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpPost("{id}/reject")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult Reject(int id, [FromBody] ReservationStatusChangeRequest? request = null)
     {
         _service.Reject(id, request?.Reason);
@@ -82,7 +83,7 @@ public class ReservationsController : ControllerBase
 
     // Admin oznacava odobrenu rezervaciju kao zavrsenu (npr. nakon odrzanog eventa)
     [HttpPost("{id}/complete")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult Complete(int id)
     {
         _service.Complete(id);

@@ -1,4 +1,5 @@
 ﻿using Happenings.Model.Requests;
+using Happenings.Model;
 using Happenings.Model.Search;
 using Happenings.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -26,27 +27,27 @@ public class EventsController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Organizer,Admin")]
+    [Authorize(Roles = Roles.OrganizerOrAdmin)]
     public async Task<IActionResult> Insert([FromBody] EventInsertRequest request)
         => Ok(await _service.InsertAsync(request));
 
     [HttpPut("{id:int}")]
-    [Authorize(Roles = "Organizer,Admin")]
+    [Authorize(Roles = Roles.OrganizerOrAdmin)]
     public async Task<IActionResult> Update(int id, [FromBody] EventUpdateRequest request)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-        var isAdmin = User.IsInRole("Admin");
+        var isAdmin = User.IsInRole(Roles.Admin);
         var result = await _service.UpdateAsync(id, request, userId, isAdmin);
         if (result == null) return Forbid();
         return Ok(result);
     }
 
     [HttpDelete("{id:int}")]
-    [Authorize(Roles = "Organizer,Admin")]
+    [Authorize(Roles = Roles.OrganizerOrAdmin)]
     public async Task<IActionResult> Delete(int id)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-        var isAdmin = User.IsInRole("Admin");
+        var isAdmin = User.IsInRole(Roles.Admin);
         var result = await _service.DeleteAsync(id, userId, isAdmin);
         if (!result) return Forbid();
         return Ok(result);

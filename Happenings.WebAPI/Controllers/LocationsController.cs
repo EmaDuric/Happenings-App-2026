@@ -1,3 +1,4 @@
+using Happenings.Model;
 using Happenings.Model.Requests;
 using Happenings.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -19,15 +20,15 @@ public class LocationsController : ControllerBase
     public IActionResult GetById(int id) => Ok(_service.GetById(id));
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult Insert(LocationInsertRequest request) => Ok(_service.Insert(request));
 
     [HttpPut("{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult Update(int id, LocationUpdateRequest request) => Ok(_service.Update(id, request));
 
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult Delete(int id)
     {
         _service.Delete(id);

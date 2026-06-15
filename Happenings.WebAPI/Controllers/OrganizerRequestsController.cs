@@ -1,3 +1,4 @@
+using Happenings.Model;
 using Happenings.Model.Requests;
 using Happenings.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -29,12 +30,12 @@ public class OrganizerRequestsController : ControllerBase
 
     // Admin vidi sve zahtjeve
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult GetAll() => Ok(_service.GetAll());
 
     // Admin odobrava zahtjev
     [HttpPost("{id}/approve")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public async Task<IActionResult> Approve(int id)
     {
         var adminId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
@@ -44,7 +45,7 @@ public class OrganizerRequestsController : ControllerBase
 
     // Admin odbija zahtjev
     [HttpPost("{id}/reject")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public async Task<IActionResult> Reject(int id, [FromBody] OrganizerRequestRejectRequest request)
     {
         var adminId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);

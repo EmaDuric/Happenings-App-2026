@@ -17,7 +17,7 @@ public class AnnouncementController : ControllerBase
     public AnnouncementController(IAnnouncementService service) => _service = service;
 
     [HttpPost]
-    [Authorize(Roles = "Organizer,Admin")]
+    [Authorize(Roles = Roles.OrganizerOrAdmin)]
     public async Task<AnnouncementResponse> Insert(AnnouncementInsertRequest request)
         => await _service.InsertAsync(request);
 
@@ -35,7 +35,7 @@ public class AnnouncementController : ControllerBase
 
     // Admin može dohvatiti announcements za bilo kojeg korisnika
     [HttpGet("user/{userId}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public async Task<List<AnnouncementResponse>> GetForUser(int userId)
         => await _service.GetForUserAsync(userId);
 }

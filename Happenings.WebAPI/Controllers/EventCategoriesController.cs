@@ -1,3 +1,4 @@
+using Happenings.Model;
 using Happenings.Model.DTOs;
 using Happenings.Model.Requests;
 using Happenings.Services.Interfaces;
@@ -24,17 +25,17 @@ public class EventCategoriesController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public ActionResult<EventCategoryDto> Insert(EventCategoryInsertRequest request)
         => Ok(_service.Insert(request));
 
     [HttpPut("{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public ActionResult<EventCategoryDto> Update(int id, EventCategoryUpdateRequest request)
         => Ok(_service.Update(id, request));
 
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public ActionResult Delete(int id)
     {
         if (!_service.Delete(id)) return NotFound();

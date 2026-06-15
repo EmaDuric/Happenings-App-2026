@@ -1,3 +1,4 @@
+using Happenings.Model;
 using Happenings.Model.Requests;
 using Happenings.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -42,7 +43,7 @@ public class ReviewsController : ControllerBase
     public IActionResult Update(int id, [FromBody] ReviewUpdateRequest request)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-        var isAdmin = User.IsInRole("Admin");
+        var isAdmin = User.IsInRole(Roles.Admin);
 
         var result = _service.Update(id, request, userId, isAdmin);
         if (result == null) return Forbid();
@@ -55,7 +56,7 @@ public class ReviewsController : ControllerBase
     public IActionResult Delete(int id)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-        var isAdmin = User.IsInRole("Admin");
+        var isAdmin = User.IsInRole(Roles.Admin);
 
         var result = _service.Delete(id, userId, isAdmin);
         if (!result) return Forbid();

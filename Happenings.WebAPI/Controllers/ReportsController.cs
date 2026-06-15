@@ -1,10 +1,11 @@
+using Happenings.Model;
 using Happenings.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Admin")]
+[Authorize(Roles = Roles.Admin)]
 public class ReportsController : ControllerBase
 {
     private readonly IReportService _service;

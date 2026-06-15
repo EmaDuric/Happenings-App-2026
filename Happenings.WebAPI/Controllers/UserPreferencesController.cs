@@ -1,3 +1,4 @@
+using Happenings.Model;
 using Happenings.Model.DTOs;
 using Happenings.Model.Requests;
 using Happenings.Services.Interfaces;
@@ -19,7 +20,7 @@ public class UserPreferencesController : ControllerBase
 
     // Admin � sve preference
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public ActionResult<List<UserPreferenceDto>> Get() => Ok(_service.Get());
 
     // Korisnik vidi svoje preference � userId iz JWT tokena
@@ -30,7 +31,7 @@ public class UserPreferencesController : ControllerBase
     [HttpGet("{id}")]
     public ActionResult<UserPreferenceDto> GetById(int id)
     {
-        var result = _service.GetById(id, CurrentUserId(), User.IsInRole("Admin"));
+        var result = _service.GetById(id, CurrentUserId(), User.IsInRole(Roles.Admin));
         return result == null ? Forbid() : Ok(result);
     }
 
@@ -42,14 +43,14 @@ public class UserPreferencesController : ControllerBase
     [HttpPut("{id}")]
     public ActionResult<UserPreferenceDto> Update(int id, UserPreferenceUpdateRequest request)
     {
-        var result = _service.Update(id, request, CurrentUserId(), User.IsInRole("Admin"));
+        var result = _service.Update(id, request, CurrentUserId(), User.IsInRole(Roles.Admin));
         return result == null ? Forbid() : Ok(result);
     }
 
     [HttpDelete("{id}")]
     public ActionResult Delete(int id)
     {
-        if (!_service.Delete(id, CurrentUserId(), User.IsInRole("Admin"))) return Forbid();
+        if (!_service.Delete(id, CurrentUserId(), User.IsInRole(Roles.Admin))) return Forbid();
         return NoContent();
     }
 }

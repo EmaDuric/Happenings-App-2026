@@ -1,3 +1,4 @@
+using Happenings.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Happenings.Services.Interfaces;
@@ -13,11 +14,11 @@ public class TicketsController : ControllerBase
     public TicketsController(ITicketService service) => _service = service;
 
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult Get() => Ok(_service.Get());
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult Insert(TicketInsertRequest request) => Ok(_service.Insert(request));
 
     [HttpGet("my")]

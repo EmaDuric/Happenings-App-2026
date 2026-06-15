@@ -1,3 +1,4 @@
+using Happenings.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Happenings.Services.Interfaces;
@@ -16,20 +17,20 @@ public class NotificationsController : ControllerBase
     public NotificationsController(INotificationService service) => _service = service;
 
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public ActionResult<List<NotificationDto>> GetAll() => Ok(_service.GetAll());
 
     [HttpGet("pending")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public ActionResult<List<NotificationDto>> GetPending() => Ok(_service.GetPending());
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public ActionResult<NotificationDto> Insert(NotificationInsertRequest request)
         => Ok(_service.Insert(request));
 
     [HttpPut("{id}/mark-sent")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public ActionResult<NotificationDto> MarkAsSent(int id)
     {
         var result = _service.MarkAsSent(id);

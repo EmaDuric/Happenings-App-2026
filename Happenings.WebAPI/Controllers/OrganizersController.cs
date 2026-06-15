@@ -1,3 +1,4 @@
+using Happenings.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Happenings.Services.Interfaces;
@@ -23,19 +24,19 @@ public class OrganizersController : ControllerBase
 
     // Samo Admin može kreirati organizatora
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult Insert([FromBody] OrganizerInsertRequest request)
         => Ok(_service.Insert(request));
 
     // Samo Admin može mijenjati
     [HttpPut("{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult Update(int id, [FromBody] OrganizerUpdateRequest request)
         => Ok(_service.Update(id, request));
 
     // Samo Admin može brisati
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public IActionResult Delete(int id)
     {
         _service.Delete(id);

@@ -1,3 +1,4 @@
+using Happenings.Model;
 using Happenings.Model.Requests;
 using Happenings.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -18,19 +19,19 @@ namespace Happenings.WebAPI.Controllers
             _service = service;
         }
 
-        // ADMIN ONLY — lista svih korisnika
+        // ADMIN ONLY ï¿½ lista svih korisnika
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult Get()
             => Ok(_service.Get());
 
-        // ADMIN ONLY — dohvat korisnika po ID
+        // ADMIN ONLY ï¿½ dohvat korisnika po ID
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult GetById(int id)
             => Ok(_service.GetById(id));
 
-        // MY PROFILE — korisnik vidi svoje podatke iz JWT tokena
+        // MY PROFILE ï¿½ korisnik vidi svoje podatke iz JWT tokena
         [HttpGet("my")]
         public IActionResult GetMyProfile()
         {
@@ -42,13 +43,13 @@ namespace Happenings.WebAPI.Controllers
             return Ok(user);
         }
 
-        // ORGANIZER — lista korisnika za slanje pozivnica
+        // ORGANIZER ï¿½ lista korisnika za slanje pozivnica
         [HttpGet("for-invitation")]
-        [Authorize(Roles = "Admin,Organizer")]
+        [Authorize(Roles = Roles.OrganizerOrAdmin)]
         public IActionResult GetForInvitation()
             => Ok(_service.Get());
 
-        // MY PROFILE UPDATE — korisnik mijenja samo svoje podatke
+        // MY PROFILE UPDATE ï¿½ korisnik mijenja samo svoje podatke
         [HttpPut("my")]
         public IActionResult UpdateMyProfile([FromBody] UserUpdateRequest request)
         {
@@ -58,21 +59,21 @@ namespace Happenings.WebAPI.Controllers
             return Ok(_service.Update(userId, request));
         }
 
-        // ADMIN ONLY — kreiranje korisnika
+        // ADMIN ONLY ï¿½ kreiranje korisnika
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult Insert(UserInsertRequest request)
             => Ok(_service.Insert(request));
 
-        // ADMIN ONLY — update bilo kojeg korisnika
+        // ADMIN ONLY ï¿½ update bilo kojeg korisnika
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult Update(int id, UserUpdateRequest request)
             => Ok(_service.Update(id, request));
 
-        // ADMIN ONLY — brisanje korisnika
+        // ADMIN ONLY ï¿½ brisanje korisnika
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult Delete(int id)
         {
             _service.Delete(id);

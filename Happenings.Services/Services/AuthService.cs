@@ -1,3 +1,4 @@
+using Happenings.Model;
 using Happenings.Model.Exceptions;
 ﻿using Happenings.Model.Entities;
 using Happenings.Model.Requests;
@@ -162,11 +163,11 @@ namespace Happenings.Services.Services
 
             string role;
             if (user.IsAdmin)
-                role = "Admin";
+                role = Roles.Admin;
             else if (user.IsOrganizer)
-                role = "Organizer";
+                role = Roles.Organizer;
             else
-                role = "User";
+                role = Roles.User;
 
             var claims = new[]
             {

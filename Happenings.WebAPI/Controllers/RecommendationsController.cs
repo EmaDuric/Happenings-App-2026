@@ -1,3 +1,4 @@
+using Happenings.Model;
 using Happenings.Model.Responses;
 using Happenings.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ public class RecommendationsController : ControllerBase
 
     // Admin može dohvatiti preporuke za bilo kojeg korisnika
     [HttpGet("{userId}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public ActionResult<List<RecommendedEventDto>> GetRecommendations(int userId)
         => Ok(_service.GetRecommendedEvents(userId));
 }
