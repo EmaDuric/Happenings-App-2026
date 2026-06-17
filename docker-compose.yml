@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -13,6 +12,13 @@ services:
       - happenings-db-data:/var/opt/mssql
     networks:
       - happenings-network
+    healthcheck:
+      # SQL Server prihvata konekcije na 1433 (bash /dev/tcp je dostupan u mssql image-u)
+      test: ["CMD-SHELL", "timeout 1 bash -c '</dev/tcp/localhost/1433' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
 
   rabbitmq:
     image: rabbitmq:3.12-management
@@ -25,6 +31,12 @@ services:
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
     networks:
       - happenings-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
 
   api:
     build:
@@ -49,8 +61,10 @@ services:
       Stripe__PublishableKey: ${STRIPE_PUBLISHABLE_KEY}
       Stripe__SecretKey: ${STRIPE_SECRET_KEY}
     depends_on:
-      - db
-      - rabbitmq
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     networks:
       - happenings-network
 
@@ -65,9 +79,12 @@ services:
       RabbitMQ__User: ${RABBITMQ_USER}
       RabbitMQ__Pass: ${RABBITMQ_PASS}
     depends_on:
-      - db
-      - rabbitmq
-      - api
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      api:
+        condition: service_started
     networks:
       - happenings-network
 

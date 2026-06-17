@@ -2,6 +2,7 @@
 using Happenings.Services.Database;
 using Microsoft.EntityFrameworkCore;
 using BCrypt.Net;
+using System.Threading;
 
 namespace Happenings.Services.Data
 {
@@ -9,7 +10,15 @@ namespace Happenings.Services.Data
     {
         public static void Seed(HappeningsContext context)
         {
-            context.Database.Migrate();
+            // Cold-start safety: na svjezem `docker compose up` SQL Server zna jos ne
+            // primati konekcije kad API krene. Migracije primjenjujemo uz retry da se
+            // aplikacija pokrene bez intervencije (bez rucnog restarta).
+            const int maxAttempts = 10;
+            for (var attempt = 1; ; attempt++)
+            {
+                try { context.Database.Migrate(); break; }
+                catch when (attempt < maxAttempts) { Thread.Sleep(5000); }
+            }
 
             var random = new Random();
 
