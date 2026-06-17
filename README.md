@@ -40,15 +40,21 @@ Swagger: `http://localhost:5000/swagger`
 
 ### API
 
+# Vrijednosti se postavljaju iz .env (raspakovan iz .env-tajne.zip, sifra: fit).
+# NE hardkodirati tajne ovdje ni u appsettings.json.
 ```powershell
 cd Happenings.WebAPI
-$env:Jwt__Key = "THIS_IS_A_SUPER_SECRET_KEY_FOR_HAPPENINGS_APP_2026"
-$env:PayPal__ClientId = "AYbumv9nnCRvQ3_87Xm6pdqwltowHXs1E7x79aD5vSAJDiN0lDMAtf9CJVQ_e_mD1dy0st1jTWwGjeck"
-$env:PayPal__Secret = "EGCdU7uC_Jdb4HZv_sVSi-wKtPEeQt4S9Jg8BWgliCTyejsRLDLvwJxo5grBIchVuKKn9I_rU1Qww1-j"
-$env:Stripe__PublishableKey = "pk_test_51TcCPjFwoo1tTNvXZCUyj9A66vrw39BRN20QWPBbMNgZfCb0Eo8IxN3A17U6ZgzSumncEntPHzCAC14KXGKoDppP00POlCbVnQ"
-$env:Stripe__SecretKey = "sk_test_51TcCPjFwoo1tTNvXItK2Mvt7U9tUcQfztI8XuQWBc0nEBhyoCuyWTirIGHHcMKFWx6DJV4hiEV0bbcf4ytZaZco800T2Vb7j6N"
+$env:Jwt__Key = "<JWT_KEY iz .env>"
+$env:Jwt__Issuer = "<JWT_ISSUER iz .env>"
+$env:Jwt__Audience = "<JWT_AUDIENCE iz .env>"
+$env:PayPal__ClientId = "<PAYPAL_CLIENT_ID iz .env>"
+$env:PayPal__Secret = "<PAYPAL_SECRET iz .env>"
+$env:Stripe__PublishableKey = "<STRIPE_PUBLISHABLE_KEY iz .env>"
+$env:Stripe__SecretKey = "<STRIPE_SECRET_KEY iz .env>"
 dotnet run --urls "http://localhost:5000"
 ```
+
+> Jednostavnije: `docker-compose up --build` automatski učita `.env` i ne traži ručno postavljanje varijabli.
 
 ### RabbitMQ (Docker)
 
