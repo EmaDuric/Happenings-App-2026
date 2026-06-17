@@ -162,8 +162,11 @@ namespace Happenings.WinUI.Forms
                 }
                 else
                 {
-                    MessageBox.Show("Login failed: Invalid response from server", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // LoginAsync vraca null kad su kredencijali pogresni (401)
+                    MessageBox.Show("Invalid email or password.", "Login failed",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtPassword?.Clear();
+                    txtPassword?.Focus();
                 }
             }
             catch (Exception ex)

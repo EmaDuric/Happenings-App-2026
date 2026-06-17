@@ -49,7 +49,7 @@ namespace Happenings.WinUI
                 new AuthenticationHeaderValue("Bearer", token);
         }
 
-        public async Task<LoginResponse> LoginAsync(string username, string password)
+        public async Task<LoginResponse?> LoginAsync(string username, string password)
         {
             var request = new
             {
@@ -59,10 +59,15 @@ namespace Happenings.WinUI
 
             var response = await _httpClient.PostAsJsonAsync("Auth/login", request);
 
+            // Pogresni kredencijali su ocekivano stanje -> ne bacamo exception (vracamo
+            // null), da ne iskace exception dijalog (npr. pod debuggerom) i da korisnik
+            // dobije urednu poruku.
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                return null;
+
             if (!response.IsSuccessStatusCode)
             {
-                var error = await response.Content.ReadAsStringAsync();
-                throw new Exception($"Login failed: {error}");
+                throw new Exception($"Prijava nije uspjela (HTTP {(int)response.StatusCode}).");
             }
 
             var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
@@ -72,7 +77,7 @@ namespace Happenings.WinUI
                 SetAuthToken(result.Token);
             }
 
-            return result!;
+            return result;
         }
 
         public async Task<List<EventDto>> GetEventsAsync()
