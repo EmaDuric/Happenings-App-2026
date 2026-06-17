@@ -105,9 +105,12 @@ public class RecommendationService : IRecommendationService
                 .ToList();
         }
 
-        // SVD
+        // TRUNCATED SVD — zadrzavamo samo top-k latentnih faktora (k < rang) da
+        // model generalizuje i predvidi i ne-vidjene evente. Puni rang bi samo
+        // reprodukovao ulaznu matricu (score ~0 za sve ne-interagovane evente).
         var svd = matrix.Svd(true);
-        int k = Math.Min(userCount, eventCount);
+        int rank = Math.Min(userCount, eventCount);
+        int k = Math.Max(1, Math.Min(rank - 1, 10)); // do 10 latentnih faktora
 
         var sigma = Matrix<double>.Build.Dense(userCount, eventCount);
         for (int i = 0; i < k; i++)
